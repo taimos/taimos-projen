@@ -4,6 +4,8 @@
 
 Name|Description
 ----|-----------
+[CdkPipelineAspect](#taimos-projen-cdkpipelineaspect)|*No description*
+[RestApiAspect](#taimos-projen-restapiaspect)|*No description*
 [TaimosCdkApp](#taimos-projen-taimoscdkapp)|AWS CDK app in TypeScript.
 [TaimosTypescriptLibrary](#taimos-projen-taimostypescriptlibrary)|TypeScript library.
 
@@ -12,8 +14,51 @@ Name|Description
 
 Name|Description
 ----|-----------
+[RestApiAspectOptions](#taimos-projen-restapiaspectoptions)|*No description*
 [TaimosCdkAppOptions](#taimos-projen-taimoscdkappoptions)|*No description*
 [TaimosTypescriptLibraryOptions](#taimos-projen-taimostypescriptlibraryoptions)|*No description*
+
+
+
+## class CdkPipelineAspect 🔹 <a id="taimos-projen-cdkpipelineaspect"></a>
+
+
+
+__Extends__: [Component](#projen-component)
+
+### Initializer
+
+
+
+
+```ts
+new CdkPipelineAspect(app: TaimosCdkApp)
+```
+
+* **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
+
+
+
+
+## class RestApiAspect 🔹 <a id="taimos-projen-restapiaspect"></a>
+
+
+
+__Extends__: [Component](#projen-component)
+
+### Initializer
+
+
+
+
+```ts
+new RestApiAspect(app: TaimosCdkApp, options: RestApiAspectOptions)
+```
+
+* **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
+* **options** (<code>[RestApiAspectOptions](#taimos-projen-restapiaspectoptions)</code>)  *No description*
+  * **openapiFile** (<code>string</code>)  The relative file name of  the OpenAPI spec. 
+
 
 
 
@@ -228,6 +273,19 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **tsconfig** (<code>[TypescriptConfigOptions](#projen-typescriptconfigoptions)</code>)  Custom TSConfig. __*Optional*__
   * **typescriptVersion** (<code>string</code>)  TypeScript version to use. __*Default*__: "^3.9.5"
 
+
+
+
+## struct RestApiAspectOptions 🔹 <a id="taimos-projen-restapiaspectoptions"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**openapiFile**🔹 | <code>string</code> | The relative file name of  the OpenAPI spec.
 
 
 

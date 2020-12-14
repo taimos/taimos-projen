@@ -1,2 +1,2 @@
-export * from './cdk-app';
-export * from './ts-lib';
+export * from './projects';
+export * from './aspects';
