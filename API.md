@@ -57,7 +57,7 @@ new RestApiAspect(app: TaimosCdkApp, options: RestApiAspectOptions)
 
 * **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
 * **options** (<code>[RestApiAspectOptions](#taimos-projen-restapiaspectoptions)</code>)  *No description*
-  * **openapiFile** (<code>string</code>)  The relative file name of  the OpenAPI spec. 
+  * **openapiFile** (<code>string</code>)  The relative file name of the OpenAPI spec. __*Optional*__
 
 
 
@@ -285,7 +285,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
 
 Name | Type | Description 
 -----|------|-------------
-**openapiFile**🔹 | <code>string</code> | The relative file name of  the OpenAPI spec.
+**openapiFile**?🔹 | <code>string</code> | The relative file name of the OpenAPI spec.<br/>__*Optional*__
 
 
 

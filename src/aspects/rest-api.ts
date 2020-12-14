@@ -3,9 +3,9 @@ import { TaimosCdkApp } from '../projects';
 
 export interface RestApiAspectOptions {
   /**
-   * The relative file name of  the OpenAPI spec
+   * The relative file name of the OpenAPI spec
    */
-  readonly openapiFile: string;
+  readonly openapiFile?: string;
 }
 
 export class RestApiAspect extends pj.Component {
@@ -28,24 +28,20 @@ export class RestApiAspect extends pj.Component {
     );
 
     app.addDeps(
+      '@taimos/lambda-toolbox',
       'aws-sdk',
-      'jsonwebtoken',
-      'jwk-to-pem',
-      'axios',
       'uuid',
     );
 
     app.addDevDeps(
       '@types/aws-lambda',
-      'openapi-typescript',
-      '@types/jsonwebtoken',
-      '@types/jwk-to-pem',
       '@types/uuid',
       'esbuild',
+      'openapi-typescript',
     );
 
     app.addTask('generate:api', {
-      exec: `openapi-typescript ${options.openapiFile} --output src/lambda/types.generated.ts`,
+      exec: `openapi-typescript ${options.openapiFile ?? 'openapi.yaml'} --output src/lambda/types.generated.ts`,
       category: pj.tasks.TaskCategory.BUILD,
       description: 'Generate Types from OpenAPI specification',
     });
