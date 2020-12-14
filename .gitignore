@@ -53,8 +53,8 @@ tsconfig.json
 !/test
 !/.github/workflows/build.yml
 !/.github/workflows/release.yml
-!/.mergify.yml
 !/.github/dependabot.yml
+!/.mergify.yml
 !/.github/pull_request_template.md
 !/.github/workflows/rebuild-bot.yml
 !/src

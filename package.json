@@ -1,8 +1,8 @@
 {
-  "name": "taimos-projen",
+  "name": "@taimos/projen",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hoegertn/taimos-projen.git"
+    "url": "https://github.com/taimos/taimos-projen.git"
   },
   "bin": {},
   "scripts": {
@@ -19,13 +19,13 @@
     "watch": "npx projen watch",
     "package": "npx projen package",
     "eslint": "npx projen eslint",
-    "compat": "npx projen compat",
-    "docgen": "npx projen docgen"
+    "docgen": "npx projen docgen",
+    "compat": "npx projen compat"
   },
   "author": {
     "name": "Thorsten Hoeger",
-    "email": "thorsten.hoeger@taimos.de",
-    "organization": false
+    "email": "info@taimos.de",
+    "organization": true
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
@@ -47,10 +47,15 @@
     "projen": "^0.6.10",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.4.4",
-    "typescript": "^3.9.5"
+    "typedoc": "^0.19.2",
+    "typescript": "^4.1.0"
   },
-  "peerDependencies": {},
-  "dependencies": {},
+  "peerDependencies": {
+    "projen": "^0.6.10"
+  },
+  "dependencies": {
+    "projen": "^0.6.10"
+  },
   "bundledDependencies": [],
   "keywords": [],
   "main": "lib/index.js",
@@ -87,7 +92,7 @@
     }
   },
   "types": "lib/index.d.ts",
-  "stability": "stable",
+  "stability": "experimental",
   "jsii": {
     "outdir": "dist",
     "targets": {},
