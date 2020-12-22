@@ -14,7 +14,7 @@ export class SopsAspect extends pj.Component {
 
     app.addTask('sops', {
       category: pj.tasks.TaskCategory.MISC,
-      description: 'Open SOPS file inn default EDITOR',
+      description: 'Open SOPS file in default EDITOR',
       exec: 'sops sops.json',
     });
   }
