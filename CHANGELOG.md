@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.7 (2020-12-22)
+
+
+### Features
+
+* aspects ([6f26199](https://github.com/taimos/taimos-projen/commit/6f261998e458a94e1dcad95e470be9f5b83dd3ab))
+* initial version ([8a1237d](https://github.com/taimos/taimos-projen/commit/8a1237d7dd77cc01c1f014e198570571d8fbdb6c))
+* SOPS aspect ([940eb39](https://github.com/taimos/taimos-projen/commit/940eb39f9886c6c14efd3d9e54db61940f1f119d))
+* use lambda toolbox ([77ac380](https://github.com/taimos/taimos-projen/commit/77ac3802a576dde8c3eedbff19f93e9cd16bdc65))
+
 ### 0.0.6 (2020-12-22)
 
 ### 0.0.5 (2020-12-21)
