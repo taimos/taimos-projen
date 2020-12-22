@@ -1,7 +1,19 @@
 import * as pj from 'projen';
+import { CdkPipelineAspect, SopsAspect } from '../aspects';
 
 export interface TaimosCdkAppOptions extends pj.AwsCdkTypeScriptAppOptions {
-  //
+  /**
+   * Enable storing secrets using Mozilla SOPS in a file sops.json
+   *
+   * @default false
+   */
+  readonly sops?: boolean;
+  /**
+   * Enable CDK pipelines
+   *
+   * @default false
+   */
+  readonly cdkPipelines?: boolean;
 }
 
 /**
@@ -37,6 +49,14 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
       ...options,
       sampleCode: false,
     });
+
+    if (options.cdkPipelines) {
+      new CdkPipelineAspect(this);
+    }
+
+    if (options.sops) {
+      new SopsAspect(this);
+    }
   }
 
 }

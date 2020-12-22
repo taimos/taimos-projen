@@ -10,7 +10,7 @@ export interface RestApiAspectOptions {
 
 export class RestApiAspect extends pj.Component {
 
-  constructor(app: TaimosCdkApp, options: RestApiAspectOptions) {
+  constructor(app: TaimosCdkApp, options: RestApiAspectOptions = {}) {
     super(app);
 
     app.addCdkDependency(
