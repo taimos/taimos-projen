@@ -13,9 +13,6 @@ const project = new JsiiProject({
   deps: [
     'projen',
   ],
-  peerDeps: [
-    'projen',
-  ],
   releaseBranches: [
     'main',
   ],

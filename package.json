@@ -51,9 +51,7 @@
     "typedoc": "^0.19.2",
     "typescript": "^4.1.0"
   },
-  "peerDependencies": {
-    "projen": "^0.8.0"
-  },
+  "peerDependencies": {},
   "dependencies": {
     "projen": "^0.8.0"
   },
