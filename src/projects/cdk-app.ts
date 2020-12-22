@@ -47,7 +47,6 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
         },
       },
       ...options,
-      sampleCode: false,
     });
 
     if (options.cdkPipelines) {
