@@ -1,0 +1,40 @@
+import * as pj from 'projen';
+
+export interface TaimosCdkConstructLibraryOptions extends pj.AwsCdkConstructLibraryOptions {
+  //
+}
+
+/**
+ * TypeScript library
+ *
+ * @pjid taimos-awscdk-construct
+ */
+export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
+
+  constructor(options: TaimosCdkConstructLibraryOptions) {
+    super({
+      authorEmail: 'info@taimos.de',
+      authorOrganization: true,
+      authorUrl: 'https://taimos.de',
+      copyrightOwner: 'Taimos GmbH',
+      copyrightPeriod: '2020',
+      catalog: {
+        announce: true,
+        twitter: 'hoegertn',
+      },
+      gitpod: true,
+      defaultReleaseBranch: 'main',
+      releaseBranches: [
+        'main',
+      ],
+      license: 'Apache-2.0',
+      stability: 'experimental',
+      docgen: true,
+      codeCov: true,
+      releaseToNpm: true,
+      npmDistTag: 'latest --access public', // Hack to release scoped packages
+      ...options,
+    });
+  }
+
+}
