@@ -33,6 +33,13 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
           esModuleInterop: true,
         },
       },
+      jestOptions: {
+        typescriptConfig: {
+          compilerOptions: {
+            esModuleInterop: true,
+          },
+        }
+      },
       codeCov: true,
       releaseToNpm: true,
       npmDistTag: 'latest --access public', // Hack to release scoped packages
