@@ -38,7 +38,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
           compilerOptions: {
             esModuleInterop: true,
           },
-        }
+        },
       },
       codeCov: true,
       releaseToNpm: true,

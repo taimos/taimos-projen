@@ -51,7 +51,7 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
           compilerOptions: {
             esModuleInterop: true,
           },
-        }
+        },
       },
       ...options,
     });
