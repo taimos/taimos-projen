@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/taimos/taimos-projen/compare/v0.0.11...v0.0.12) (2020-12-27)
+
+
+### Bug Fixes
+
+* jest tsconfig ([1091df6](https://github.com/taimos/taimos-projen/commit/1091df6d8ba8696ebcd4c1651ef235e8d282e6e8))
+
 ### [0.0.11](https://github.com/taimos/taimos-projen/compare/v0.0.9...v0.0.11) (2020-12-27)
 
 ### 0.0.10 (2020-12-24)
