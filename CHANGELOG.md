@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/taimos/taimos-projen/compare/v0.0.12...v0.0.13) (2020-12-28)
+
+
+### Bug Fixes
+
+* author in cdk construct lib ([73b4789](https://github.com/taimos/taimos-projen/commit/73b4789a1513384424b64f98bffe767a9dcb1870))
+
 ### [0.0.12](https://github.com/taimos/taimos-projen/compare/v0.0.11...v0.0.12) (2020-12-27)
 
 
