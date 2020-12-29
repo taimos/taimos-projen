@@ -24,7 +24,6 @@ export class RestApiAspect extends pj.Component {
       '@aws-cdk/aws-lambda-nodejs',
       '@aws-cdk/aws-route53',
       '@aws-cdk/aws-route53-targets',
-      '@aws-cdk/pipelines',
     );
 
     app.addDeps(
@@ -45,6 +44,7 @@ export class RestApiAspect extends pj.Component {
       category: pj.tasks.TaskCategory.BUILD,
       description: 'Generate Types from OpenAPI specification',
     });
+    // TODO prepend to build task
   }
 
 }
