@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.15](https://github.com/taimos/taimos-projen/compare/v0.0.13...v0.0.15) (2020-12-29)
+
+
+### Features
+
+* latest feature flags ([4bc64ec](https://github.com/taimos/taimos-projen/commit/4bc64ec55a2863813be69d2f8618417d53d280fc))
+
 ### [0.0.14](https://github.com/taimos/taimos-projen/compare/v0.0.13...v0.0.14) (2020-12-29)
 
 ### [0.0.13](https://github.com/taimos/taimos-projen/compare/v0.0.12...v0.0.13) (2020-12-28)
