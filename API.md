@@ -5,6 +5,7 @@
 Name|Description
 ----|-----------
 [CdkPipelineAspect](#taimos-projen-cdkpipelineaspect)|*No description*
+[GraphQlApiAspect](#taimos-projen-graphqlapiaspect)|*No description*
 [RestApiAspect](#taimos-projen-restapiaspect)|*No description*
 [SopsAspect](#taimos-projen-sopsaspect)|*No description*
 [TaimosCdkApp](#taimos-projen-taimoscdkapp)|AWS CDK app in TypeScript.
@@ -16,6 +17,7 @@ Name|Description
 
 Name|Description
 ----|-----------
+[GraphQlApiAspectOptions](#taimos-projen-graphqlapiaspectoptions)|*No description*
 [RestApiAspectOptions](#taimos-projen-restapiaspectoptions)|*No description*
 [TaimosCdkAppOptions](#taimos-projen-taimoscdkappoptions)|*No description*
 [TaimosCdkConstructLibraryOptions](#taimos-projen-taimoscdkconstructlibraryoptions)|*No description*
@@ -39,6 +41,29 @@ new CdkPipelineAspect(app: TaimosCdkApp)
 ```
 
 * **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
+
+
+
+
+## class GraphQlApiAspect 🔹 <a id="taimos-projen-graphqlapiaspect"></a>
+
+
+
+__Extends__: [Component](#projen-component)
+
+### Initializer
+
+
+
+
+```ts
+new GraphQlApiAspect(app: TaimosCdkApp, options?: GraphQlApiAspectOptions)
+```
+
+* **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
+* **options** (<code>[GraphQlApiAspectOptions](#taimos-projen-graphqlapiaspectoptions)</code>)  *No description*
+  * **schemaFile** (<code>string</code>)  The relative file name of the GraphQL spec. __*Default*__: 'schema.graphql'
+  * **typesFile** (<code>string</code>)  The relative file name of the type definition file to generate. __*Default*__: './src/lambda/types.generated.ts'
 
 
 
@@ -120,6 +145,8 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **clobber** (<code>boolean</code>)  Add a `clobber` task which resets the repo to origin. __*Default*__: true
   * **devContainer** (<code>boolean</code>)  Add a VSCode development environment (used for GitHub Codespaces). __*Default*__: false
   * **gitpod** (<code>boolean</code>)  Add a Gitpod development environment. __*Default*__: false
+  * **jsiiFqn** (<code>string</code>)  The JSII FQN (fully qualified name) of the project class. __*Default*__: undefined
+  * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
@@ -164,7 +191,6 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **gitignore** (<code>Array<string></code>)  Additional entries to .gitignore. __*Optional*__
   * **jest** (<code>boolean</code>)  Setup jest unit tests. __*Default*__: true
   * **jestOptions** (<code>[JestOptions](#projen-jestoptions)</code>)  Jest options. __*Default*__: default options
-  * **libdir** (<code>string</code>)  Compiler artifacts output directory. __*Default*__: "lib"
   * **mergify** (<code>boolean</code>)  Adds mergify configuration. __*Default*__: true
   * **mergifyAutoMergeLabel** (<code>string</code>)  Automatically merge PRs that build successfully and have this label. __*Default*__: "auto-merge"
   * **mergifyOptions** (<code>[MergifyOptions](#projen-github-mergifyoptions)</code>)  Options for mergify. __*Default*__: default options
@@ -186,20 +212,21 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  Define a GitHub workflow for releasing from "master" when new versions are bumped. __*Default*__: true if not a subproject
-  * **srcdir** (<code>string</code>)  Typescript sources directory. __*Default*__: "src"
-  * **testdir** (<code>string</code>)  Tests directory. __*Default*__: "test"
   * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowContainerImage** (<code>string</code>)  Container image to use for GitHub workflows. __*Default*__: default image
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
-  * **compileBeforeTest** (<code>boolean</code>)  Compile the code before running tests. __*Default*__: the default behavior is to delete the lib/ directory and run jest typescript tests and only if all tests pass, run the compiler.
+  * **compileBeforeTest** (<code>boolean</code>)  Compile the code before running tests. __*Default*__: if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false.
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
   * **docgen** (<code>boolean</code>)  Docgen by Typedoc. __*Default*__: false
   * **docsDirectory** (<code>string</code>)  Docs directory. __*Default*__: "docs"
   * **entrypointTypes** (<code>string</code>)  The .d.ts file that includes the type declarations for this module. __*Default*__: .d.ts file derived from the project's entrypoint (usually lib/index.d.ts)
   * **eslint** (<code>boolean</code>)  Setup eslint. __*Default*__: true
   * **eslintOptions** (<code>[EslintOptions](#projen-eslintoptions)</code>)  Eslint options. __*Default*__: opinionated default options
+  * **libdir** (<code>string</code>)  Typescript  artifacts output directory. __*Default*__: "lib"
   * **package** (<code>boolean</code>)  Defines a `yarn package` command that will produce a tarball and place it under `dist/js`. __*Default*__: true
   * **sampleCode** (<code>boolean</code>)  Generate one-time sample in `src/` and `test/` if there are no files there. __*Default*__: true
+  * **srcdir** (<code>string</code>)  Typescript sources directory. __*Default*__: "src"
+  * **testdir** (<code>string</code>)  Jest tests directory. Tests files should be named `xxx.test.ts`. __*Default*__: "test"
   * **tsconfig** (<code>[TypescriptConfigOptions](#projen-typescriptconfigoptions)</code>)  Custom TSConfig. __*Optional*__
   * **typescriptVersion** (<code>string</code>)  TypeScript version to use. __*Default*__: "^3.9.5"
   * **cdkVersion** (<code>string</code>)  AWS CDK version to use. 
@@ -234,6 +261,8 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **clobber** (<code>boolean</code>)  Add a `clobber` task which resets the repo to origin. __*Default*__: true
   * **devContainer** (<code>boolean</code>)  Add a VSCode development environment (used for GitHub Codespaces). __*Default*__: false
   * **gitpod** (<code>boolean</code>)  Add a Gitpod development environment. __*Default*__: false
+  * **jsiiFqn** (<code>string</code>)  The JSII FQN (fully qualified name) of the project class. __*Default*__: undefined
+  * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
@@ -278,7 +307,6 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **gitignore** (<code>Array<string></code>)  Additional entries to .gitignore. __*Optional*__
   * **jest** (<code>boolean</code>)  Setup jest unit tests. __*Default*__: true
   * **jestOptions** (<code>[JestOptions](#projen-jestoptions)</code>)  Jest options. __*Default*__: default options
-  * **libdir** (<code>string</code>)  Compiler artifacts output directory. __*Default*__: "lib"
   * **mergify** (<code>boolean</code>)  Adds mergify configuration. __*Default*__: true
   * **mergifyAutoMergeLabel** (<code>string</code>)  Automatically merge PRs that build successfully and have this label. __*Default*__: "auto-merge"
   * **mergifyOptions** (<code>[MergifyOptions](#projen-github-mergifyoptions)</code>)  Options for mergify. __*Default*__: default options
@@ -300,8 +328,6 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  Define a GitHub workflow for releasing from "master" when new versions are bumped. __*Default*__: true if not a subproject
-  * **srcdir** (<code>string</code>)  Typescript sources directory. __*Default*__: "src"
-  * **testdir** (<code>string</code>)  Tests directory. __*Default*__: "test"
   * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowContainerImage** (<code>string</code>)  Container image to use for GitHub workflows. __*Default*__: default image
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
@@ -311,10 +337,13 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **compat** (<code>boolean</code>)  Automatically run API compatibility test against the latest version published to npm after compilation. __*Default*__: false
   * **compatIgnore** (<code>string</code>)  Name of the ignore file for API compatibility tests. __*Default*__: ".compatignore"
   * **docgen** (<code>boolean</code>)  Automatically generate API.md from jsii. __*Default*__: true
-  * **dotnet** (<code>[JsiiDotNetTarget](#projen-jsiidotnettarget)</code>)  Publish to NuGet. __*Default*__: no publishing
+  * **dotnet** (<code>[JsiiDotNetTarget](#projen-jsiidotnettarget)</code>)  *No description* __*Optional*__
   * **eslint** (<code>boolean</code>)  Install eslint. __*Default*__: true
-  * **java** (<code>[JsiiJavaTarget](#projen-jsiijavatarget)</code>)  Publish to maven. __*Default*__: no publishing
-  * **python** (<code>[JsiiPythonTarget](#projen-jsiipythontarget)</code>)  Publish to pypi. __*Default*__: no publishing
+  * **eslintOptions** (<code>[EslintOptions](#projen-eslintoptions)</code>)  Eslint options. __*Default*__: opinionated default options
+  * **publishToMaven** (<code>[JsiiJavaTarget](#projen-jsiijavatarget)</code>)  Publish to maven. __*Default*__: no publishing
+  * **publishToNuget** (<code>[JsiiDotNetTarget](#projen-jsiidotnettarget)</code>)  Publish to NuGet. __*Default*__: no publishing
+  * **publishToPypi** (<code>[JsiiPythonTarget](#projen-jsiipythontarget)</code>)  Publish to pypi. __*Default*__: no publishing
+  * **python** (<code>[JsiiPythonTarget](#projen-jsiipythontarget)</code>)  *No description* __*Optional*__
   * **rootdir** (<code>string</code>)  *No description* __*Default*__: "."
   * **catalog** (<code>[Catalog](#projen-catalog)</code>)  Libraries will be picked up by the construct catalog when they are published to npm as jsii modules and will be published under:. __*Default*__: new version will be announced
   * **cdkVersion** (<code>string</code>)  Minimum target version this library is tested against. 
@@ -346,6 +375,8 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **clobber** (<code>boolean</code>)  Add a `clobber` task which resets the repo to origin. __*Default*__: true
   * **devContainer** (<code>boolean</code>)  Add a VSCode development environment (used for GitHub Codespaces). __*Default*__: false
   * **gitpod** (<code>boolean</code>)  Add a Gitpod development environment. __*Default*__: false
+  * **jsiiFqn** (<code>string</code>)  The JSII FQN (fully qualified name) of the project class. __*Default*__: undefined
+  * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
@@ -390,7 +421,6 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **gitignore** (<code>Array<string></code>)  Additional entries to .gitignore. __*Optional*__
   * **jest** (<code>boolean</code>)  Setup jest unit tests. __*Default*__: true
   * **jestOptions** (<code>[JestOptions](#projen-jestoptions)</code>)  Jest options. __*Default*__: default options
-  * **libdir** (<code>string</code>)  Compiler artifacts output directory. __*Default*__: "lib"
   * **mergify** (<code>boolean</code>)  Adds mergify configuration. __*Default*__: true
   * **mergifyAutoMergeLabel** (<code>string</code>)  Automatically merge PRs that build successfully and have this label. __*Default*__: "auto-merge"
   * **mergifyOptions** (<code>[MergifyOptions](#projen-github-mergifyoptions)</code>)  Options for mergify. __*Default*__: default options
@@ -412,23 +442,38 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  Define a GitHub workflow for releasing from "master" when new versions are bumped. __*Default*__: true if not a subproject
-  * **srcdir** (<code>string</code>)  Typescript sources directory. __*Default*__: "src"
-  * **testdir** (<code>string</code>)  Tests directory. __*Default*__: "test"
   * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowContainerImage** (<code>string</code>)  Container image to use for GitHub workflows. __*Default*__: default image
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
-  * **compileBeforeTest** (<code>boolean</code>)  Compile the code before running tests. __*Default*__: the default behavior is to delete the lib/ directory and run jest typescript tests and only if all tests pass, run the compiler.
+  * **compileBeforeTest** (<code>boolean</code>)  Compile the code before running tests. __*Default*__: if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false.
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
   * **docgen** (<code>boolean</code>)  Docgen by Typedoc. __*Default*__: false
   * **docsDirectory** (<code>string</code>)  Docs directory. __*Default*__: "docs"
   * **entrypointTypes** (<code>string</code>)  The .d.ts file that includes the type declarations for this module. __*Default*__: .d.ts file derived from the project's entrypoint (usually lib/index.d.ts)
   * **eslint** (<code>boolean</code>)  Setup eslint. __*Default*__: true
   * **eslintOptions** (<code>[EslintOptions](#projen-eslintoptions)</code>)  Eslint options. __*Default*__: opinionated default options
+  * **libdir** (<code>string</code>)  Typescript  artifacts output directory. __*Default*__: "lib"
   * **package** (<code>boolean</code>)  Defines a `yarn package` command that will produce a tarball and place it under `dist/js`. __*Default*__: true
   * **sampleCode** (<code>boolean</code>)  Generate one-time sample in `src/` and `test/` if there are no files there. __*Default*__: true
+  * **srcdir** (<code>string</code>)  Typescript sources directory. __*Default*__: "src"
+  * **testdir** (<code>string</code>)  Jest tests directory. Tests files should be named `xxx.test.ts`. __*Default*__: "test"
   * **tsconfig** (<code>[TypescriptConfigOptions](#projen-typescriptconfigoptions)</code>)  Custom TSConfig. __*Optional*__
   * **typescriptVersion** (<code>string</code>)  TypeScript version to use. __*Default*__: "^3.9.5"
 
+
+
+
+## struct GraphQlApiAspectOptions 🔹 <a id="taimos-projen-graphqlapiaspectoptions"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**schemaFile**?🔹 | <code>string</code> | The relative file name of the GraphQL spec.<br/>__*Default*__: 'schema.graphql'
+**typesFile**?🔹 | <code>string</code> | The relative file name of the type definition file to generate.<br/>__*Default*__: './src/lambda/types.generated.ts'
 
 
 
@@ -473,7 +518,7 @@ Name | Type | Description
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
-**compileBeforeTest**?🔹 | <code>boolean</code> | Compile the code before running tests.<br/>__*Default*__: the default behavior is to delete the lib/ directory and run jest typescript tests and only if all tests pass, run the compiler.
+**compileBeforeTest**?🔹 | <code>boolean</code> | Compile the code before running tests.<br/>__*Default*__: if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false.
 **context**?🔹 | <code>Map<string, string></code> | Additional context to include in `cdk.json`.<br/>__*Optional*__
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
 **copyrightPeriod**?🔹 | <code>string</code> | The copyright years to put in the LICENSE file.<br/>__*Default*__: current year
@@ -496,10 +541,12 @@ Name | Type | Description
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[JestOptions](#projen-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
+**jsiiFqn**?🔹 | <code>string</code> | The JSII FQN (fully qualified name) of the project class.<br/>__*Default*__: undefined
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
-**libdir**?🔹 | <code>string</code> | Compiler artifacts output directory.<br/>__*Default*__: "lib"
+**libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
 **licensed**?🔹 | <code>boolean</code> | Indicates if a license should be added.<br/>__*Default*__: true
+**logging**?🔹 | <code>[LoggerOptions](#projen-loggeroptions)</code> | Configure logging options such as verbosity.<br/>__*Default*__: {}
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?🔹 | <code>boolean</code> | Adds mergify configuration.<br/>__*Default*__: true
 **mergifyAutoMergeLabel**?🔹 | <code>string</code> | Automatically merge PRs that build successfully and have this label.<br/>__*Default*__: "auto-merge"
@@ -542,7 +589,7 @@ Name | Type | Description
 **sops**?🔹 | <code>boolean</code> | Enable storing secrets using Mozilla SOPS in a file sops.json.<br/>__*Default*__: false
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**testdir**?🔹 | <code>string</code> | Tests directory.<br/>__*Default*__: "test"
+**testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[TypescriptConfigOptions](#projen-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Optional*__
 **typescriptVersion**?🔹 | <code>string</code> | TypeScript version to use.<br/>__*Default*__: "^3.9.5"
 **workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
@@ -595,19 +642,20 @@ Name | Type | Description
 **devContainer**?🔹 | <code>boolean</code> | Add a VSCode development environment (used for GitHub Codespaces).<br/>__*Default*__: false
 **devDeps**?🔹 | <code>Array<string></code> | Build dependencies for this module.<br/>__*Default*__: []
 **docgen**?🔹 | <code>boolean</code> | Automatically generate API.md from jsii.<br/>__*Default*__: true
-**dotnet**?🔹 | <code>[JsiiDotNetTarget](#projen-jsiidotnettarget)</code> | Publish to NuGet.<br/>__*Default*__: no publishing
+**dotnet**?⚠️ | <code>[JsiiDotNetTarget](#projen-jsiidotnettarget)</code> | __*Optional*__
 **entrypoint**?🔹 | <code>string</code> | Module entrypoint (`main` in `package.json`).<br/>__*Default*__: "lib/index.js"
 **eslint**?🔹 | <code>boolean</code> | Install eslint.<br/>__*Default*__: true
+**eslintOptions**?🔹 | <code>[EslintOptions](#projen-eslintoptions)</code> | Eslint options.<br/>__*Default*__: opinionated default options
 **gitignore**?🔹 | <code>Array<string></code> | Additional entries to .gitignore.<br/>__*Optional*__
 **gitpod**?🔹 | <code>boolean</code> | Add a Gitpod development environment.<br/>__*Default*__: false
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
-**java**?🔹 | <code>[JsiiJavaTarget](#projen-jsiijavatarget)</code> | Publish to maven.<br/>__*Default*__: no publishing
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[JestOptions](#projen-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
+**jsiiFqn**?🔹 | <code>string</code> | The JSII FQN (fully qualified name) of the project class.<br/>__*Default*__: undefined
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
-**libdir**?🔹 | <code>string</code> | Compiler artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
 **licensed**?🔹 | <code>boolean</code> | Indicates if a license should be added.<br/>__*Default*__: true
+**logging**?🔹 | <code>[LoggerOptions](#projen-loggeroptions)</code> | Configure logging options such as verbosity.<br/>__*Default*__: {}
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?🔹 | <code>boolean</code> | Adds mergify configuration.<br/>__*Default*__: true
 **mergifyAutoMergeLabel**?🔹 | <code>string</code> | Automatically merge PRs that build successfully and have this label.<br/>__*Default*__: "auto-merge"
@@ -631,9 +679,12 @@ Name | Type | Description
 **projenUpgradeSchedule**?🔹 | <code>Array<string></code> | Customize the projenUpgrade schedule in cron expression.<br/>__*Default*__: [ "0 6 * * *" ]
 **projenUpgradeSecret**?🔹 | <code>string</code> | Periodically submits a pull request for projen upgrades (executes `yarn projen:upgrade`).<br/>__*Default*__: no automatic projen upgrade pull requests
 **projenVersion**?🔹 | <code>[Semver](#projen-semver)</code> | Version of projen to install.<br/>__*Default*__: Semver.latest()
+**publishToMaven**?🔹 | <code>[JsiiJavaTarget](#projen-jsiijavatarget)</code> | Publish to maven.<br/>__*Default*__: no publishing
+**publishToNuget**?🔹 | <code>[JsiiDotNetTarget](#projen-jsiidotnettarget)</code> | Publish to NuGet.<br/>__*Default*__: no publishing
+**publishToPypi**?🔹 | <code>[JsiiPythonTarget](#projen-jsiipythontarget)</code> | Publish to pypi.<br/>__*Default*__: no publishing
 **pullRequestTemplate**?🔹 | <code>boolean</code> | Include a GitHub pull request template.<br/>__*Default*__: true
 **pullRequestTemplateContents**?🔹 | <code>string</code> | The contents of the pull request template.<br/>__*Default*__: default content
-**python**?🔹 | <code>[JsiiPythonTarget](#projen-jsiipythontarget)</code> | Publish to pypi.<br/>__*Default*__: no publishing
+**python**?⚠️ | <code>[JsiiPythonTarget](#projen-jsiipythontarget)</code> | __*Optional*__
 **readme**?🔹 | <code>[SampleReadmeProps](#projen-samplereadmeprops)</code> | The README setup.<br/>__*Default*__: { filename: 'README.md', contents: '# replace this' }
 **rebuildBot**?🔹 | <code>boolean</code> | Installs a GitHub workflow which is triggered when the comment "@projen rebuild" is added to a pull request.<br/>__*Default*__: true if not a subproject
 **rebuildBotCommand**?🔹 | <code>string</code> | The pull request bot command to use in order to trigger a rebuild and commit of the contents of the branch.<br/>__*Default*__: "rebuild"
@@ -646,9 +697,7 @@ Name | Type | Description
 **repositoryDirectory**?🔹 | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives.<br/>__*Optional*__
 **rootdir**?🔹 | <code>string</code> | __*Default*__: "."
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
-**srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**testdir**?🔹 | <code>string</code> | Tests directory.<br/>__*Default*__: "test"
 **workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
 **workflowContainerImage**?🔹 | <code>string</code> | Container image to use for GitHub workflows.<br/>__*Default*__: default image
 **workflowNodeVersion**?🔹 | <code>string</code> | The node version to use in GitHub workflows.<br/>__*Default*__: same as `minNodeVersion`
@@ -678,7 +727,7 @@ Name | Type | Description
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
-**compileBeforeTest**?🔹 | <code>boolean</code> | Compile the code before running tests.<br/>__*Default*__: the default behavior is to delete the lib/ directory and run jest typescript tests and only if all tests pass, run the compiler.
+**compileBeforeTest**?🔹 | <code>boolean</code> | Compile the code before running tests.<br/>__*Default*__: if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false.
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
 **copyrightPeriod**?🔹 | <code>string</code> | The copyright years to put in the LICENSE file.<br/>__*Default*__: current year
 **defaultReleaseBranch**?🔹 | <code>string</code> | The name of the main release branch.<br/>__*Default*__: "master"
@@ -700,10 +749,12 @@ Name | Type | Description
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[JestOptions](#projen-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
+**jsiiFqn**?🔹 | <code>string</code> | The JSII FQN (fully qualified name) of the project class.<br/>__*Default*__: undefined
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
-**libdir**?🔹 | <code>string</code> | Compiler artifacts output directory.<br/>__*Default*__: "lib"
+**libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
 **licensed**?🔹 | <code>boolean</code> | Indicates if a license should be added.<br/>__*Default*__: true
+**logging**?🔹 | <code>[LoggerOptions](#projen-loggeroptions)</code> | Configure logging options such as verbosity.<br/>__*Default*__: {}
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?🔹 | <code>boolean</code> | Adds mergify configuration.<br/>__*Default*__: true
 **mergifyAutoMergeLabel**?🔹 | <code>string</code> | Automatically merge PRs that build successfully and have this label.<br/>__*Default*__: "auto-merge"
@@ -744,7 +795,7 @@ Name | Type | Description
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**testdir**?🔹 | <code>string</code> | Tests directory.<br/>__*Default*__: "test"
+**testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[TypescriptConfigOptions](#projen-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Optional*__
 **typescriptVersion**?🔹 | <code>string</code> | TypeScript version to use.<br/>__*Default*__: "^3.9.5"
 **workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"

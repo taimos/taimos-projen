@@ -19,6 +19,7 @@ export class RestApiAspect extends pj.Component {
       '@aws-cdk/aws-certificatemanager',
       '@aws-cdk/aws-cloudwatch',
       '@aws-cdk/aws-dynamodb',
+      '@aws-cdk/aws-iam',
       '@aws-cdk/aws-kms',
       '@aws-cdk/aws-lambda',
       '@aws-cdk/aws-lambda-nodejs',
