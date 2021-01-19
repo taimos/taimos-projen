@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.27](https://github.com/taimos/taimos-projen/compare/v0.0.25...v0.0.27) (2021-01-19)
+
+
+### Features
+
+* appsync aspect ([8b38730](https://github.com/taimos/taimos-projen/commit/8b38730a5edb37570716c10e69d339a6cc7f32ea))
+
 ### [0.0.26](https://github.com/taimos/taimos-projen/compare/v0.0.25...v0.0.26) (2021-01-19)
 
 ### [0.0.25](https://github.com/taimos/taimos-projen/compare/v0.0.24...v0.0.25) (2021-01-18)
