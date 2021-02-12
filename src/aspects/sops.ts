@@ -4,8 +4,13 @@ import * as pj from 'projen';
 export class SopsAspect extends pj.Component {
 
   public static readSopsConfig<T>(): T {
-    return JSON.parse(fs.readFileSync(process.env.SOPS_FILE!, { encoding: 'utf-8' }).toString()) as T;
+    if (!SopsAspect.config) {
+      SopsAspect.config = JSON.parse(fs.readFileSync(process.env.SOPS_FILE!, { encoding: 'utf-8' }).toString());
+    }
+    return SopsAspect.config as T;
   }
+
+  private static config: any;
 
   constructor(app: pj.AwsCdkTypeScriptApp) {
     super(app);

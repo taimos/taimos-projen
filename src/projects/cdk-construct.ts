@@ -15,13 +15,12 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
     super({
       authorOrganization: true,
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2020',
+      copyrightPeriod: '2021',
       catalog: {
         announce: true,
         twitter: 'hoegertn',
       },
       gitpod: true,
-      defaultReleaseBranch: 'main',
       releaseBranches: [
         'main',
       ],

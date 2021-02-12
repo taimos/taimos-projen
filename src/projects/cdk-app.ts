@@ -31,7 +31,7 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
       authorUrl: 'https://www.taimos.de',
       cdkVersionPinning: true,
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2020',
+      copyrightPeriod: '2021',
       context: {
         'aws-cdk:enableDiffNoFail': 'true',
         '@aws-cdk/core:enableStackNameDuplicates': 'true',
@@ -43,7 +43,6 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
       },
       requireApproval: pj.CdkApprovalLevel.NEVER,
       mergify: false,
-      defaultReleaseBranch: 'main',
       tsconfig: {
         compilerOptions: {
           esModuleInterop: true,
