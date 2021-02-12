@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.36](https://github.com/taimos/taimos-projen/compare/v0.0.35...v0.0.36) (2021-02-12)
+
+
+### Bug Fixes
+
+* read SOPS file once ([585da1f](https://github.com/taimos/taimos-projen/commit/585da1f93f651cc01b1bf09ef45a7d41b0879e88))
+
 ### [0.0.35](https://github.com/taimos/taimos-projen/compare/v0.0.33...v0.0.35) (2021-02-05)
 
 ### [0.0.34](https://github.com/taimos/taimos-projen/compare/v0.0.33...v0.0.34) (2021-02-04)
