@@ -59,7 +59,7 @@
   "bundledDependencies": [],
   "main": "lib/index.js",
   "license": "Apache-2.0",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "publishConfig": {
     "tag": "latest --access public"
   },
