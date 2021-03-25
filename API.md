@@ -5,8 +5,6 @@
 Name|Description
 ----|-----------
 [CdkPipelineAspect](#taimos-projen-cdkpipelineaspect)|*No description*
-[GraphQlApiAspect](#taimos-projen-graphqlapiaspect)|*No description*
-[RestApiAspect](#taimos-projen-restapiaspect)|*No description*
 [SopsAspect](#taimos-projen-sopsaspect)|*No description*
 [TaimosCdkApp](#taimos-projen-taimoscdkapp)|AWS CDK app in TypeScript.
 [TaimosCdkConstructLibrary](#taimos-projen-taimoscdkconstructlibrary)|TypeScript library.
@@ -17,8 +15,6 @@ Name|Description
 
 Name|Description
 ----|-----------
-[GraphQlApiAspectOptions](#taimos-projen-graphqlapiaspectoptions)|*No description*
-[RestApiAspectOptions](#taimos-projen-restapiaspectoptions)|*No description*
 [TaimosCdkAppOptions](#taimos-projen-taimoscdkappoptions)|*No description*
 [TaimosCdkConstructLibraryOptions](#taimos-projen-taimoscdkconstructlibraryoptions)|*No description*
 [TaimosTypescriptLibraryOptions](#taimos-projen-taimostypescriptlibraryoptions)|*No description*
@@ -41,51 +37,6 @@ new CdkPipelineAspect(app: TaimosCdkApp)
 ```
 
 * **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
-
-
-
-
-## class GraphQlApiAspect 🔹 <a id="taimos-projen-graphqlapiaspect"></a>
-
-
-
-__Extends__: [Component](#projen-component)
-
-### Initializer
-
-
-
-
-```ts
-new GraphQlApiAspect(app: TaimosCdkApp, options?: GraphQlApiAspectOptions)
-```
-
-* **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
-* **options** (<code>[GraphQlApiAspectOptions](#taimos-projen-graphqlapiaspectoptions)</code>)  *No description*
-  * **schemaFile** (<code>string</code>)  The relative file name of the GraphQL spec. __*Default*__: 'schema.graphql'
-  * **typesFile** (<code>string</code>)  The relative file name of the type definition file to generate. __*Default*__: './src/lambda/types.generated.ts'
-
-
-
-
-## class RestApiAspect 🔹 <a id="taimos-projen-restapiaspect"></a>
-
-
-
-__Extends__: [Component](#projen-component)
-
-### Initializer
-
-
-
-
-```ts
-new RestApiAspect(app: TaimosCdkApp, options?: RestApiAspectOptions)
-```
-
-* **app** (<code>[TaimosCdkApp](#taimos-projen-taimoscdkapp)</code>)  *No description*
-* **options** (<code>[RestApiAspectOptions](#taimos-projen-restapiaspectoptions)</code>)  *No description*
-  * **openapiFile** (<code>string</code>)  The relative file name of the OpenAPI spec. __*Optional*__
 
 
 
@@ -473,33 +424,6 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **tsconfig** (<code>[TypescriptConfigOptions](#projen-typescriptconfigoptions)</code>)  Custom TSConfig. __*Optional*__
   * **typescriptVersion** (<code>string</code>)  TypeScript version to use. __*Default*__: "latest"
 
-
-
-
-## struct GraphQlApiAspectOptions 🔹 <a id="taimos-projen-graphqlapiaspectoptions"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**schemaFile**?🔹 | <code>string</code> | The relative file name of the GraphQL spec.<br/>__*Default*__: 'schema.graphql'
-**typesFile**?🔹 | <code>string</code> | The relative file name of the type definition file to generate.<br/>__*Default*__: './src/lambda/types.generated.ts'
-
-
-
-## struct RestApiAspectOptions 🔹 <a id="taimos-projen-restapiaspectoptions"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**openapiFile**?🔹 | <code>string</code> | The relative file name of the OpenAPI spec.<br/>__*Optional*__
 
 
 

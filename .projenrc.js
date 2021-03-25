@@ -23,7 +23,7 @@ const project = new JsiiProject({
   licensed: true,
   stability: 'experimental',
   docgen: true,
-  typescriptVersion: '^4.1.0',
+  typescriptVersion: '^4.2.0',
   tsconfig: {
     compilerOptions: {
       esModuleInterop: true,

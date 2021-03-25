@@ -55,6 +55,7 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
           },
         },
       },
+      typescriptVersion: '^4.2.0',
       ...options,
     });
 
