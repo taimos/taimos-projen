@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.55](https://github.com/taimos/taimos-projen/compare/v0.0.54...v0.0.55) (2021-03-26)
+
+
+### Features
+
+* bump typescript ([0227a33](https://github.com/taimos/taimos-projen/commit/0227a331ed0b18e6062f53963863926611debc96))
+
 ### [0.0.54](https://github.com/taimos/taimos-projen/compare/v0.0.53...v0.0.54) (2021-03-22)
 
 ### [0.0.53](https://github.com/taimos/taimos-projen/compare/v0.0.50...v0.0.53) (2021-03-19)
