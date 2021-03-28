@@ -41,7 +41,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       },
       codeCov: true,
       releaseToNpm: true,
-      npmDistTag: 'latest --access public', // Hack to release scoped packages
+      npmAccess: pj.NpmAccess.PUBLIC,
       ...options,
     });
   }

@@ -1,4 +1,4 @@
-const { JsiiProject } = require('projen');
+const { JsiiProject, NpmAccess } = require('projen');
 
 const project = new JsiiProject({
   name: '@taimos/projen',
@@ -31,7 +31,7 @@ const project = new JsiiProject({
   },
   codeCov: true,
   releaseToNpm: true,
-  npmDistTag: 'latest --access public', // Hack to release scoped packages
+  npmAccess: NpmAccess.PUBLIC,
 });
 
 project.synth();

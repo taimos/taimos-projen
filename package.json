@@ -61,7 +61,7 @@
   "license": "Apache-2.0",
   "version": "0.0.59",
   "publishConfig": {
-    "tag": "latest --access public"
+    "access": "public"
   },
   "jest": {
     "testMatch": [

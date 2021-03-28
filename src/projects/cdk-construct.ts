@@ -29,7 +29,7 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
       docgen: true,
       codeCov: true,
       releaseToNpm: true,
-      npmDistTag: 'latest --access public', // Hack to release scoped packages
+      npmAccess: pj.NpmAccess.PUBLIC,
       ...options,
     });
   }
