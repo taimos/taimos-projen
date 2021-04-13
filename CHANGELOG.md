@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.75](https://github.com/taimos/taimos-projen/compare/v0.0.74...v0.0.75) (2021-04-13)
+
+### [0.0.74](https://github.com/taimos/taimos-projen/compare/v0.0.73...v0.0.74) (2021-04-13)
+
 ### [0.0.73](https://github.com/taimos/taimos-projen/compare/v0.0.72...v0.0.73) (2021-04-12)
 
 ### [0.0.72](https://github.com/taimos/taimos-projen/compare/v0.0.71...v0.0.72) (2021-04-08)
