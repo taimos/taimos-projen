@@ -39,7 +39,6 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
           },
         },
       },
-      codeCov: true,
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
       ...options,

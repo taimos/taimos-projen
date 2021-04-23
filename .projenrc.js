@@ -29,7 +29,6 @@ const project = new JsiiProject({
       esModuleInterop: true,
     },
   },
-  codeCov: true,
   releaseToNpm: true,
   npmAccess: NpmAccess.PUBLIC,
 });

@@ -4,7 +4,6 @@
 /.idea
 /.projen
 /.projenrc.js
-/.versionrc.json
 /.vscode
 /coverage
 /src

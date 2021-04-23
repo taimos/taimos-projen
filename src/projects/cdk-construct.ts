@@ -27,7 +27,6 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
       license: 'Apache-2.0',
       stability: 'experimental',
       docgen: true,
-      codeCov: true,
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
       ...options,
