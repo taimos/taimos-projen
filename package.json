@@ -15,6 +15,7 @@
     "test:watch": "npx projen test:watch",
     "test:update": "npx projen test:update",
     "projen:upgrade": "npx projen projen:upgrade",
+    "default": "npx projen default",
     "watch": "npx projen watch",
     "package": "npx projen package",
     "eslint": "npx projen eslint",
@@ -44,17 +45,17 @@
     "jsii-docgen": "^1.8.67",
     "jsii-pacmak": "^1.25.0",
     "json-schema": "^0.3.0",
-    "projen": "^0.17.62",
+    "projen": "^0.17.92",
     "standard-version": "^9",
     "ts-jest": "^26.5.4",
     "typedoc": "^0.20.35",
     "typescript": "^4.2.0"
   },
   "peerDependencies": {
-    "projen": "^0.17.62"
+    "projen": "^0.17.92"
   },
   "dependencies": {
-    "projen": "^0.17.62"
+    "projen": "^0.17.92"
   },
   "bundledDependencies": [],
   "main": "lib/index.js",
@@ -103,7 +104,7 @@
     }
   },
   "types": "lib/index.d.ts",
-  "stability": "experimental",
+  "stability": "stable",
   "jsii": {
     "outdir": "dist",
     "targets": {},

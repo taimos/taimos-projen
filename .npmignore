@@ -2,6 +2,7 @@
 /.eslintrc.json
 /.github
 /.idea
+/.mergify.yml
 /.projen
 /.projenrc.js
 /.vscode
@@ -14,6 +15,7 @@
 /tsconfig.json
 dist
 junit.xml
+tsconfig.tsbuildinfo
 !.jsii
 !/lib
 !/lib/**/*.d.ts

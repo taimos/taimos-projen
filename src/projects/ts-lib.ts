@@ -24,6 +24,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       ],
       license: 'Apache-2.0',
       licensed: true,
+      gitpod: true,
       stability: 'experimental',
       docgen: true,
       typescriptVersion: '^4.2.0',

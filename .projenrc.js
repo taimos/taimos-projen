@@ -9,7 +9,6 @@ const project = new JsiiProject({
   copyrightPeriod: '2020',
   repository: 'https://github.com/taimos/taimos-projen.git',
   defaultReleaseBranch: 'main',
-  mergify: false,
   deps: [
     'projen',
   ],
@@ -21,7 +20,6 @@ const project = new JsiiProject({
   ],
   license: 'Apache-2.0',
   licensed: true,
-  stability: 'experimental',
   docgen: true,
   typescriptVersion: '^4.2.0',
   tsconfig: {
