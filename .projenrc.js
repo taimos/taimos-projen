@@ -12,6 +12,9 @@ const project = new JsiiProject({
   peerDeps: [
     'projen',
   ],
+  deps: [
+    'projen',
+  ],
   license: 'Apache-2.0',
   licensed: true,
   docgen: true,

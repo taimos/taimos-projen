@@ -1,7 +1,7 @@
 import * as pj from 'projen';
-import { TaimosTypescriptLibrary } from './ts-lib';
+import { TaimosTypescriptLibrary, TaimosTypescriptLibraryOptions } from './ts-lib';
 
-export interface TaimosTypescriptLibraryOptions extends pj.TypeScriptProjectOptions {
+export interface TaimosPrivateTypescriptLibraryOptions extends TaimosTypescriptLibraryOptions {
   //
 }
 
@@ -12,7 +12,7 @@ export interface TaimosTypescriptLibraryOptions extends pj.TypeScriptProjectOpti
  */
 export class TaimosPrivateTypescriptLibrary extends TaimosTypescriptLibrary {
 
-  constructor(options: TaimosTypescriptLibraryOptions) {
+  constructor(options: TaimosPrivateTypescriptLibraryOptions) {
     super({
       licensed: false,
       npmAccess: pj.NpmAccess.RESTRICTED,

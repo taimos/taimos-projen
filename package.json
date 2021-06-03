@@ -56,6 +56,9 @@
   "peerDependencies": {
     "projen": "^0.22.0"
   },
+  "dependencies": {
+    "projen": "^0.22.0"
+  },
   "bundledDependencies": [],
   "main": "lib/index.js",
   "license": "Apache-2.0",
