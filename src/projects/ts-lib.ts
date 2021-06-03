@@ -19,9 +19,6 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       authorUrl: 'https://taimos.de',
       copyrightOwner: 'Taimos GmbH',
       copyrightPeriod: '2021',
-      releaseBranches: [
-        'main',
-      ],
       license: 'Apache-2.0',
       licensed: true,
       gitpod: true,
@@ -42,6 +39,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       },
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
+      projectType: pj.ProjectType.LIB,
       ...options,
     });
   }

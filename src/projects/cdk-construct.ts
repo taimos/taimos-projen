@@ -21,9 +21,6 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
         twitter: 'hoegertn',
       },
       gitpod: true,
-      releaseBranches: [
-        'main',
-      ],
       license: 'Apache-2.0',
       stability: 'experimental',
       docgen: true,
