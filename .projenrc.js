@@ -12,12 +12,11 @@ const project = new JsiiProject({
   peerDeps: [
     'projen',
   ],
-  deps: [
+  devDeps: [
     'projen',
   ],
   license: 'Apache-2.0',
   licensed: true,
-  docgen: true,
   typescriptVersion: '^4.2.0',
   tsconfig: {
     compilerOptions: {
