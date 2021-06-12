@@ -15,7 +15,11 @@ export class PrivateTaimosCdkApp extends TaimosCdkApp {
   protected readonly npmConfig: pj.javascript.NpmConfig;
 
   constructor(options: PrivateTaimosCdkAppOptions) {
-    super(options);
+    super({
+      licensed: false,
+      npmAccess: pj.NpmAccess.RESTRICTED,
+      ...options,
+    });
 
     this.addDevDeps('@taimos/projen');
     this.addDeps('@taimos/constructs');
