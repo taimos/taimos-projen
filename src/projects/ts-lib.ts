@@ -41,6 +41,10 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       npmAccess: pj.NpmAccess.PUBLIC,
       projectType: pj.ProjectType.LIB,
       ...options,
+      devDeps: [
+        'ts-node',
+        ...options.devDeps ?? [],
+      ],
     });
   }
 

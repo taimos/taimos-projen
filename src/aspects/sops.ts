@@ -1,6 +1,21 @@
 import * as fs from 'fs';
 import * as pj from 'projen';
 
+export interface SopsAspectOptions {
+  /**
+   * Define a mapping of SOPS files to SecretsManager secrets.
+   *
+   * ```json
+   * {
+   *   sops: 'MySecret'
+   * }
+   * ```
+   *
+   * will deploy the file `sops.json` to the secret called `MySecret`
+   */
+  readonly secrets: { [file: string]: string };
+}
+
 export class SopsAspect extends pj.Component {
 
   public static readSopsConfig<T>(): T {
@@ -12,16 +27,24 @@ export class SopsAspect extends pj.Component {
 
   private static config: any;
 
-  constructor(app: pj.AwsCdkTypeScriptApp) {
+  constructor(app: pj.NodeProject, options: SopsAspectOptions) {
     super(app);
 
-    app.cdkConfig.app = `sops exec-file sops.json 'SOPS_FILE={} ${app.cdkConfig.app}'`;
+    app.addDeps('md5-file');
+    app.addDevDeps('secretsmanager-versioning');
 
-    app.addTask('sops', {
-      category: pj.tasks.TaskCategory.MISC,
-      description: 'Open SOPS file in default EDITOR',
-      exec: 'sops sops.json',
-    });
+    for (const mapping of Object.entries(options)) {
+      const [fileName, secretName] = mapping;
+
+      app.addTask(`sops:open:${fileName}`, {
+        description: `Open SOPS file ${fileName}.json in default EDITOR`,
+        exec: `sops ${fileName}.json`,
+      });
+      app.addTask(`sops:deploy:${fileName}`, {
+        description: `Deploy contents of SOPS file ${fileName}.json to the secret ${secretName}`,
+        exec: `secretsmanager-versioning -f ${fileName}.json ${secretName}`,
+      });
+    }
   }
 
 }
