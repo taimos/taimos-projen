@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as path from 'path';
 import * as pj from 'projen';
 
 export interface SopsAspectOptions {
@@ -18,22 +18,15 @@ export interface SopsAspectOptions {
 
 export class SopsAspect extends pj.Component {
 
-  public static readSopsConfig<T>(): T {
-    if (!SopsAspect.config) {
-      SopsAspect.config = JSON.parse(fs.readFileSync(process.env.SOPS_FILE!, { encoding: 'utf-8' }).toString());
-    }
-    return SopsAspect.config as T;
-  }
+  public readonly generatedCodeFile: pj.SourceCode;
 
-  private static config: any;
-
-  constructor(app: pj.NodeProject, options: SopsAspectOptions) {
+  constructor(app: pj.TypeScriptProject, options: SopsAspectOptions) {
     super(app);
 
     app.addDeps('md5-file');
     app.addDevDeps('secretsmanager-versioning');
 
-    for (const mapping of Object.entries(options)) {
+    for (const mapping of Object.entries(options.secrets)) {
       const [fileName, secretName] = mapping;
 
       app.addTask(`sops:open:${fileName}`, {
@@ -45,6 +38,17 @@ export class SopsAspect extends pj.Component {
         exec: `secretsmanager-versioning -f ${fileName}.json ${secretName}`,
       });
     }
+
+    this.generatedCodeFile = new pj.SourceCode(app, path.join(app.srcdir, 'secrets.ts'));
+    this.generatedCodeFile.line(`// ${pj.FileBase.PROJEN_MARKER}`);
+    this.generatedCodeFile.line('/* eslint-disable */');
+    this.generatedCodeFile.line("import { sync as md5 } from 'md5-file';");
+    this.generatedCodeFile.line();
+    this.generatedCodeFile.line(`export type SecretIndex = ${Object.keys(options.secrets).map(f => `'${f}'`).join(' | ')};`);
+    this.generatedCodeFile.line(`export const secretFiles = {\n${Object.keys(options.secrets).map(f => `  '${f}': '${f}.json',`).join('\n')}\n};`);
+    this.generatedCodeFile.line(`export const secretNames = {\n${Object.entries(options.secrets).map(f => `  '${f[0]}': '${f[1]}',`).join('\n')}\n};`);
+    this.generatedCodeFile.line(`export const secretVersions = {\n${Object.keys(options.secrets).map(f => `  '${f}': md5('${f}.json'),`).join('\n')}\n};`);
+    this.generatedCodeFile.line();
   }
 
 }

@@ -204,28 +204,21 @@ __Extends__: [Component](#projen-component)
 
 
 ```ts
-new SopsAspect(app: NodeProject, options: SopsAspectOptions)
+new SopsAspect(app: TypeScriptProject, options: SopsAspectOptions)
 ```
 
-* **app** (<code>[NodeProject](#projen-nodeproject)</code>)  *No description*
+* **app** (<code>[TypeScriptProject](#projen-typescriptproject)</code>)  *No description*
 * **options** (<code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code>)  *No description*
   * **secrets** (<code>Map<string, string></code>)  Define a mapping of SOPS files to SecretsManager secrets. 
 
 
-### Methods
+
+### Properties
 
 
-#### *static* readSopsConfig() <a id="taimos-projen-sopsaspect-readsopsconfig"></a>
-
-
-
-```ts
-static readSopsConfig(): any
-```
-
-
-__Returns__:
-* <code>any</code>
+Name | Type | Description 
+-----|------|-------------
+**generatedCodeFile** | <code>[SourceCode](#projen-sourcecode)</code> | <span></span>
 
 
 
