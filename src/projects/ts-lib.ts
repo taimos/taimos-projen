@@ -30,13 +30,6 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
           esModuleInterop: true,
         },
       },
-      jestOptions: {
-        jestConfig: {
-          compilerOptions: {
-            esModuleInterop: true,
-          },
-        },
-      },
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
       projenUpgradeSecret: 'GH_TOKEN',
