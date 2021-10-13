@@ -54,13 +54,14 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
         },
       },
       jestOptions: {
-        typescriptConfig: {
+        jestConfig: {
           compilerOptions: {
             esModuleInterop: true,
           },
         },
       },
       typescriptVersion: '^4.2.0',
+      projenUpgradeSecret: 'GH_TOKEN',
       ...options,
     });
 

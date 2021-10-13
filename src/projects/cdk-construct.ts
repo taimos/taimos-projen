@@ -25,6 +25,7 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
       stability: 'experimental',
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
+      projenUpgradeSecret: 'GH_TOKEN',
       ...options,
     });
   }

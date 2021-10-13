@@ -31,7 +31,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
         },
       },
       jestOptions: {
-        typescriptConfig: {
+        jestConfig: {
           compilerOptions: {
             esModuleInterop: true,
           },
@@ -39,7 +39,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       },
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
-      projectType: pj.ProjectType.LIB,
+      projenUpgradeSecret: 'GH_TOKEN',
       ...options,
       devDeps: [
         'ts-node',

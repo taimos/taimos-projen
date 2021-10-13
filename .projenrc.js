@@ -25,6 +25,7 @@ const project = new JsiiProject({
   },
   releaseToNpm: true,
   npmAccess: NpmAccess.PUBLIC,
+  projenUpgradeSecret: 'GH_TOKEN',
 });
 
 project.synth();
