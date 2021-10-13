@@ -21,7 +21,6 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
       copyrightPeriod: '2021',
       license: 'Apache-2.0',
       licensed: true,
-      gitpod: true,
       stability: 'experimental',
       docgen: true,
       typescriptVersion: '^4.2.0',
@@ -38,7 +37,18 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
         'ts-node',
         ...options.devDeps ?? [],
       ],
+      gitpod: false,
     });
+
+    if (!!options.gitpod) {
+      const gp = new pj.Gitpod(this, {
+        dockerImage: pj.DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+      });
+      gp.addCustomTask({
+        init: 'yarn install --check-files --frozen-lockfile',
+        command: 'npx projen build',
+      });
+    }
   }
 
 }

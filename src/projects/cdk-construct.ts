@@ -20,14 +20,24 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
         announce: true,
         twitter: 'hoegertn',
       },
-      gitpod: true,
       license: 'Apache-2.0',
       stability: 'experimental',
       releaseToNpm: true,
       npmAccess: pj.NpmAccess.PUBLIC,
       projenUpgradeSecret: 'GH_TOKEN',
       ...options,
+      gitpod: false,
     });
+
+    if (!!options.gitpod) {
+      const gp = new pj.Gitpod(this, {
+        dockerImage: pj.DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+      });
+      gp.addCustomTask({
+        init: 'yarn install --check-files --frozen-lockfile',
+        command: 'npx projen build',
+      });
+    }
   }
 
 }

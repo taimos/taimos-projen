@@ -676,6 +676,14 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
 
 
 
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**npmConfig** | <code>[javascript.NpmConfig](#projen-javascript-npmconfig)</code> | <span></span>
+
+
 
 ## class TaimosTypescriptLibrary  <a id="taimos-projen-taimostypescriptlibrary"></a>
 

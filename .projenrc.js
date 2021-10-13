@@ -1,4 +1,4 @@
-const { JsiiProject, NpmAccess } = require('projen');
+const { JsiiProject, NpmAccess, Gitpod, DevEnvironmentDockerImage } = require('projen');
 
 const project = new JsiiProject({
   name: '@taimos/projen',
@@ -26,6 +26,14 @@ const project = new JsiiProject({
   releaseToNpm: true,
   npmAccess: NpmAccess.PUBLIC,
   projenUpgradeSecret: 'GH_TOKEN',
+});
+
+const gp = new Gitpod(project, {
+  dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+});
+gp.addCustomTask({
+  init: 'yarn install --check-files --frozen-lockfile',
+  command: 'npx projen build',
 });
 
 project.synth();

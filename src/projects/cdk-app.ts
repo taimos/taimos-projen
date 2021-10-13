@@ -56,6 +56,7 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
       typescriptVersion: '^4.2.0',
       projenUpgradeSecret: 'GH_TOKEN',
       ...options,
+      gitpod: false,
     });
 
     if (options.cdkPipelines) {
@@ -68,6 +69,16 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
       sops.generatedCodeFile.open('export function resolveSecretValue(secret: SecretIndex, jsonField: string): cdk.SecretValue {');
       sops.generatedCodeFile.line('return cdk.SecretValue.secretsManager(secretNames[secret], { jsonField, versionId: secretVersions[secret] });');
       sops.generatedCodeFile.close('}');
+    }
+
+    if (!!options.gitpod) {
+      const gp = new pj.Gitpod(this, {
+        dockerImage: pj.DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+      });
+      gp.addCustomTask({
+        init: 'yarn install --check-files --frozen-lockfile',
+        command: 'npx projen build',
+      });
     }
   }
 
