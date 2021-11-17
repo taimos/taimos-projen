@@ -17,7 +17,7 @@ const project = new JsiiProject({
   ],
   license: 'Apache-2.0',
   licensed: true,
-  typescriptVersion: '^4.2.0',
+  typescriptVersion: '^4.4.0',
   tsconfig: {
     compilerOptions: {
       esModuleInterop: true,
