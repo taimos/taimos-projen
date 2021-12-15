@@ -1,4 +1,4 @@
-import * as pj from 'projen';
+import { javascript } from 'projen';
 import { TaimosCdkApp, TaimosCdkAppOptions } from './cdk-app';
 
 export interface PrivateTaimosCdkAppOptions extends TaimosCdkAppOptions {
@@ -12,12 +12,12 @@ export interface PrivateTaimosCdkAppOptions extends TaimosCdkAppOptions {
  */
 export class PrivateTaimosCdkApp extends TaimosCdkApp {
 
-  protected readonly npmConfig: pj.javascript.NpmConfig;
+  protected readonly npmConfig: javascript.NpmConfig;
 
   constructor(options: PrivateTaimosCdkAppOptions) {
     super({
       licensed: false,
-      npmAccess: pj.NpmAccess.RESTRICTED,
+      npmAccess: javascript.NpmAccess.RESTRICTED,
       ...options,
     });
 
@@ -71,9 +71,15 @@ export class PrivateTaimosCdkApp extends TaimosCdkApp {
         '@aws-cdk/cx-api',
         '@aws-cdk/pipelines',
       );
+    } else {
+      this.addDeps(
+        '@aws-cdk/aws-appsync-alpha',
+        '@aws-cdk/aws-apigatewayv2-alpha',
+        '@aws-cdk/aws-apigatewayv2-integrations-alpha',
+      );
     }
 
-    this.npmConfig = new pj.javascript.NpmConfig(this);
+    this.npmConfig = new javascript.NpmConfig(this);
     this.npmConfig.addConfig('//registry.npmjs.org/:_authToken', '${NPM_TOKEN}');
 
   }

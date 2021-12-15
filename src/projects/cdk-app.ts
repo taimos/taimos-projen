@@ -1,7 +1,7 @@
-import * as pj from 'projen';
+import { awscdk, DevEnvironmentDockerImage, Gitpod } from 'projen';
 import { CdkPipelineAspect, SopsAspect, SopsAspectOptions } from '../aspects';
 
-export interface TaimosCdkAppOptions extends pj.AwsCdkTypeScriptAppOptions {
+export interface TaimosCdkAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {
   /**
    * Enable storing secrets using Mozilla SOPS
    *
@@ -21,7 +21,7 @@ export interface TaimosCdkAppOptions extends pj.AwsCdkTypeScriptAppOptions {
  *
  * @pjid taimos-cdk-app
  */
-export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
+export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
 
   constructor(options: TaimosCdkAppOptions) {
     super({
@@ -32,7 +32,7 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
       cdkVersionPinning: true,
       copyrightOwner: 'Taimos GmbH',
       copyrightPeriod: '2021',
-      requireApproval: pj.awscdk.ApprovalLevel.NEVER,
+      requireApproval: awscdk.ApprovalLevel.NEVER,
       mergify: false,
       tsconfig: {
         compilerOptions: {
@@ -58,8 +58,8 @@ export class TaimosCdkApp extends pj.AwsCdkTypeScriptApp {
     }
 
     if (!!options.gitpod) {
-      const gp = new pj.Gitpod(this, {
-        dockerImage: pj.DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+      const gp = new Gitpod(this, {
+        dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
       });
       gp.addCustomTask({
         init: 'yarn install --check-files --frozen-lockfile',

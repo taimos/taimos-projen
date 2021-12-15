@@ -1,4 +1,4 @@
-import * as pj from 'projen';
+import { javascript } from 'projen';
 import { TaimosTypescriptLibrary, TaimosTypescriptLibraryOptions } from './ts-lib';
 
 export interface TaimosPrivateTypescriptLibraryOptions extends TaimosTypescriptLibraryOptions {
@@ -12,16 +12,16 @@ export interface TaimosPrivateTypescriptLibraryOptions extends TaimosTypescriptL
  */
 export class TaimosPrivateTypescriptLibrary extends TaimosTypescriptLibrary {
 
-  protected readonly npmConfig: pj.javascript.NpmConfig;
+  protected readonly npmConfig: javascript.NpmConfig;
 
   constructor(options: TaimosPrivateTypescriptLibraryOptions) {
     super({
       licensed: false,
-      npmAccess: pj.NpmAccess.RESTRICTED,
+      npmAccess: javascript.NpmAccess.RESTRICTED,
       ...options,
     });
 
-    this.npmConfig = new pj.javascript.NpmConfig(this);
+    this.npmConfig = new javascript.NpmConfig(this);
     this.npmConfig.addConfig('//registry.npmjs.org/:_authToken', '${NPM_TOKEN}');
   }
 

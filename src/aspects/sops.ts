@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as pj from 'projen';
+import { Component, FileBase, SourceCode, typescript } from 'projen';
 
 export interface SopsAspectOptions {
   /**
@@ -16,11 +16,11 @@ export interface SopsAspectOptions {
   readonly secrets: { [file: string]: string };
 }
 
-export class SopsAspect extends pj.Component {
+export class SopsAspect extends Component {
 
-  public readonly generatedCodeFile: pj.SourceCode;
+  public readonly generatedCodeFile: SourceCode;
 
-  constructor(app: pj.TypeScriptProject, options: SopsAspectOptions) {
+  constructor(app: typescript.TypeScriptProject, options: SopsAspectOptions) {
     super(app);
 
     app.addDeps('md5-file');
@@ -39,8 +39,8 @@ export class SopsAspect extends pj.Component {
       });
     }
 
-    this.generatedCodeFile = new pj.SourceCode(app, path.join(app.srcdir, 'secrets.ts'));
-    this.generatedCodeFile.line(`// ${pj.FileBase.PROJEN_MARKER}`);
+    this.generatedCodeFile = new SourceCode(app, path.join(app.srcdir, 'secrets.ts'));
+    this.generatedCodeFile.line(`// ${FileBase.PROJEN_MARKER}`);
     this.generatedCodeFile.line('/* eslint-disable */');
     this.generatedCodeFile.line("import { sync as md5 } from 'md5-file';");
     this.generatedCodeFile.line();

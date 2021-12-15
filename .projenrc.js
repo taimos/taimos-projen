@@ -1,6 +1,6 @@
-const { JsiiProject, NpmAccess, Gitpod, DevEnvironmentDockerImage } = require('projen');
+const { cdk, javascript, Gitpod, DevEnvironmentDockerImage } = require('projen');
 
-const project = new JsiiProject({
+const project = new cdk.JsiiProject({
   name: '@taimos/projen',
   authorAddress: 'info@taimos.de',
   authorName: 'Thorsten Hoeger',
@@ -24,7 +24,7 @@ const project = new JsiiProject({
     },
   },
   releaseToNpm: true,
-  npmAccess: NpmAccess.PUBLIC,
+  npmAccess: javascript.NpmAccess.PUBLIC,
   projenUpgradeSecret: 'GH_TOKEN',
 });
 

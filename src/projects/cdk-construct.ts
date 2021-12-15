@@ -1,6 +1,6 @@
-import * as pj from 'projen';
+import { awscdk, DevEnvironmentDockerImage, Gitpod, javascript } from 'projen';
 
-export interface TaimosCdkConstructLibraryOptions extends pj.AwsCdkConstructLibraryOptions {
+export interface TaimosCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {
   //
 }
 
@@ -9,7 +9,7 @@ export interface TaimosCdkConstructLibraryOptions extends pj.AwsCdkConstructLibr
  *
  * @pjid taimos-awscdk-construct
  */
-export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
+export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
 
   constructor(options: TaimosCdkConstructLibraryOptions) {
     super({
@@ -23,15 +23,15 @@ export class TaimosCdkConstructLibrary extends pj.AwsCdkConstructLibrary {
       license: 'Apache-2.0',
       stability: 'experimental',
       releaseToNpm: true,
-      npmAccess: pj.NpmAccess.PUBLIC,
+      npmAccess: javascript.NpmAccess.PUBLIC,
       projenUpgradeSecret: 'GH_TOKEN',
       ...options,
       gitpod: false,
     });
 
     if (!!options.gitpod) {
-      const gp = new pj.Gitpod(this, {
-        dockerImage: pj.DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+      const gp = new Gitpod(this, {
+        dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
       });
       gp.addCustomTask({
         init: 'yarn install --check-files --frozen-lockfile',

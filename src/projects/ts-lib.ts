@@ -1,6 +1,6 @@
-import * as pj from 'projen';
+import { DevEnvironmentDockerImage, Gitpod, javascript, typescript } from 'projen';
 
-export interface TaimosTypescriptLibraryOptions extends pj.TypeScriptProjectOptions {
+export interface TaimosTypescriptLibraryOptions extends typescript.TypeScriptProjectOptions {
   //
 }
 
@@ -9,7 +9,7 @@ export interface TaimosTypescriptLibraryOptions extends pj.TypeScriptProjectOpti
  *
  * @pjid taimos-ts-lib
  */
-export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
+export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
 
   constructor(options: TaimosTypescriptLibraryOptions) {
     super({
@@ -30,7 +30,7 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
         },
       },
       releaseToNpm: true,
-      npmAccess: pj.NpmAccess.PUBLIC,
+      npmAccess: javascript.NpmAccess.PUBLIC,
       projenUpgradeSecret: 'GH_TOKEN',
       ...options,
       devDeps: [
@@ -41,8 +41,8 @@ export class TaimosTypescriptLibrary extends pj.TypeScriptProject {
     });
 
     if (!!options.gitpod) {
-      const gp = new pj.Gitpod(this, {
-        dockerImage: pj.DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
+      const gp = new Gitpod(this, {
+        dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
       });
       gp.addCustomTask({
         init: 'yarn install --check-files --frozen-lockfile',
