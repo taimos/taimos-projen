@@ -17,12 +17,6 @@ const project = new cdk.JsiiProject({
   ],
   license: 'Apache-2.0',
   licensed: true,
-  typescriptVersion: '^4.4.0',
-  tsconfig: {
-    compilerOptions: {
-      esModuleInterop: true,
-    },
-  },
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
   projenUpgradeSecret: 'GH_TOKEN',
