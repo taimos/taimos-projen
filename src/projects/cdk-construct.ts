@@ -1,4 +1,4 @@
-import { awscdk, DevEnvironmentDockerImage, Gitpod, javascript } from 'projen';
+import { awscdk, DevEnvironmentDockerImage, javascript } from 'projen';
 
 export interface TaimosCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {
   //
@@ -24,16 +24,12 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
       stability: 'experimental',
       releaseToNpm: true,
       npmAccess: javascript.NpmAccess.PUBLIC,
-      projenUpgradeSecret: 'GH_TOKEN',
       ...options,
-      gitpod: false,
     });
 
-    if (!!options.gitpod) {
-      const gp = new Gitpod(this, {
-        dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
-      });
-      gp.addCustomTask({
+    if (this.gitpod) {
+      this.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
+      this.gitpod.addCustomTask({
         init: 'yarn install --check-files --frozen-lockfile',
         command: 'npx projen build',
       });

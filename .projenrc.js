@@ -19,13 +19,11 @@ const project = new cdk.JsiiProject({
   licensed: true,
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
-  projenUpgradeSecret: 'GH_TOKEN',
+  gitpod: true,
 });
 
-const gp = new Gitpod(project, {
-  dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
-});
-gp.addCustomTask({
+project.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
+project.gitpod.addCustomTask({
   init: 'yarn install --check-files --frozen-lockfile',
   command: 'npx projen build',
 });

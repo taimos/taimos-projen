@@ -1,4 +1,4 @@
-import { awscdk, DevEnvironmentDockerImage, Gitpod } from 'projen';
+import { awscdk, DevEnvironmentDockerImage } from 'projen';
 import { CdkPipelineAspect, SopsAspect, SopsAspectOptions } from '../aspects';
 
 export interface TaimosCdkAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {
@@ -40,9 +40,7 @@ export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
         },
       },
       typescriptVersion: '^4.4.0',
-      projenUpgradeSecret: 'GH_TOKEN',
       ...options,
-      gitpod: false,
     });
 
     if (options.cdkPipelines) {
@@ -57,11 +55,9 @@ export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
       sops.generatedCodeFile.close('}');
     }
 
-    if (!!options.gitpod) {
-      const gp = new Gitpod(this, {
-        dockerImage: DevEnvironmentDockerImage.fromImage('taimos/gitpod'),
-      });
-      gp.addCustomTask({
+    if (this.gitpod) {
+      this.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
+      this.gitpod.addCustomTask({
         init: 'yarn install --check-files --frozen-lockfile',
         command: 'npx projen build',
       });
