@@ -81,7 +81,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
   * **projenTokenSecret** (<code>string</code>)  The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows. __*Default*__: "PROJEN_GITHUB_TOKEN"
   * **readme** (<code>[SampleReadmeProps](#projen-samplereadmeprops)</code>)  The README setup. __*Default*__: { filename: 'README.md', contents: '# replace this' }
-  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: true
+  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: false
   * **staleOptions** (<code>[github.StaleOptions](#projen-github-staleoptions)</code>)  Auto-close stale issues and pull requests. __*Default*__: see defaults in `StaleOptions`
   * **vscode** (<code>boolean</code>)  Enable VSCode integration. __*Default*__: true
   * **allowLibraryDependencies** (<code>boolean</code>)  Allow the project to include `peerDependencies` and `bundledDependencies`. __*Default*__: true
@@ -117,7 +117,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
-  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `jsii-release` which is used to publish modules to npm. __*Default*__: "latest"
+  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
@@ -141,6 +141,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **autoApproveProjenUpgrades** (<code>boolean</code>)  Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: false
   * **autoApproveUpgrades** (<code>boolean</code>)  Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: true
   * **buildWorkflow** (<code>boolean</code>)  Define a GitHub workflow for building PRs. __*Default*__: true if not a subproject
+  * **buildWorkflowTriggers** (<code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code>)  Build workflow triggers. __*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
   * **bundlerOptions** (<code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code>)  Options for `Bundler`. __*Optional*__
   * **codeCov** (<code>boolean</code>)  Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret. __*Default*__: false
   * **codeCovTokenSecret** (<code>string</code>)  Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. __*Default*__: if this option is not specified, only public repositories are supported
@@ -171,7 +172,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **release** (<code>boolean</code>)  Add release management to this project. __*Default*__: true (false for subprojects)
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  DEPRECATED: renamed to `release`. __*Default*__: true if not a subproject
-  * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
+  * **workflowBootstrapSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowGitIdentity** (<code>[github.GitIdentity](#projen-github-gitidentity)</code>)  The git identity to use in workflows. __*Default*__: GitHub Actions
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
@@ -206,7 +207,9 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **cdkVersionPinning** (<code>boolean</code>)  Use pinned version instead of caret version for CDK. __*Optional*__
   * **constructsVersion** (<code>string</code>)  Minimum version of the `constructs` library to depend on. __*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
   * **appEntrypoint** (<code>string</code>)  The CDK app's entrypoint (relative to the source directory, which is "src" by default). __*Default*__: "main.ts"
+  * **integrationTestAutoDiscover** (<code>boolean</code>)  Automatically discovers and creates integration tests for each `.integ.ts` file in under your test directory. __*Default*__: true
   * **lambdaAutoDiscover** (<code>boolean</code>)  Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. __*Default*__: true
+  * **lambdaExtensionAutoDiscover** (<code>boolean</code>)  Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. __*Default*__: true
   * **lambdaOptions** (<code>[awscdk.LambdaFunctionCommonOptions](#projen-awscdk-lambdafunctioncommonoptions)</code>)  Common options for all AWS Lambda functions. __*Default*__: default options
   * **cdkPipelines** (<code>boolean</code>)  Enable CDK pipelines. __*Default*__: false
   * **sops** (<code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code>)  Enable storing secrets using Mozilla SOPS. __*Default*__: no SOPS config
@@ -287,7 +290,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
   * **projenTokenSecret** (<code>string</code>)  The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows. __*Default*__: "PROJEN_GITHUB_TOKEN"
   * **readme** (<code>[SampleReadmeProps](#projen-samplereadmeprops)</code>)  The README setup. __*Default*__: { filename: 'README.md', contents: '# replace this' }
-  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: true
+  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: false
   * **staleOptions** (<code>[github.StaleOptions](#projen-github-staleoptions)</code>)  Auto-close stale issues and pull requests. __*Default*__: see defaults in `StaleOptions`
   * **vscode** (<code>boolean</code>)  Enable VSCode integration. __*Default*__: true
   * **allowLibraryDependencies** (<code>boolean</code>)  Allow the project to include `peerDependencies` and `bundledDependencies`. __*Default*__: true
@@ -323,7 +326,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
-  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `jsii-release` which is used to publish modules to npm. __*Default*__: "latest"
+  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
@@ -347,6 +350,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **autoApproveProjenUpgrades** (<code>boolean</code>)  Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: false
   * **autoApproveUpgrades** (<code>boolean</code>)  Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: true
   * **buildWorkflow** (<code>boolean</code>)  Define a GitHub workflow for building PRs. __*Default*__: true if not a subproject
+  * **buildWorkflowTriggers** (<code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code>)  Build workflow triggers. __*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
   * **bundlerOptions** (<code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code>)  Options for `Bundler`. __*Optional*__
   * **codeCov** (<code>boolean</code>)  Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret. __*Default*__: false
   * **codeCovTokenSecret** (<code>string</code>)  Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. __*Default*__: if this option is not specified, only public repositories are supported
@@ -377,7 +381,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **release** (<code>boolean</code>)  Add release management to this project. __*Default*__: true (false for subprojects)
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  DEPRECATED: renamed to `release`. __*Default*__: true if not a subproject
-  * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
+  * **workflowBootstrapSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowGitIdentity** (<code>[github.GitIdentity](#projen-github-gitidentity)</code>)  The git identity to use in workflows. __*Default*__: GitHub Actions
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
@@ -412,7 +416,9 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **cdkVersionPinning** (<code>boolean</code>)  Use pinned version instead of caret version for CDK. __*Optional*__
   * **constructsVersion** (<code>string</code>)  Minimum version of the `constructs` library to depend on. __*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
   * **appEntrypoint** (<code>string</code>)  The CDK app's entrypoint (relative to the source directory, which is "src" by default). __*Default*__: "main.ts"
+  * **integrationTestAutoDiscover** (<code>boolean</code>)  Automatically discovers and creates integration tests for each `.integ.ts` file in under your test directory. __*Default*__: true
   * **lambdaAutoDiscover** (<code>boolean</code>)  Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. __*Default*__: true
+  * **lambdaExtensionAutoDiscover** (<code>boolean</code>)  Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. __*Default*__: true
   * **lambdaOptions** (<code>[awscdk.LambdaFunctionCommonOptions](#projen-awscdk-lambdafunctioncommonoptions)</code>)  Common options for all AWS Lambda functions. __*Default*__: default options
   * **cdkPipelines** (<code>boolean</code>)  Enable CDK pipelines. __*Default*__: false
   * **sops** (<code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code>)  Enable storing secrets using Mozilla SOPS. __*Default*__: no SOPS config
@@ -455,7 +461,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
   * **projenTokenSecret** (<code>string</code>)  The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows. __*Default*__: "PROJEN_GITHUB_TOKEN"
   * **readme** (<code>[SampleReadmeProps](#projen-samplereadmeprops)</code>)  The README setup. __*Default*__: { filename: 'README.md', contents: '# replace this' }
-  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: true
+  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: false
   * **staleOptions** (<code>[github.StaleOptions](#projen-github-staleoptions)</code>)  Auto-close stale issues and pull requests. __*Default*__: see defaults in `StaleOptions`
   * **vscode** (<code>boolean</code>)  Enable VSCode integration. __*Default*__: true
   * **allowLibraryDependencies** (<code>boolean</code>)  Allow the project to include `peerDependencies` and `bundledDependencies`. __*Default*__: true
@@ -491,7 +497,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
-  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `jsii-release` which is used to publish modules to npm. __*Default*__: "latest"
+  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
@@ -515,6 +521,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **autoApproveProjenUpgrades** (<code>boolean</code>)  Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: false
   * **autoApproveUpgrades** (<code>boolean</code>)  Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: true
   * **buildWorkflow** (<code>boolean</code>)  Define a GitHub workflow for building PRs. __*Default*__: true if not a subproject
+  * **buildWorkflowTriggers** (<code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code>)  Build workflow triggers. __*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
   * **bundlerOptions** (<code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code>)  Options for `Bundler`. __*Optional*__
   * **codeCov** (<code>boolean</code>)  Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret. __*Default*__: false
   * **codeCovTokenSecret** (<code>string</code>)  Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. __*Default*__: if this option is not specified, only public repositories are supported
@@ -545,7 +552,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **release** (<code>boolean</code>)  Add release management to this project. __*Default*__: true (false for subprojects)
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  DEPRECATED: renamed to `release`. __*Default*__: true if not a subproject
-  * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
+  * **workflowBootstrapSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowGitIdentity** (<code>[github.GitIdentity](#projen-github-gitidentity)</code>)  The git identity to use in workflows. __*Default*__: GitHub Actions
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
@@ -569,6 +576,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **repositoryUrl** (<code>string</code>)  Git repository URL. 
   * **compat** (<code>boolean</code>)  Automatically run API compatibility test against the latest version published to npm after compilation. __*Default*__: false
   * **compatIgnore** (<code>string</code>)  Name of the ignore file for API compatibility tests. __*Default*__: ".compatignore"
+  * **docgenFilePath** (<code>string</code>)  File path for generated docs. __*Default*__: "API.md"
   * **dotnet** (<code>[cdk.JsiiDotNetTarget](#projen-cdk-jsiidotnettarget)</code>)  *No description* __*Optional*__
   * **excludeTypescript** (<code>Array<string></code>)  Accepts a list of glob patterns. __*Optional*__
   * **publishToGo** (<code>[cdk.JsiiGoTarget](#projen-cdk-jsiigotarget)</code>)  Publish Go bindings to a git repository. __*Default*__: no publishing
@@ -586,7 +594,9 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **cdkTestDependencies** (<code>Array<string></code>)  AWS CDK modules required for testing. __*Optional*__
   * **cdkVersionPinning** (<code>boolean</code>)  Use pinned version instead of caret version for CDK. __*Optional*__
   * **constructsVersion** (<code>string</code>)  Minimum version of the `constructs` library to depend on. __*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
+  * **integrationTestAutoDiscover** (<code>boolean</code>)  Automatically discovers and creates integration tests for each `.integ.ts` file in under your test directory. __*Default*__: true
   * **lambdaAutoDiscover** (<code>boolean</code>)  Automatically adds an `aws_lambda.Function` for each `.lambda.ts` handler in your source tree. If this is disabled, you either need to explicitly call `aws_lambda.Function.autoDiscover()` or define a `new aws_lambda.Function()` for each handler. __*Default*__: true
+  * **lambdaExtensionAutoDiscover** (<code>boolean</code>)  Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. __*Default*__: true
   * **lambdaOptions** (<code>[awscdk.LambdaFunctionCommonOptions](#projen-awscdk-lambdafunctioncommonoptions)</code>)  Common options for all AWS Lambda functions. __*Default*__: default options
 
 
@@ -627,7 +637,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
   * **projenTokenSecret** (<code>string</code>)  The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows. __*Default*__: "PROJEN_GITHUB_TOKEN"
   * **readme** (<code>[SampleReadmeProps](#projen-samplereadmeprops)</code>)  The README setup. __*Default*__: { filename: 'README.md', contents: '# replace this' }
-  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: true
+  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: false
   * **staleOptions** (<code>[github.StaleOptions](#projen-github-staleoptions)</code>)  Auto-close stale issues and pull requests. __*Default*__: see defaults in `StaleOptions`
   * **vscode** (<code>boolean</code>)  Enable VSCode integration. __*Default*__: true
   * **allowLibraryDependencies** (<code>boolean</code>)  Allow the project to include `peerDependencies` and `bundledDependencies`. __*Default*__: true
@@ -663,7 +673,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
-  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `jsii-release` which is used to publish modules to npm. __*Default*__: "latest"
+  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
@@ -687,6 +697,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **autoApproveProjenUpgrades** (<code>boolean</code>)  Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: false
   * **autoApproveUpgrades** (<code>boolean</code>)  Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: true
   * **buildWorkflow** (<code>boolean</code>)  Define a GitHub workflow for building PRs. __*Default*__: true if not a subproject
+  * **buildWorkflowTriggers** (<code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code>)  Build workflow triggers. __*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
   * **bundlerOptions** (<code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code>)  Options for `Bundler`. __*Optional*__
   * **codeCov** (<code>boolean</code>)  Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret. __*Default*__: false
   * **codeCovTokenSecret** (<code>string</code>)  Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. __*Default*__: if this option is not specified, only public repositories are supported
@@ -717,7 +728,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **release** (<code>boolean</code>)  Add release management to this project. __*Default*__: true (false for subprojects)
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  DEPRECATED: renamed to `release`. __*Default*__: true if not a subproject
-  * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
+  * **workflowBootstrapSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowGitIdentity** (<code>[github.GitIdentity](#projen-github-gitidentity)</code>)  The git identity to use in workflows. __*Default*__: GitHub Actions
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
@@ -783,7 +794,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **projectType** (<code>[ProjectType](#projen-projecttype)</code>)  Which type of project this is (library/app). __*Default*__: ProjectType.UNKNOWN
   * **projenTokenSecret** (<code>string</code>)  The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows. __*Default*__: "PROJEN_GITHUB_TOKEN"
   * **readme** (<code>[SampleReadmeProps](#projen-samplereadmeprops)</code>)  The README setup. __*Default*__: { filename: 'README.md', contents: '# replace this' }
-  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: true
+  * **stale** (<code>boolean</code>)  Auto-close of stale issues and pull request. __*Default*__: false
   * **staleOptions** (<code>[github.StaleOptions](#projen-github-staleoptions)</code>)  Auto-close stale issues and pull requests. __*Default*__: see defaults in `StaleOptions`
   * **vscode** (<code>boolean</code>)  Enable VSCode integration. __*Default*__: true
   * **allowLibraryDependencies** (<code>boolean</code>)  Allow the project to include `peerDependencies` and `bundledDependencies`. __*Default*__: true
@@ -819,7 +830,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
-  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `jsii-release` which is used to publish modules to npm. __*Default*__: "latest"
+  * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
@@ -843,6 +854,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **autoApproveProjenUpgrades** (<code>boolean</code>)  Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: false
   * **autoApproveUpgrades** (<code>boolean</code>)  Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). __*Default*__: true
   * **buildWorkflow** (<code>boolean</code>)  Define a GitHub workflow for building PRs. __*Default*__: true if not a subproject
+  * **buildWorkflowTriggers** (<code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code>)  Build workflow triggers. __*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
   * **bundlerOptions** (<code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code>)  Options for `Bundler`. __*Optional*__
   * **codeCov** (<code>boolean</code>)  Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret. __*Default*__: false
   * **codeCovTokenSecret** (<code>string</code>)  Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. __*Default*__: if this option is not specified, only public repositories are supported
@@ -873,7 +885,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **release** (<code>boolean</code>)  Add release management to this project. __*Default*__: true (false for subprojects)
   * **releaseToNpm** (<code>boolean</code>)  Automatically release to npm when new versions are introduced. __*Default*__: false
   * **releaseWorkflow** (<code>boolean</code>)  DEPRECATED: renamed to `release`. __*Default*__: true if not a subproject
-  * **workflowBootstrapSteps** (<code>Array<any></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
+  * **workflowBootstrapSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Workflow steps to use in order to bootstrap this repo. __*Default*__: "yarn install --frozen-lockfile && yarn projen"
   * **workflowGitIdentity** (<code>[github.GitIdentity](#projen-github-gitidentity)</code>)  The git identity to use in workflows. __*Default*__: GitHub Actions
   * **workflowNodeVersion** (<code>string</code>)  The node version to use in GitHub workflows. __*Default*__: same as `minNodeVersion`
   * **disableTsconfig** (<code>boolean</code>)  Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler). __*Default*__: false
@@ -925,6 +937,7 @@ Name | Type | Description
 **bugsUrl**?🔹 | <code>string</code> | The url to your project's issue tracker.<br/>__*Optional*__
 **buildCommand**?🔹 | <code>string</code> | A command to execute before synthesis.<br/>__*Default*__: no build command
 **buildWorkflow**?🔹 | <code>boolean</code> | Define a GitHub workflow for building PRs.<br/>__*Default*__: true if not a subproject
+**buildWorkflowTriggers**?🔹 | <code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code> | Build workflow triggers.<br/>__*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **cdkAssert**?⚠️ | <code>boolean</code> | Warning: NodeJS only.<br/>__*Default*__: will be included by default for AWS CDK >= 1.0.0 < 2.0.0
@@ -964,11 +977,13 @@ Name | Type | Description
 **gitignore**?🔹 | <code>Array<string></code> | Additional entries to .gitignore.<br/>__*Optional*__
 **gitpod**?🔹 | <code>boolean</code> | Add a Gitpod development environment.<br/>__*Default*__: false
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
+**integrationTestAutoDiscover**?🔹 | <code>boolean</code> | Automatically discovers and creates integration tests for each `.integ.ts` file in under your test directory.<br/>__*Default*__: true
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[javascript.JestOptions](#projen-javascript-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
-**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `jsii-release` which is used to publish modules to npm.<br/>__*Default*__: "latest"
+**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm.<br/>__*Default*__: "latest"
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
 **lambdaAutoDiscover**?🔹 | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project.<br/>__*Default*__: true
+**lambdaExtensionAutoDiscover**?🔹 | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project.<br/>__*Default*__: true
 **lambdaOptions**?🔹 | <code>[awscdk.LambdaFunctionCommonOptions](#projen-awscdk-lambdafunctioncommonoptions)</code> | Common options for all AWS Lambda functions.<br/>__*Default*__: default options
 **libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
@@ -1037,7 +1052,7 @@ Name | Type | Description
 **sops**? | <code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code> | Enable storing secrets using Mozilla SOPS.<br/>__*Default*__: no SOPS config
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: true
+**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: false
 **staleOptions**?🔹 | <code>[github.StaleOptions](#projen-github-staleoptions)</code> | Auto-close stale issues and pull requests.<br/>__*Default*__: see defaults in `StaleOptions`
 **testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[javascript.TypescriptConfigOptions](#projen-javascript-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Default*__: default options
@@ -1048,7 +1063,7 @@ Name | Type | Description
 **vscode**?🔹 | <code>boolean</code> | Enable VSCode integration.<br/>__*Default*__: true
 **watchExcludes**?🔹 | <code>Array<string></code> | Glob patterns to exclude from `cdk watch`.<br/>__*Default*__: []
 **watchIncludes**?🔹 | <code>Array<string></code> | Glob patterns to include in `cdk watch`.<br/>__*Default*__: []
-**workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
+**workflowBootstrapSteps**?🔹 | <code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
 **workflowContainerImage**?🔹 | <code>string</code> | Container image to use for GitHub workflows.<br/>__*Default*__: default image
 **workflowGitIdentity**?🔹 | <code>[github.GitIdentity](#projen-github-gitidentity)</code> | The git identity to use in workflows.<br/>__*Default*__: GitHub Actions
 **workflowNodeVersion**?🔹 | <code>string</code> | The node version to use in GitHub workflows.<br/>__*Default*__: same as `minNodeVersion`
@@ -1098,6 +1113,7 @@ Name | Type | Description
 **bugsUrl**?🔹 | <code>string</code> | The url to your project's issue tracker.<br/>__*Optional*__
 **buildCommand**?🔹 | <code>string</code> | A command to execute before synthesis.<br/>__*Default*__: no build command
 **buildWorkflow**?🔹 | <code>boolean</code> | Define a GitHub workflow for building PRs.<br/>__*Default*__: true if not a subproject
+**buildWorkflowTriggers**?🔹 | <code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code> | Build workflow triggers.<br/>__*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **cdkAssert**?⚠️ | <code>boolean</code> | Warning: NodeJS only.<br/>__*Default*__: will be included by default for AWS CDK >= 1.0.0 < 2.0.0
@@ -1137,11 +1153,13 @@ Name | Type | Description
 **gitignore**?🔹 | <code>Array<string></code> | Additional entries to .gitignore.<br/>__*Optional*__
 **gitpod**?🔹 | <code>boolean</code> | Add a Gitpod development environment.<br/>__*Default*__: false
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
+**integrationTestAutoDiscover**?🔹 | <code>boolean</code> | Automatically discovers and creates integration tests for each `.integ.ts` file in under your test directory.<br/>__*Default*__: true
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[javascript.JestOptions](#projen-javascript-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
-**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `jsii-release` which is used to publish modules to npm.<br/>__*Default*__: "latest"
+**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm.<br/>__*Default*__: "latest"
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
 **lambdaAutoDiscover**?🔹 | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project.<br/>__*Default*__: true
+**lambdaExtensionAutoDiscover**?🔹 | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project.<br/>__*Default*__: true
 **lambdaOptions**?🔹 | <code>[awscdk.LambdaFunctionCommonOptions](#projen-awscdk-lambdafunctioncommonoptions)</code> | Common options for all AWS Lambda functions.<br/>__*Default*__: default options
 **libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
@@ -1210,7 +1228,7 @@ Name | Type | Description
 **sops**? | <code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code> | Enable storing secrets using Mozilla SOPS.<br/>__*Default*__: no SOPS config
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: true
+**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: false
 **staleOptions**?🔹 | <code>[github.StaleOptions](#projen-github-staleoptions)</code> | Auto-close stale issues and pull requests.<br/>__*Default*__: see defaults in `StaleOptions`
 **testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[javascript.TypescriptConfigOptions](#projen-javascript-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Default*__: default options
@@ -1221,7 +1239,7 @@ Name | Type | Description
 **vscode**?🔹 | <code>boolean</code> | Enable VSCode integration.<br/>__*Default*__: true
 **watchExcludes**?🔹 | <code>Array<string></code> | Glob patterns to exclude from `cdk watch`.<br/>__*Default*__: []
 **watchIncludes**?🔹 | <code>Array<string></code> | Glob patterns to include in `cdk watch`.<br/>__*Default*__: []
-**workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
+**workflowBootstrapSteps**?🔹 | <code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
 **workflowContainerImage**?🔹 | <code>string</code> | Container image to use for GitHub workflows.<br/>__*Default*__: default image
 **workflowGitIdentity**?🔹 | <code>[github.GitIdentity](#projen-github-gitidentity)</code> | The git identity to use in workflows.<br/>__*Default*__: GitHub Actions
 **workflowNodeVersion**?🔹 | <code>string</code> | The node version to use in GitHub workflows.<br/>__*Default*__: same as `minNodeVersion`
@@ -1259,6 +1277,7 @@ Name | Type | Description
 **bugsEmail**?🔹 | <code>string</code> | The email address to which issues should be reported.<br/>__*Optional*__
 **bugsUrl**?🔹 | <code>string</code> | The url to your project's issue tracker.<br/>__*Optional*__
 **buildWorkflow**?🔹 | <code>boolean</code> | Define a GitHub workflow for building PRs.<br/>__*Default*__: true if not a subproject
+**buildWorkflowTriggers**?🔹 | <code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code> | Build workflow triggers.<br/>__*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **catalog**?🔹 | <code>[cdk.Catalog](#projen-cdk-catalog)</code> | Libraries will be picked up by the construct catalog when they are published to npm as jsii modules and will be published under:.<br/>__*Default*__: new version will be announced
@@ -1287,6 +1306,7 @@ Name | Type | Description
 **devDeps**?🔹 | <code>Array<string></code> | Build dependencies for this module.<br/>__*Default*__: []
 **disableTsconfig**?🔹 | <code>boolean</code> | Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.json is generated by the jsii compiler).<br/>__*Default*__: false
 **docgen**?🔹 | <code>boolean</code> | Docgen by Typedoc.<br/>__*Default*__: false
+**docgenFilePath**?🔹 | <code>string</code> | File path for generated docs.<br/>__*Default*__: "API.md"
 **docsDirectory**?🔹 | <code>string</code> | Docs directory.<br/>__*Default*__: "docs"
 **dotnet**?⚠️ | <code>[cdk.JsiiDotNetTarget](#projen-cdk-jsiidotnettarget)</code> | __*Optional*__
 **entrypoint**?🔹 | <code>string</code> | Module entrypoint (`main` in `package.json`).<br/>__*Default*__: "lib/index.js"
@@ -1299,11 +1319,13 @@ Name | Type | Description
 **gitignore**?🔹 | <code>Array<string></code> | Additional entries to .gitignore.<br/>__*Optional*__
 **gitpod**?🔹 | <code>boolean</code> | Add a Gitpod development environment.<br/>__*Default*__: false
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
+**integrationTestAutoDiscover**?🔹 | <code>boolean</code> | Automatically discovers and creates integration tests for each `.integ.ts` file in under your test directory.<br/>__*Default*__: true
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[javascript.JestOptions](#projen-javascript-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
-**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `jsii-release` which is used to publish modules to npm.<br/>__*Default*__: "latest"
+**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm.<br/>__*Default*__: "latest"
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
 **lambdaAutoDiscover**?🔹 | <code>boolean</code> | Automatically adds an `aws_lambda.Function` for each `.lambda.ts` handler in your source tree. If this is disabled, you either need to explicitly call `aws_lambda.Function.autoDiscover()` or define a `new aws_lambda.Function()` for each handler.<br/>__*Default*__: true
+**lambdaExtensionAutoDiscover**?🔹 | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project.<br/>__*Default*__: true
 **lambdaOptions**?🔹 | <code>[awscdk.LambdaFunctionCommonOptions](#projen-awscdk-lambdafunctioncommonoptions)</code> | Common options for all AWS Lambda functions.<br/>__*Default*__: default options
 **libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
@@ -1376,7 +1398,7 @@ Name | Type | Description
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: true
+**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: false
 **staleOptions**?🔹 | <code>[github.StaleOptions](#projen-github-staleoptions)</code> | Auto-close stale issues and pull requests.<br/>__*Default*__: see defaults in `StaleOptions`
 **testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[javascript.TypescriptConfigOptions](#projen-javascript-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Default*__: default options
@@ -1385,7 +1407,7 @@ Name | Type | Description
 **typescriptVersion**?🔹 | <code>string</code> | TypeScript version to use.<br/>__*Default*__: "latest"
 **versionrcOptions**?🔹 | <code>Map<string, any></code> | Custom configuration used when creating changelog with standard-version package.<br/>__*Default*__: standard configuration applicable for GitHub repositories
 **vscode**?🔹 | <code>boolean</code> | Enable VSCode integration.<br/>__*Default*__: true
-**workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
+**workflowBootstrapSteps**?🔹 | <code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
 **workflowContainerImage**?🔹 | <code>string</code> | Container image to use for GitHub workflows.<br/>__*Default*__: default image
 **workflowGitIdentity**?🔹 | <code>[github.GitIdentity](#projen-github-gitidentity)</code> | The git identity to use in workflows.<br/>__*Default*__: GitHub Actions
 **workflowNodeVersion**?🔹 | <code>string</code> | The node version to use in GitHub workflows.<br/>__*Default*__: same as `minNodeVersion`
@@ -1419,6 +1441,7 @@ Name | Type | Description
 **bugsEmail**?🔹 | <code>string</code> | The email address to which issues should be reported.<br/>__*Optional*__
 **bugsUrl**?🔹 | <code>string</code> | The url to your project's issue tracker.<br/>__*Optional*__
 **buildWorkflow**?🔹 | <code>boolean</code> | Define a GitHub workflow for building PRs.<br/>__*Default*__: true if not a subproject
+**buildWorkflowTriggers**?🔹 | <code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code> | Build workflow triggers.<br/>__*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
@@ -1449,7 +1472,7 @@ Name | Type | Description
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[javascript.JestOptions](#projen-javascript-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
-**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `jsii-release` which is used to publish modules to npm.<br/>__*Default*__: "latest"
+**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm.<br/>__*Default*__: "latest"
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
 **libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
@@ -1516,7 +1539,7 @@ Name | Type | Description
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: true
+**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: false
 **staleOptions**?🔹 | <code>[github.StaleOptions](#projen-github-staleoptions)</code> | Auto-close stale issues and pull requests.<br/>__*Default*__: see defaults in `StaleOptions`
 **testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[javascript.TypescriptConfigOptions](#projen-javascript-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Default*__: default options
@@ -1525,7 +1548,7 @@ Name | Type | Description
 **typescriptVersion**?🔹 | <code>string</code> | TypeScript version to use.<br/>__*Default*__: "latest"
 **versionrcOptions**?🔹 | <code>Map<string, any></code> | Custom configuration used when creating changelog with standard-version package.<br/>__*Default*__: standard configuration applicable for GitHub repositories
 **vscode**?🔹 | <code>boolean</code> | Enable VSCode integration.<br/>__*Default*__: true
-**workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
+**workflowBootstrapSteps**?🔹 | <code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
 **workflowContainerImage**?🔹 | <code>string</code> | Container image to use for GitHub workflows.<br/>__*Default*__: default image
 **workflowGitIdentity**?🔹 | <code>[github.GitIdentity](#projen-github-gitidentity)</code> | The git identity to use in workflows.<br/>__*Default*__: GitHub Actions
 **workflowNodeVersion**?🔹 | <code>string</code> | The node version to use in GitHub workflows.<br/>__*Default*__: same as `minNodeVersion`
@@ -1559,6 +1582,7 @@ Name | Type | Description
 **bugsEmail**?🔹 | <code>string</code> | The email address to which issues should be reported.<br/>__*Optional*__
 **bugsUrl**?🔹 | <code>string</code> | The url to your project's issue tracker.<br/>__*Optional*__
 **buildWorkflow**?🔹 | <code>boolean</code> | Define a GitHub workflow for building PRs.<br/>__*Default*__: true if not a subproject
+**buildWorkflowTriggers**?🔹 | <code>[github.workflows.Triggers](#projen-github-workflows-triggers)</code> | Build workflow triggers.<br/>__*Default*__: "{ pullRequest: {}, workflowDispatch: {} }"
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
@@ -1589,7 +1613,7 @@ Name | Type | Description
 **homepage**?🔹 | <code>string</code> | Package's Homepage / Website.<br/>__*Optional*__
 **jest**?🔹 | <code>boolean</code> | Setup jest unit tests.<br/>__*Default*__: true
 **jestOptions**?🔹 | <code>[javascript.JestOptions](#projen-javascript-jestoptions)</code> | Jest options.<br/>__*Default*__: default options
-**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `jsii-release` which is used to publish modules to npm.<br/>__*Default*__: "latest"
+**jsiiReleaseVersion**?🔹 | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm.<br/>__*Default*__: "latest"
 **keywords**?🔹 | <code>Array<string></code> | Keywords to include in `package.json`.<br/>__*Optional*__
 **libdir**?🔹 | <code>string</code> | Typescript  artifacts output directory.<br/>__*Default*__: "lib"
 **license**?🔹 | <code>string</code> | License's SPDX identifier.<br/>__*Default*__: "Apache-2.0"
@@ -1656,7 +1680,7 @@ Name | Type | Description
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
-**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: true
+**stale**?🔹 | <code>boolean</code> | Auto-close of stale issues and pull request.<br/>__*Default*__: false
 **staleOptions**?🔹 | <code>[github.StaleOptions](#projen-github-staleoptions)</code> | Auto-close stale issues and pull requests.<br/>__*Default*__: see defaults in `StaleOptions`
 **testdir**?🔹 | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`.<br/>__*Default*__: "test"
 **tsconfig**?🔹 | <code>[javascript.TypescriptConfigOptions](#projen-javascript-typescriptconfigoptions)</code> | Custom TSConfig.<br/>__*Default*__: default options
@@ -1665,7 +1689,7 @@ Name | Type | Description
 **typescriptVersion**?🔹 | <code>string</code> | TypeScript version to use.<br/>__*Default*__: "latest"
 **versionrcOptions**?🔹 | <code>Map<string, any></code> | Custom configuration used when creating changelog with standard-version package.<br/>__*Default*__: standard configuration applicable for GitHub repositories
 **vscode**?🔹 | <code>boolean</code> | Enable VSCode integration.<br/>__*Default*__: true
-**workflowBootstrapSteps**?🔹 | <code>Array<any></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
+**workflowBootstrapSteps**?🔹 | <code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code> | Workflow steps to use in order to bootstrap this repo.<br/>__*Default*__: "yarn install --frozen-lockfile && yarn projen"
 **workflowContainerImage**?🔹 | <code>string</code> | Container image to use for GitHub workflows.<br/>__*Default*__: default image
 **workflowGitIdentity**?🔹 | <code>[github.GitIdentity](#projen-github-gitidentity)</code> | The git identity to use in workflows.<br/>__*Default*__: GitHub Actions
 **workflowNodeVersion**?🔹 | <code>string</code> | The node version to use in GitHub workflows.<br/>__*Default*__: same as `minNodeVersion`

@@ -49,7 +49,11 @@ export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
 
     if (options.sops) {
       const sops = new SopsAspect(this, options.sops);
-      sops.generatedCodeFile.line("import * as cdk from '@aws-cdk/core';");
+      if (options.cdkVersion.startsWith('1.')) {
+        sops.generatedCodeFile.line("import * as cdk from '@aws-cdk/core';");
+      } else {
+        sops.generatedCodeFile.line("import * as cdk from 'aws-cdk-lib';");
+      }
       sops.generatedCodeFile.open('export function resolveSecretValue(secret: SecretIndex, jsonField: string): cdk.SecretValue {');
       sops.generatedCodeFile.line('return cdk.SecretValue.secretsManager(secretNames[secret], { jsonField, versionId: secretVersions[secret] });');
       sops.generatedCodeFile.close('}');

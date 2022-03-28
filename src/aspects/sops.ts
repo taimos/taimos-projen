@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Component, FileBase, SourceCode, typescript } from 'projen';
+import { Component, SourceCode, typescript } from 'projen';
 
 export interface SopsAspectOptions {
   /**
@@ -40,7 +40,7 @@ export class SopsAspect extends Component {
     }
 
     this.generatedCodeFile = new SourceCode(app, path.join(app.srcdir, 'secrets.ts'));
-    this.generatedCodeFile.line(`// ${FileBase.PROJEN_MARKER}`);
+    this.generatedCodeFile.line(`// ${this.generatedCodeFile.marker}`);
     this.generatedCodeFile.line('/* eslint-disable */');
     this.generatedCodeFile.line("import { sync as md5 } from 'md5-file';");
     this.generatedCodeFile.line();
