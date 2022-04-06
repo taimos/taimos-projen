@@ -26,7 +26,6 @@
     "test:watch": "npx projen test:watch",
     "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
-    "upgrade-projen": "npx projen upgrade-projen",
     "watch": "npx projen watch",
     "projen": "npx projen"
   },
@@ -52,13 +51,13 @@
     "jsii-pacmak": "^1.55.1",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
-    "projen": "^0.53.15",
+    "projen": "^0.54.10",
     "standard-version": "^9",
     "ts-jest": "^26.5.6",
     "typescript": "^4.6.3"
   },
   "peerDependencies": {
-    "projen": "^0.53.15"
+    "projen": "^0.54.10"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",

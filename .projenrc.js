@@ -1,4 +1,4 @@
-const { cdk, javascript, Gitpod, DevEnvironmentDockerImage } = require('projen');
+const { cdk, javascript, github, DevEnvironmentDockerImage } = require('projen');
 
 const project = new cdk.JsiiProject({
   name: '@taimos/projen',
@@ -20,6 +20,11 @@ const project = new cdk.JsiiProject({
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
   gitpod: true,
+  autoApproveUpgrades: true,
+  autoApproveOptions: { allowedUsernames: ['hoegertn', 'taimos-projen[bot]'], secret: 'GITHUB_TOKEN' },
+  githubOptions: {
+    projenCredentials: github.GithubCredentials.fromApp(),
+  },
 });
 
 project.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
