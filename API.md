@@ -95,7 +95,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **bugsEmail** (<code>string</code>)  The email address to which issues should be reported. __*Optional*__
   * **bugsUrl** (<code>string</code>)  The url to your project's issue tracker. __*Optional*__
   * **bundledDeps** (<code>Array<string></code>)  List of dependencies to bundle into this module. __*Optional*__
-  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for publishing npm package to AWS CodeArtifact. __*Default*__: undefined
+  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for npm packages using AWS CodeArtifact. __*Default*__: undefined
   * **deps** (<code>Array<string></code>)  Runtime dependencies of this module. __*Default*__: []
   * **description** (<code>string</code>)  The description is just a string that helps people understand the purpose of the package. __*Optional*__
   * **devDeps** (<code>Array<string></code>)  Build dependencies for this module. __*Default*__: []
@@ -116,6 +116,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **peerDeps** (<code>Array<string></code>)  Peer dependencies for this module. __*Default*__: []
   * **repository** (<code>string</code>)  The repository is the location where the actual code for your package lives. __*Optional*__
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
+  * **scopedPackagesOptions** (<code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code>)  Options for privately hosted scoped packages. __*Default*__: fetch all scoped packages from the public npm registry
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
@@ -301,7 +302,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **bugsEmail** (<code>string</code>)  The email address to which issues should be reported. __*Optional*__
   * **bugsUrl** (<code>string</code>)  The url to your project's issue tracker. __*Optional*__
   * **bundledDeps** (<code>Array<string></code>)  List of dependencies to bundle into this module. __*Optional*__
-  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for publishing npm package to AWS CodeArtifact. __*Default*__: undefined
+  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for npm packages using AWS CodeArtifact. __*Default*__: undefined
   * **deps** (<code>Array<string></code>)  Runtime dependencies of this module. __*Default*__: []
   * **description** (<code>string</code>)  The description is just a string that helps people understand the purpose of the package. __*Optional*__
   * **devDeps** (<code>Array<string></code>)  Build dependencies for this module. __*Default*__: []
@@ -322,6 +323,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **peerDeps** (<code>Array<string></code>)  Peer dependencies for this module. __*Default*__: []
   * **repository** (<code>string</code>)  The repository is the location where the actual code for your package lives. __*Optional*__
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
+  * **scopedPackagesOptions** (<code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code>)  Options for privately hosted scoped packages. __*Default*__: fetch all scoped packages from the public npm registry
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
@@ -469,7 +471,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **bugsEmail** (<code>string</code>)  The email address to which issues should be reported. __*Optional*__
   * **bugsUrl** (<code>string</code>)  The url to your project's issue tracker. __*Optional*__
   * **bundledDeps** (<code>Array<string></code>)  List of dependencies to bundle into this module. __*Optional*__
-  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for publishing npm package to AWS CodeArtifact. __*Default*__: undefined
+  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for npm packages using AWS CodeArtifact. __*Default*__: undefined
   * **deps** (<code>Array<string></code>)  Runtime dependencies of this module. __*Default*__: []
   * **description** (<code>string</code>)  The description is just a string that helps people understand the purpose of the package. __*Optional*__
   * **devDeps** (<code>Array<string></code>)  Build dependencies for this module. __*Default*__: []
@@ -490,6 +492,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **peerDeps** (<code>Array<string></code>)  Peer dependencies for this module. __*Default*__: []
   * **repository** (<code>string</code>)  The repository is the location where the actual code for your package lives. __*Optional*__
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
+  * **scopedPackagesOptions** (<code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code>)  Options for privately hosted scoped packages. __*Default*__: fetch all scoped packages from the public npm registry
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
@@ -642,7 +645,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **bugsEmail** (<code>string</code>)  The email address to which issues should be reported. __*Optional*__
   * **bugsUrl** (<code>string</code>)  The url to your project's issue tracker. __*Optional*__
   * **bundledDeps** (<code>Array<string></code>)  List of dependencies to bundle into this module. __*Optional*__
-  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for publishing npm package to AWS CodeArtifact. __*Default*__: undefined
+  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for npm packages using AWS CodeArtifact. __*Default*__: undefined
   * **deps** (<code>Array<string></code>)  Runtime dependencies of this module. __*Default*__: []
   * **description** (<code>string</code>)  The description is just a string that helps people understand the purpose of the package. __*Optional*__
   * **devDeps** (<code>Array<string></code>)  Build dependencies for this module. __*Default*__: []
@@ -663,6 +666,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **peerDeps** (<code>Array<string></code>)  Peer dependencies for this module. __*Default*__: []
   * **repository** (<code>string</code>)  The repository is the location where the actual code for your package lives. __*Optional*__
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
+  * **scopedPackagesOptions** (<code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code>)  Options for privately hosted scoped packages. __*Default*__: fetch all scoped packages from the public npm registry
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
@@ -796,7 +800,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **bugsEmail** (<code>string</code>)  The email address to which issues should be reported. __*Optional*__
   * **bugsUrl** (<code>string</code>)  The url to your project's issue tracker. __*Optional*__
   * **bundledDeps** (<code>Array<string></code>)  List of dependencies to bundle into this module. __*Optional*__
-  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for publishing npm package to AWS CodeArtifact. __*Default*__: undefined
+  * **codeArtifactOptions** (<code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code>)  Options for npm packages using AWS CodeArtifact. __*Default*__: undefined
   * **deps** (<code>Array<string></code>)  Runtime dependencies of this module. __*Default*__: []
   * **description** (<code>string</code>)  The description is just a string that helps people understand the purpose of the package. __*Optional*__
   * **devDeps** (<code>Array<string></code>)  Build dependencies for this module. __*Default*__: []
@@ -817,6 +821,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **peerDeps** (<code>Array<string></code>)  Peer dependencies for this module. __*Default*__: []
   * **repository** (<code>string</code>)  The repository is the location where the actual code for your package lives. __*Optional*__
   * **repositoryDirectory** (<code>string</code>)  If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. __*Optional*__
+  * **scopedPackagesOptions** (<code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code>)  Options for privately hosted scoped packages. __*Default*__: fetch all scoped packages from the public npm registry
   * **scripts** (<code>Map<string, string></code>)  npm scripts to include. __*Default*__: {}
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
@@ -933,7 +938,7 @@ Name | Type | Description
 **cdkVersionPinning**?🔹 | <code>boolean</code> | Use pinned version instead of caret version for CDK.<br/>__*Optional*__
 **cdkout**?🔹 | <code>string</code> | cdk.out directory.<br/>__*Default*__: "cdk.out"
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
-**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for publishing npm package to AWS CodeArtifact.<br/>__*Default*__: undefined
+**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
 **constructsVersion**?🔹 | <code>string</code> | Minimum version of the `constructs` library to depend on.<br/>__*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
@@ -1030,6 +1035,7 @@ Name | Type | Description
 **repositoryDirectory**?🔹 | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives.<br/>__*Optional*__
 **requireApproval**?🔹 | <code>[awscdk.ApprovalLevel](#projen-awscdk-approvallevel)</code> | To protect you against unintended changes that affect your security posture, the AWS CDK Toolkit prompts you to approve security-related changes before deploying them.<br/>__*Default*__: ApprovalLevel.BROADENING
 **sampleCode**?🔹 | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there.<br/>__*Default*__: true
+**scopedPackagesOptions**?🔹 | <code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code> | Options for privately hosted scoped packages.<br/>__*Default*__: fetch all scoped packages from the public npm registry
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **sops**? | <code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code> | Enable storing secrets using Mozilla SOPS.<br/>__*Default*__: no SOPS config
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
@@ -1106,7 +1112,7 @@ Name | Type | Description
 **cdkVersionPinning**?🔹 | <code>boolean</code> | Use pinned version instead of caret version for CDK.<br/>__*Optional*__
 **cdkout**?🔹 | <code>string</code> | cdk.out directory.<br/>__*Default*__: "cdk.out"
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
-**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for publishing npm package to AWS CodeArtifact.<br/>__*Default*__: undefined
+**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
 **constructsVersion**?🔹 | <code>string</code> | Minimum version of the `constructs` library to depend on.<br/>__*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
@@ -1203,6 +1209,7 @@ Name | Type | Description
 **repositoryDirectory**?🔹 | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives.<br/>__*Optional*__
 **requireApproval**?🔹 | <code>[awscdk.ApprovalLevel](#projen-awscdk-approvallevel)</code> | To protect you against unintended changes that affect your security posture, the AWS CDK Toolkit prompts you to approve security-related changes before deploying them.<br/>__*Default*__: ApprovalLevel.BROADENING
 **sampleCode**?🔹 | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there.<br/>__*Default*__: true
+**scopedPackagesOptions**?🔹 | <code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code> | Options for privately hosted scoped packages.<br/>__*Default*__: fetch all scoped packages from the public npm registry
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **sops**? | <code>[SopsAspectOptions](#taimos-projen-sopsaspectoptions)</code> | Enable storing secrets using Mozilla SOPS.<br/>__*Default*__: no SOPS config
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
@@ -1266,7 +1273,7 @@ Name | Type | Description
 **cdkTestDependencies**?⚠️ | <code>Array<string></code> | AWS CDK modules required for testing.<br/>__*Optional*__
 **cdkVersionPinning**?🔹 | <code>boolean</code> | Use pinned version instead of caret version for CDK.<br/>__*Optional*__
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
-**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for publishing npm package to AWS CodeArtifact.<br/>__*Default*__: undefined
+**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
 **compat**?🔹 | <code>boolean</code> | Automatically run API compatibility test against the latest version published to npm after compilation.<br/>__*Default*__: false
@@ -1371,6 +1378,7 @@ Name | Type | Description
 **repositoryDirectory**?🔹 | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives.<br/>__*Optional*__
 **rootdir**?🔹 | <code>string</code> | __*Default*__: "."
 **sampleCode**?🔹 | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there.<br/>__*Default*__: true
+**scopedPackagesOptions**?🔹 | <code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code> | Options for privately hosted scoped packages.<br/>__*Default*__: fetch all scoped packages from the public npm registry
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
@@ -1420,7 +1428,7 @@ Name | Type | Description
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
-**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for publishing npm package to AWS CodeArtifact.<br/>__*Default*__: undefined
+**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
@@ -1509,6 +1517,7 @@ Name | Type | Description
 **repository**?🔹 | <code>string</code> | The repository is the location where the actual code for your package lives.<br/>__*Optional*__
 **repositoryDirectory**?🔹 | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives.<br/>__*Optional*__
 **sampleCode**?🔹 | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there.<br/>__*Default*__: true
+**scopedPackagesOptions**?🔹 | <code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code> | Options for privately hosted scoped packages.<br/>__*Default*__: fetch all scoped packages from the public npm registry
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
@@ -1558,7 +1567,7 @@ Name | Type | Description
 **bundledDeps**?🔹 | <code>Array<string></code> | List of dependencies to bundle into this module.<br/>__*Optional*__
 **bundlerOptions**?🔹 | <code>[javascript.BundlerOptions](#projen-javascript-bundleroptions)</code> | Options for `Bundler`.<br/>__*Optional*__
 **clobber**?🔹 | <code>boolean</code> | Add a `clobber` task which resets the repo to origin.<br/>__*Default*__: true
-**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for publishing npm package to AWS CodeArtifact.<br/>__*Default*__: undefined
+**codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
@@ -1647,6 +1656,7 @@ Name | Type | Description
 **repository**?🔹 | <code>string</code> | The repository is the location where the actual code for your package lives.<br/>__*Optional*__
 **repositoryDirectory**?🔹 | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives.<br/>__*Optional*__
 **sampleCode**?🔹 | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there.<br/>__*Default*__: true
+**scopedPackagesOptions**?🔹 | <code>Array<[javascript.ScopedPackagesOptions](#projen-javascript-scopedpackagesoptions)></code> | Options for privately hosted scoped packages.<br/>__*Default*__: fetch all scoped packages from the public npm registry
 **scripts**?🔹 | <code>Map<string, string></code> | npm scripts to include.<br/>__*Default*__: {}
 **srcdir**?🔹 | <code>string</code> | Typescript sources directory.<br/>__*Default*__: "src"
 **stability**?🔹 | <code>string</code> | Package's Stability.<br/>__*Optional*__
