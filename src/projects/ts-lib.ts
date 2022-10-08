@@ -34,6 +34,7 @@ export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
       gitpod: true,
       autoApproveUpgrades: true,
       autoApproveOptions: { allowedUsernames: ['hoegertn', 'taimos-projen[bot]'], secret: 'GITHUB_TOKEN' },
+      depsUpgradeOptions: { workflowOptions: { schedule: javascript.UpgradeDependenciesSchedule.WEEKLY } },
       githubOptions: {
         projenCredentials: github.GithubCredentials.fromApp(),
       },
