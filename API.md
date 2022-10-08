@@ -63,6 +63,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
 
 * **options** (<code>[PrivateTaimosCdkAppOptions](#taimos-projen-privatetaimoscdkappoptions)</code>)  *No description*
   * **name** (<code>string</code>)  This is the name of your project. 
+  * **commitGenerated** (<code>boolean</code>)  Whether to commit the managed files by default. __*Default*__: true
   * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
@@ -124,6 +125,7 @@ new PrivateTaimosCdkApp(options: PrivateTaimosCdkAppOptions)
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
+  * **minMajorVersion** (<code>number</code>)  Minimal Major version to release. __*Default*__: No minimum version is being enforced
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
   * **prerelease** (<code>string</code>)  Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pre"). __*Default*__: normal semantic versions
@@ -274,6 +276,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
 
 * **options** (<code>[TaimosCdkAppOptions](#taimos-projen-taimoscdkappoptions)</code>)  *No description*
   * **name** (<code>string</code>)  This is the name of your project. 
+  * **commitGenerated** (<code>boolean</code>)  Whether to commit the managed files by default. __*Default*__: true
   * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
@@ -335,6 +338,7 @@ new TaimosCdkApp(options: TaimosCdkAppOptions)
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
+  * **minMajorVersion** (<code>number</code>)  Minimal Major version to release. __*Default*__: No minimum version is being enforced
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
   * **prerelease** (<code>string</code>)  Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pre"). __*Default*__: normal semantic versions
@@ -447,6 +451,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
 
 * **options** (<code>[TaimosCdkConstructLibraryOptions](#taimos-projen-taimoscdkconstructlibraryoptions)</code>)  *No description*
   * **name** (<code>string</code>)  This is the name of your project. 
+  * **commitGenerated** (<code>boolean</code>)  Whether to commit the managed files by default. __*Default*__: true
   * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
@@ -508,6 +513,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
+  * **minMajorVersion** (<code>number</code>)  Minimal Major version to release. __*Default*__: No minimum version is being enforced
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
   * **prerelease** (<code>string</code>)  Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pre"). __*Default*__: normal semantic versions
@@ -581,6 +587,7 @@ new TaimosCdkConstructLibrary(options: TaimosCdkConstructLibraryOptions)
   * **repositoryUrl** (<code>string</code>)  Git repository URL. 
   * **compat** (<code>boolean</code>)  Automatically run API compatibility test against the latest version published to npm after compilation. __*Default*__: false
   * **compatIgnore** (<code>string</code>)  Name of the ignore file for API compatibility tests. __*Default*__: ".compatignore"
+  * **compressAssembly** (<code>boolean</code>)  Emit a compressed version of the assembly. __*Default*__: false
   * **docgenFilePath** (<code>string</code>)  File path for generated docs. __*Default*__: "API.md"
   * **dotnet** (<code>[cdk.JsiiDotNetTarget](#projen-cdk-jsiidotnettarget)</code>)  *No description* __*Optional*__
   * **excludeTypescript** (<code>Array<string></code>)  Accepts a list of glob patterns. __*Optional*__
@@ -625,6 +632,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
 
 * **options** (<code>[TaimosPrivateTypescriptLibraryOptions](#taimos-projen-taimosprivatetypescriptlibraryoptions)</code>)  *No description*
   * **name** (<code>string</code>)  This is the name of your project. 
+  * **commitGenerated** (<code>boolean</code>)  Whether to commit the managed files by default. __*Default*__: true
   * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
@@ -686,6 +694,7 @@ new TaimosPrivateTypescriptLibrary(options: TaimosPrivateTypescriptLibraryOption
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
+  * **minMajorVersion** (<code>number</code>)  Minimal Major version to release. __*Default*__: No minimum version is being enforced
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
   * **prerelease** (<code>string</code>)  Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pre"). __*Default*__: normal semantic versions
@@ -783,6 +792,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
 
 * **options** (<code>[TaimosTypescriptLibraryOptions](#taimos-projen-taimostypescriptlibraryoptions)</code>)  *No description*
   * **name** (<code>string</code>)  This is the name of your project. 
+  * **commitGenerated** (<code>boolean</code>)  Whether to commit the managed files by default. __*Default*__: true
   * **logging** (<code>[LoggerOptions](#projen-loggeroptions)</code>)  Configure logging options such as verbosity. __*Default*__: {}
   * **outdir** (<code>string</code>)  The root directory of the project. __*Default*__: "."
   * **parent** (<code>[Project](#projen-project)</code>)  The parent project, if this project is part of a bigger project. __*Optional*__
@@ -844,6 +854,7 @@ new TaimosTypescriptLibrary(options: TaimosTypescriptLibraryOptions)
   * **stability** (<code>string</code>)  Package's Stability. __*Optional*__
   * **jsiiReleaseVersion** (<code>string</code>)  Version requirement of `publib` which is used to publish modules to npm. __*Default*__: "latest"
   * **majorVersion** (<code>number</code>)  Major version to release from the default branch. __*Default*__: Major version is not enforced.
+  * **minMajorVersion** (<code>number</code>)  Minimal Major version to release. __*Default*__: No minimum version is being enforced
   * **npmDistTag** (<code>string</code>)  The npmDistTag to use when publishing from the default branch. __*Default*__: "latest"
   * **postBuildSteps** (<code>Array<[github.workflows.JobStep](#projen-github-workflows-jobstep)></code>)  Steps to execute after build as part of the release workflow. __*Default*__: []
   * **prerelease** (<code>string</code>)  Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pre"). __*Default*__: normal semantic versions
@@ -960,6 +971,7 @@ Name | Type | Description
 **codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
+**commitGenerated**?🔹 | <code>boolean</code> | Whether to commit the managed files by default.<br/>__*Default*__: true
 **constructsVersion**?🔹 | <code>string</code> | Minimum version of the `constructs` library to depend on.<br/>__*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
 **context**?🔹 | <code>Map<string, any></code> | Additional context to include in `cdk.json`.<br/>__*Default*__: no additional context
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
@@ -1002,6 +1014,7 @@ Name | Type | Description
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?⚠️ | <code>boolean</code> | Whether mergify should be enabled on this repository or not.<br/>__*Default*__: true
 **mergifyOptions**?⚠️ | <code>[github.MergifyOptions](#projen-github-mergifyoptions)</code> | Options for mergify.<br/>__*Default*__: default options
+**minMajorVersion**?🔹 | <code>number</code> | Minimal Major version to release.<br/>__*Default*__: No minimum version is being enforced
 **minNodeVersion**?🔹 | <code>string</code> | Minimum Node.js version to require via package.json `engines` (inclusive).<br/>__*Default*__: no "engines" specified
 **mutableBuild**?🔹 | <code>boolean</code> | Automatically update files modified during builds to pull-request branches.<br/>__*Default*__: true
 **npmAccess**?🔹 | <code>[javascript.NpmAccess](#projen-javascript-npmaccess)</code> | Access level of the npm package.<br/>__*Default*__: for scoped packages (e.g. `foo@bar`), the default is `NpmAccess.RESTRICTED`, for non-scoped packages, the default is `NpmAccess.PUBLIC`.
@@ -1138,6 +1151,7 @@ Name | Type | Description
 **codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
+**commitGenerated**?🔹 | <code>boolean</code> | Whether to commit the managed files by default.<br/>__*Default*__: true
 **constructsVersion**?🔹 | <code>string</code> | Minimum version of the `constructs` library to depend on.<br/>__*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
 **context**?🔹 | <code>Map<string, any></code> | Additional context to include in `cdk.json`.<br/>__*Default*__: no additional context
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
@@ -1180,6 +1194,7 @@ Name | Type | Description
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?⚠️ | <code>boolean</code> | Whether mergify should be enabled on this repository or not.<br/>__*Default*__: true
 **mergifyOptions**?⚠️ | <code>[github.MergifyOptions](#projen-github-mergifyoptions)</code> | Options for mergify.<br/>__*Default*__: default options
+**minMajorVersion**?🔹 | <code>number</code> | Minimal Major version to release.<br/>__*Default*__: No minimum version is being enforced
 **minNodeVersion**?🔹 | <code>string</code> | Minimum Node.js version to require via package.json `engines` (inclusive).<br/>__*Default*__: no "engines" specified
 **mutableBuild**?🔹 | <code>boolean</code> | Automatically update files modified during builds to pull-request branches.<br/>__*Default*__: true
 **npmAccess**?🔹 | <code>[javascript.NpmAccess](#projen-javascript-npmaccess)</code> | Access level of the npm package.<br/>__*Default*__: for scoped packages (e.g. `foo@bar`), the default is `NpmAccess.RESTRICTED`, for non-scoped packages, the default is `NpmAccess.PUBLIC`.
@@ -1303,8 +1318,10 @@ Name | Type | Description
 **codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
+**commitGenerated**?🔹 | <code>boolean</code> | Whether to commit the managed files by default.<br/>__*Default*__: true
 **compat**?🔹 | <code>boolean</code> | Automatically run API compatibility test against the latest version published to npm after compilation.<br/>__*Default*__: false
 **compatIgnore**?🔹 | <code>string</code> | Name of the ignore file for API compatibility tests.<br/>__*Default*__: ".compatignore"
+**compressAssembly**?🔹 | <code>boolean</code> | Emit a compressed version of the assembly.<br/>__*Default*__: false
 **constructsVersion**?🔹 | <code>string</code> | Minimum version of the `constructs` library to depend on.<br/>__*Default*__: for CDK 1.x the default is "3.2.27", for CDK 2.x the default is "10.0.5".
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
 **copyrightPeriod**?🔹 | <code>string</code> | The copyright years to put in the LICENSE file.<br/>__*Default*__: current year
@@ -1348,6 +1365,7 @@ Name | Type | Description
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?⚠️ | <code>boolean</code> | Whether mergify should be enabled on this repository or not.<br/>__*Default*__: true
 **mergifyOptions**?⚠️ | <code>[github.MergifyOptions](#projen-github-mergifyoptions)</code> | Options for mergify.<br/>__*Default*__: default options
+**minMajorVersion**?🔹 | <code>number</code> | Minimal Major version to release.<br/>__*Default*__: No minimum version is being enforced
 **minNodeVersion**?🔹 | <code>string</code> | Minimum Node.js version to require via package.json `engines` (inclusive).<br/>__*Default*__: no "engines" specified
 **mutableBuild**?🔹 | <code>boolean</code> | Automatically update files modified during builds to pull-request branches.<br/>__*Default*__: true
 **npmAccess**?🔹 | <code>[javascript.NpmAccess](#projen-javascript-npmaccess)</code> | Access level of the npm package.<br/>__*Default*__: for scoped packages (e.g. `foo@bar`), the default is `NpmAccess.RESTRICTED`, for non-scoped packages, the default is `NpmAccess.PUBLIC`.
@@ -1462,6 +1480,7 @@ Name | Type | Description
 **codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
+**commitGenerated**?🔹 | <code>boolean</code> | Whether to commit the managed files by default.<br/>__*Default*__: true
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
 **copyrightPeriod**?🔹 | <code>string</code> | The copyright years to put in the LICENSE file.<br/>__*Default*__: current year
 **dependabot**?🔹 | <code>boolean</code> | Use dependabot to handle dependency upgrades.<br/>__*Default*__: false
@@ -1496,6 +1515,7 @@ Name | Type | Description
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?⚠️ | <code>boolean</code> | Whether mergify should be enabled on this repository or not.<br/>__*Default*__: true
 **mergifyOptions**?⚠️ | <code>[github.MergifyOptions](#projen-github-mergifyoptions)</code> | Options for mergify.<br/>__*Default*__: default options
+**minMajorVersion**?🔹 | <code>number</code> | Minimal Major version to release.<br/>__*Default*__: No minimum version is being enforced
 **minNodeVersion**?🔹 | <code>string</code> | Minimum Node.js version to require via package.json `engines` (inclusive).<br/>__*Default*__: no "engines" specified
 **mutableBuild**?🔹 | <code>boolean</code> | Automatically update files modified during builds to pull-request branches.<br/>__*Default*__: true
 **npmAccess**?🔹 | <code>[javascript.NpmAccess](#projen-javascript-npmaccess)</code> | Access level of the npm package.<br/>__*Default*__: for scoped packages (e.g. `foo@bar`), the default is `NpmAccess.RESTRICTED`, for non-scoped packages, the default is `NpmAccess.PUBLIC`.
@@ -1604,6 +1624,7 @@ Name | Type | Description
 **codeArtifactOptions**?🔹 | <code>[javascript.CodeArtifactOptions](#projen-javascript-codeartifactoptions)</code> | Options for npm packages using AWS CodeArtifact.<br/>__*Default*__: undefined
 **codeCov**?🔹 | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v1 A secret is required for private repos. Configured with @codeCovTokenSecret.<br/>__*Default*__: false
 **codeCovTokenSecret**?🔹 | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.<br/>__*Default*__: if this option is not specified, only public repositories are supported
+**commitGenerated**?🔹 | <code>boolean</code> | Whether to commit the managed files by default.<br/>__*Default*__: true
 **copyrightOwner**?🔹 | <code>string</code> | License copyright owner.<br/>__*Default*__: defaults to the value of authorName or "" if `authorName` is undefined.
 **copyrightPeriod**?🔹 | <code>string</code> | The copyright years to put in the LICENSE file.<br/>__*Default*__: current year
 **dependabot**?🔹 | <code>boolean</code> | Use dependabot to handle dependency upgrades.<br/>__*Default*__: false
@@ -1638,6 +1659,7 @@ Name | Type | Description
 **maxNodeVersion**?🔹 | <code>string</code> | Minimum node.js version to require via `engines` (inclusive).<br/>__*Default*__: no max
 **mergify**?⚠️ | <code>boolean</code> | Whether mergify should be enabled on this repository or not.<br/>__*Default*__: true
 **mergifyOptions**?⚠️ | <code>[github.MergifyOptions](#projen-github-mergifyoptions)</code> | Options for mergify.<br/>__*Default*__: default options
+**minMajorVersion**?🔹 | <code>number</code> | Minimal Major version to release.<br/>__*Default*__: No minimum version is being enforced
 **minNodeVersion**?🔹 | <code>string</code> | Minimum Node.js version to require via package.json `engines` (inclusive).<br/>__*Default*__: no "engines" specified
 **mutableBuild**?🔹 | <code>boolean</code> | Automatically update files modified during builds to pull-request branches.<br/>__*Default*__: true
 **npmAccess**?🔹 | <code>[javascript.NpmAccess](#projen-javascript-npmaccess)</code> | Access level of the npm package.<br/>__*Default*__: for scoped packages (e.g. `foo@bar`), the default is `NpmAccess.RESTRICTED`, for non-scoped packages, the default is `NpmAccess.PUBLIC`.
