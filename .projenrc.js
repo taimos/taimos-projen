@@ -11,9 +11,11 @@ const project = new cdk.JsiiProject({
   defaultReleaseBranch: 'main',
   peerDeps: [
     'projen',
+    'constructs',
   ],
   devDeps: [
     'projen',
+    'constructs',
   ],
   license: 'Apache-2.0',
   licensed: true,

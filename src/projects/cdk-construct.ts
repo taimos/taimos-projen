@@ -15,7 +15,7 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
     super({
       authorOrganization: true,
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2021',
+      copyrightPeriod: '2024',
       catalog: {
         announce: true,
         twitter: 'hoegertn',
@@ -35,7 +35,6 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
 - [ ] The commit message describes your change
 - [ ] Tests for the changes have been added if possible (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
-- [ ] Changes are mentioned in the changelog (for bug fixes / features)
 
 
 * **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)
