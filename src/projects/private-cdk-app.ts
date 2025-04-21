@@ -16,7 +16,6 @@ export class PrivateTaimosCdkApp extends TaimosCdkApp {
     super({
       licensed: false,
       npmAccess: javascript.NpmAccess.RESTRICTED,
-      codeArtifact: true,
       ...options,
     });
 

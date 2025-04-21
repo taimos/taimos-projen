@@ -1,4 +1,4 @@
-import { awscdk, DevEnvironmentDockerImage, javascript, github } from 'projen';
+import { awscdk, javascript, github } from 'projen';
 
 export interface TaimosCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {
   //
@@ -15,7 +15,7 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
     super({
       authorOrganization: true,
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2024',
+      copyrightPeriod: '2025',
       catalog: {
         announce: true,
         twitter: 'hoegertn',
@@ -24,7 +24,7 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
       stability: 'experimental',
       releaseToNpm: true,
       npmAccess: javascript.NpmAccess.PUBLIC,
-      gitpod: true,
+      gitpod: false,
       autoApproveUpgrades: true,
       autoApproveOptions: { allowedUsernames: ['hoegertn', 'taimos-projen[bot]'], secret: 'GITHUB_TOKEN' },
       depsUpgradeOptions: { workflowOptions: { schedule: javascript.UpgradeDependenciesSchedule.WEEKLY } },
@@ -57,13 +57,6 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
       ...options,
     });
 
-    if (this.gitpod) {
-      this.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
-      this.gitpod.addCustomTask({
-        init: 'yarn install --check-files --frozen-lockfile',
-        command: 'npx projen build',
-      });
-    }
   }
 
 }

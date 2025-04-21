@@ -1,4 +1,4 @@
-import { DevEnvironmentDockerImage, javascript, typescript, github } from 'projen';
+import { javascript, typescript, github } from 'projen';
 
 export interface TaimosTypescriptLibraryOptions extends typescript.TypeScriptProjectOptions {
   //
@@ -23,20 +23,12 @@ export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
       licensed: true,
       stability: 'experimental',
       docgen: true,
-      tsconfig: {
-        compilerOptions: {
-          esModuleInterop: true,
-        },
-      },
       releaseToNpm: true,
       npmAccess: javascript.NpmAccess.PUBLIC,
-      gitpod: true,
+      gitpod: false,
       autoApproveUpgrades: true,
       autoApproveOptions: { allowedUsernames: ['hoegertn', 'taimos-projen[bot]'], secret: 'GITHUB_TOKEN' },
       depsUpgradeOptions: { workflowOptions: { schedule: javascript.UpgradeDependenciesSchedule.WEEKLY } },
-      githubOptions: {
-        projenCredentials: github.GithubCredentials.fromApp(),
-      },
       pullRequestTemplateContents: [`* **Please check if the PR fulfills these requirements**
 - [ ] The commit message describes your change
 - [ ] Tests for the changes have been added if possible (for bug fixes / features)
@@ -61,19 +53,24 @@ export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
 
 * **Other information**:`],
       ...options,
+      tsconfig: {
+        ...options.tsconfig,
+        compilerOptions: {
+          esModuleInterop: true,
+          ...options.tsconfig?.compilerOptions,
+        },
+      },
+      githubOptions: {
+        projenCredentials: github.GithubCredentials.fromApp(),
+        mergify: false,
+        ...options.githubOptions,
+      },
       devDeps: [
         'ts-node',
         ...options.devDeps ?? [],
       ],
     });
 
-    if (this.gitpod) {
-      this.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
-      this.gitpod.addCustomTask({
-        init: 'yarn install --check-files --frozen-lockfile',
-        command: 'npx projen build',
-      });
-    }
   }
 
 }

@@ -1,12 +1,7 @@
-import { awscdk, DevEnvironmentDockerImage } from 'projen';
+import { awscdk, javascript } from 'projen';
 
 export interface TaimosCdkAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {
-  /**
-   * Whether to enable integration with AWS CodeArtifact for package management.
-   *
-   * @default false
-   */
-  readonly codeArtifact?: boolean;
+  //
 }
 
 /**
@@ -23,30 +18,26 @@ export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
       authorOrganization: true,
       authorUrl: 'https://www.taimos.de',
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2024',
+      copyrightPeriod: '2025',
       requireApproval: awscdk.ApprovalLevel.NEVER,
-      mergify: false,
+      cdkVersionPinning: true,
+      constructsVersion: '10.4.2',
+      projenrcTs: true,
+      packageManager: javascript.NodePackageManager.NPM,
+      ...options ?? {},
+      githubOptions: {
+        mergify: false,
+        ...options.githubOptions ?? {},
+      },
       tsconfig: {
+        ...options.tsconfig ?? {},
         compilerOptions: {
           esModuleInterop: true,
+          ...options.tsconfig?.compilerOptions ?? {},
         },
       },
-      ...options,
     });
-
-    if (options.codeArtifactOptions) {
-      this.npmrc.addRegistry('https://taimos-292004443359.d.codeartifact.eu-central-1.amazonaws.com/npm/main/');
-      this.npmrc.addConfig('//taimos-292004443359.d.codeartifact.eu-central-1.amazonaws.com/npm/main/:_authToken', '${CODEARTIFACT_AUTH_TOKEN}');
-      this.npmrc.addConfig('//taimos-292004443359.d.codeartifact.eu-central-1.amazonaws.com/npm/main/:always-auth', 'true');
-    }
-
-    if (this.gitpod) {
-      this.gitpod.addDockerImage(DevEnvironmentDockerImage.fromImage('taimos/gitpod'));
-      this.gitpod.addCustomTask({
-        init: 'yarn install --check-files --frozen-lockfile',
-        command: 'npx projen build',
-      });
-    }
+    this.addDevDeps('@taimos/projen');
   }
 
 }
