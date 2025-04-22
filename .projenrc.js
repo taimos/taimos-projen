@@ -11,11 +11,11 @@ const project = new cdk.JsiiProject({
   packageManager: javascript.NodePackageManager.NPM,
   defaultReleaseBranch: 'main',
   peerDeps: [
-    'projen@^0.91.20',
+    'projen@^0.91.25',
     'constructs@^10.4.2',
   ],
   devDeps: [
-    'projen@0.91.20',
+    'projen@0.91.25',
     'constructs@10.4.2',
   ],
   license: 'Apache-2.0',
