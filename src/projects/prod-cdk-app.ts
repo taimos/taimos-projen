@@ -16,15 +16,21 @@ export interface SonarcloudOptions {
 export interface ProductionTaimosCdkAppOptions extends TaimosCdkAppOptions {
   /**
    * Whether to enable Lumigo.
+   *
+   * @default true
    */
   readonly lumigo?: boolean;
   /**
    * Whether to enable SOPS.
+   *
+   * @default true
    */
   readonly sops?: boolean;
 
   /**
    * Whether to enable SonarCloud.
+   *
+   * @default true
    */
   readonly sonarcloud?: boolean;
   /**
@@ -48,7 +54,6 @@ export class ProductionTaimosCdkApp extends TaimosCdkApp {
   constructor(options: ProductionTaimosCdkAppOptions) {
     super({
       licensed: false,
-      npmAccess: javascript.NpmAccess.RESTRICTED,
       projenCredentials: GithubCredentials.fromApp(),
       ...options,
       depsUpgradeOptions: {
@@ -94,15 +99,15 @@ export class ProductionTaimosCdkApp extends TaimosCdkApp {
       ],
     });
 
-    if (options.lumigo) {
+    if (options.lumigo ?? true) {
       this.addDeps('@lumigo/cdk-constructs-v2');
     }
 
-    if (options.sops) {
+    if (options.sops ?? true) {
       this.addDeps('cdk-sops-secrets');
     }
 
-    if (options.sonarcloud) {
+    if (options.sonarcloud ?? true) {
       this.sonarcloud = new IniFile(this, '.sonarcloud.properties', {
         obj: {
           'sonar.sources': this.srcdir ?? 'src',

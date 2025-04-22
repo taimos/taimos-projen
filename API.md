@@ -14683,6 +14683,7 @@ public readonly lumigo: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
 
 Whether to enable Lumigo.
 
@@ -14695,6 +14696,7 @@ public readonly sonarcloud: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
 
 Whether to enable SonarCloud.
 
@@ -14719,6 +14721,7 @@ public readonly sops: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
 
 Whether to enable SOPS.
 
