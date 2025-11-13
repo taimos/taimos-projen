@@ -107,13 +107,13 @@ export class ProductionTaimosCdkApp extends TaimosCdkApp {
       this.addDeps('cdk-sops-secrets');
     }
 
-    if (options.sonarcloud ?? true) {
+    if (options.sonarcloud ?? false) {
       this.sonarcloud = new IniFile(this, '.sonarcloud.properties', {
         obj: {
           'sonar.sources': this.srcdir ?? 'src',
           'sonar.tests': this.testdir ?? 'test',
           'sonar.exclusions': options.sonarcloudOptions?.exclude?.join(',') ?? 'src/generated/**',
-          'sonar.cpd.exclusions': options.sonarcloudOptions?.excludeDuplications?.join(',') ?? '**/*.test.ts',
+          'sonar.cpd.exclusions': options.sonarcloudOptions?.excludeDuplications?.join(',') ?? '**/*',
         },
       });
     }
