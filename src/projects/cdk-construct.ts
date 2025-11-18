@@ -1,7 +1,12 @@
 import { awscdk, javascript, github } from 'projen';
 
 export interface TaimosCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {
-  //
+  /**
+   * Whether to enable private NPM registry authentication.
+   *
+   * @default false
+   */
+  readonly privateNpm?: boolean;
 }
 
 /**
@@ -56,6 +61,10 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
 * **Other information**:`],
       ...options,
     });
+
+    if (options.privateNpm ?? false) {
+      this.npmrc.addConfig('//registry.npmjs.org/:_authToken', '${NPM_TOKEN}');
+    }
 
   }
 

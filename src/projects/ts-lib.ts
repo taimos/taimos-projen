@@ -1,7 +1,12 @@
 import { javascript, typescript, github } from 'projen';
 
 export interface TaimosTypescriptLibraryOptions extends typescript.TypeScriptProjectOptions {
-  //
+  /**
+   * Whether to enable private NPM registry authentication.
+   *
+   * @default false
+   */
+  readonly privateNpm?: boolean;
 }
 
 /**
@@ -70,6 +75,10 @@ export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
         ...options.devDeps ?? [],
       ],
     });
+
+    if (options.privateNpm ?? false) {
+      this.npmrc.addConfig('//registry.npmjs.org/:_authToken', '${NPM_TOKEN}');
+    }
 
   }
 

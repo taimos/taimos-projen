@@ -9626,6 +9626,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 
 ---
 
@@ -12130,6 +12131,19 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `privateNpm`<sup>Optional</sup> <a name="privateNpm" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.privateNpm"></a>
+
+```typescript
+public readonly privateNpm: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable private NPM registry authentication.
+
+---
+
 ### ProductionTaimosCdkAppOptions <a name="ProductionTaimosCdkAppOptions" id="@taimos/projen.ProductionTaimosCdkAppOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.ProductionTaimosCdkAppOptions.Initializer"></a>
@@ -12318,6 +12332,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lumigo">lumigo</a></code> | <code>boolean</code> | Whether to enable Lumigo. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sonarcloud">sonarcloud</a></code> | <code>boolean</code> | Whether to enable SonarCloud. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sonarcloudOptions">sonarcloudOptions</a></code> | <code><a href="#@taimos/projen.SonarcloudOptions">SonarcloudOptions</a></code> | The SonarCloud options. |
@@ -14826,6 +14841,19 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `privateNpm`<sup>Optional</sup> <a name="privateNpm" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpm"></a>
+
+```typescript
+public readonly privateNpm: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable private NPM registry authentication.
+
+---
+
 ##### `lumigo`<sup>Optional</sup> <a name="lumigo" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.lumigo"></a>
 
 ```typescript
@@ -15108,6 +15136,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 
 ---
 
@@ -17612,6 +17641,19 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `privateNpm`<sup>Optional</sup> <a name="privateNpm" id="@taimos/projen.TaimosCdkAppOptions.property.privateNpm"></a>
+
+```typescript
+public readonly privateNpm: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable private NPM registry authentication.
+
+---
+
 ### TaimosCdkConstructLibraryOptions <a name="TaimosCdkConstructLibraryOptions" id="@taimos/projen.TaimosCdkConstructLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosCdkConstructLibraryOptions.Initializer"></a>
@@ -17808,6 +17850,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `aws_lambda.Function` for each `.lambda.ts` handler in your source tree. If this is disabled, you either need to explicitly call `aws_lambda.Function.autoDiscover()` or define a `new aws_lambda.Function()` for each handler. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 
 ---
 
@@ -20435,6 +20478,19 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `privateNpm`<sup>Optional</sup> <a name="privateNpm" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.privateNpm"></a>
+
+```typescript
+public readonly privateNpm: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable private NPM registry authentication.
+
+---
+
 ### TaimosPrivateTypescriptLibraryOptions <a name="TaimosPrivateTypescriptLibraryOptions" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.Initializer"></a>
@@ -20599,6 +20655,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 
 ---
 
@@ -22763,6 +22820,19 @@ same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
+##### `privateNpm`<sup>Optional</sup> <a name="privateNpm" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpm"></a>
+
+```typescript
+public readonly privateNpm: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable private NPM registry authentication.
+
+---
+
 ### TaimosTypescriptLibraryOptions <a name="TaimosTypescriptLibraryOptions" id="@taimos/projen.TaimosTypescriptLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosTypescriptLibraryOptions.Initializer"></a>
@@ -22927,6 +22997,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 
 ---
 
@@ -25088,6 +25159,19 @@ TypeScript version to use.
 
 NOTE: Typescript is not semantically versioned and should remain on the
 same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
+
+---
+
+##### `privateNpm`<sup>Optional</sup> <a name="privateNpm" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpm"></a>
+
+```typescript
+public readonly privateNpm: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable private NPM registry authentication.
 
 ---
 
