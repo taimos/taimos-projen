@@ -1,7 +1,18 @@
 import { awscdk, javascript } from 'projen';
 
 export interface TaimosCdkAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {
-  //
+  /**
+   * Whether to enable private NPM registry authentication.
+   *
+   * @default false
+   */
+  readonly privateNpm?: boolean;
+  /**
+   * The environment variable name containing the NPM authentication token.
+   *
+   * @default 'NPM_TOKEN'
+   */
+  readonly privateNpmTokenEnvVar?: string;
 }
 
 /**
@@ -38,6 +49,11 @@ export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
       },
     });
     this.addDevDeps('@taimos/projen');
+
+    if (options.privateNpm ?? false) {
+      const tokenEnvVar = options.privateNpmTokenEnvVar ?? 'NPM_TOKEN';
+      this.npmrc.addConfig('//registry.npmjs.org/:_authToken', `\${${tokenEnvVar}}`);
+    }
   }
 
 }
