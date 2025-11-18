@@ -9627,6 +9627,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
 
 ---
 
@@ -12144,6 +12145,19 @@ Whether to enable private NPM registry authentication.
 
 ---
 
+##### `privateNpmTokenEnvVar`<sup>Optional</sup> <a name="privateNpmTokenEnvVar" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.privateNpmTokenEnvVar"></a>
+
+```typescript
+public readonly privateNpmTokenEnvVar: string;
+```
+
+- *Type:* string
+- *Default:* 'NPM_TOKEN'
+
+The environment variable name containing the NPM authentication token.
+
+---
+
 ### ProductionTaimosCdkAppOptions <a name="ProductionTaimosCdkAppOptions" id="@taimos/projen.ProductionTaimosCdkAppOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.ProductionTaimosCdkAppOptions.Initializer"></a>
@@ -12333,6 +12347,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lumigo">lumigo</a></code> | <code>boolean</code> | Whether to enable Lumigo. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sonarcloud">sonarcloud</a></code> | <code>boolean</code> | Whether to enable SonarCloud. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sonarcloudOptions">sonarcloudOptions</a></code> | <code><a href="#@taimos/projen.SonarcloudOptions">SonarcloudOptions</a></code> | The SonarCloud options. |
@@ -14854,6 +14869,19 @@ Whether to enable private NPM registry authentication.
 
 ---
 
+##### `privateNpmTokenEnvVar`<sup>Optional</sup> <a name="privateNpmTokenEnvVar" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpmTokenEnvVar"></a>
+
+```typescript
+public readonly privateNpmTokenEnvVar: string;
+```
+
+- *Type:* string
+- *Default:* 'NPM_TOKEN'
+
+The environment variable name containing the NPM authentication token.
+
+---
+
 ##### `lumigo`<sup>Optional</sup> <a name="lumigo" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.lumigo"></a>
 
 ```typescript
@@ -15137,6 +15165,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
 
 ---
 
@@ -17654,6 +17683,19 @@ Whether to enable private NPM registry authentication.
 
 ---
 
+##### `privateNpmTokenEnvVar`<sup>Optional</sup> <a name="privateNpmTokenEnvVar" id="@taimos/projen.TaimosCdkAppOptions.property.privateNpmTokenEnvVar"></a>
+
+```typescript
+public readonly privateNpmTokenEnvVar: string;
+```
+
+- *Type:* string
+- *Default:* 'NPM_TOKEN'
+
+The environment variable name containing the NPM authentication token.
+
+---
+
 ### TaimosCdkConstructLibraryOptions <a name="TaimosCdkConstructLibraryOptions" id="@taimos/projen.TaimosCdkConstructLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosCdkConstructLibraryOptions.Initializer"></a>
@@ -17851,6 +17893,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
 
 ---
 
@@ -20491,6 +20534,19 @@ Whether to enable private NPM registry authentication.
 
 ---
 
+##### `privateNpmTokenEnvVar`<sup>Optional</sup> <a name="privateNpmTokenEnvVar" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.privateNpmTokenEnvVar"></a>
+
+```typescript
+public readonly privateNpmTokenEnvVar: string;
+```
+
+- *Type:* string
+- *Default:* 'NPM_TOKEN'
+
+The environment variable name containing the NPM authentication token.
+
+---
+
 ### TaimosPrivateTypescriptLibraryOptions <a name="TaimosPrivateTypescriptLibraryOptions" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.Initializer"></a>
@@ -20656,6 +20712,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
 
 ---
 
@@ -22833,6 +22890,19 @@ Whether to enable private NPM registry authentication.
 
 ---
 
+##### `privateNpmTokenEnvVar`<sup>Optional</sup> <a name="privateNpmTokenEnvVar" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpmTokenEnvVar"></a>
+
+```typescript
+public readonly privateNpmTokenEnvVar: string;
+```
+
+- *Type:* string
+- *Default:* 'NPM_TOKEN'
+
+The environment variable name containing the NPM authentication token.
+
+---
+
 ### TaimosTypescriptLibraryOptions <a name="TaimosTypescriptLibraryOptions" id="@taimos/projen.TaimosTypescriptLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosTypescriptLibraryOptions.Initializer"></a>
@@ -22998,6 +23068,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
 
 ---
 
@@ -25172,6 +25243,19 @@ public readonly privateNpm: boolean;
 - *Default:* false
 
 Whether to enable private NPM registry authentication.
+
+---
+
+##### `privateNpmTokenEnvVar`<sup>Optional</sup> <a name="privateNpmTokenEnvVar" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpmTokenEnvVar"></a>
+
+```typescript
+public readonly privateNpmTokenEnvVar: string;
+```
+
+- *Type:* string
+- *Default:* 'NPM_TOKEN'
+
+The environment variable name containing the NPM authentication token.
 
 ---
 
