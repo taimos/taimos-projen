@@ -30,7 +30,7 @@
     },
     {
       "name": "constructs",
-      "version": "10.4.2",
+      "version": "10.4.4",
       "type": "build"
     },
     {
@@ -92,12 +92,12 @@
     },
     {
       "name": "constructs",
-      "version": "^10.4.2",
+      "version": "^10.4.4",
       "type": "peer"
     },
     {
       "name": "projen",
-      "version": ">=0.94.2 <1.0.0",
+      "version": ">=0.98.32 <1.0.0",
       "type": "peer"
     }
   ],
