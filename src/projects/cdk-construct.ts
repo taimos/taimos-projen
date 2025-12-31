@@ -34,6 +34,7 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
       license: 'Apache-2.0',
       stability: 'experimental',
       releaseToNpm: true,
+      npmTrustedPublishing: true,
       npmAccess: javascript.NpmAccess.PUBLIC,
       gitpod: false,
       autoApproveUpgrades: true,

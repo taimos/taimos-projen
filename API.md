@@ -9508,6 +9508,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.npmRegistry">npmRegistry</a></code> | <code>string</code> | The host name of the npm registry to publish to. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.npmRegistryUrl">npmRegistryUrl</a></code> | <code>string</code> | The base URL of the npm package registry. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.npmTokenSecret">npmTokenSecret</a></code> | <code>string</code> | GitHub secret which contains the NPM token to use when publishing packages. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.npmTrustedPublishing">npmTrustedPublishing</a></code> | <code>boolean</code> | Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | The Node Package Manager used to execute scripts. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
@@ -9531,12 +9532,14 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.publishTasks">publishTasks</a></code> | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releasableCommits">releasableCommits</a></code> | <code>projen.ReleasableCommits</code> | Find commits that should be considered releasable Used to decide if a release is required. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseBranches">releaseBranches</a></code> | <code>{[ key: string ]: projen.release.BranchOptions}</code> | Defines additional release branches. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseEnvironment">releaseEnvironment</a></code> | <code>string</code> | The GitHub Actions environment used for the release. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseEveryCommit">releaseEveryCommit</a></code> | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseFailureIssue">releaseFailureIssue</a></code> | <code>boolean</code> | Create a github issue on every failed publishing task. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseFailureIssueLabel">releaseFailureIssueLabel</a></code> | <code>string</code> | The label to apply to issues indicating publish failures. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseSchedule">releaseSchedule</a></code> | <code>string</code> | CRON schedule to trigger new releases. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseTagPrefix">releaseTagPrefix</a></code> | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseTrigger">releaseTrigger</a></code> | <code>projen.release.ReleaseTrigger</code> | The release trigger to use. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseWorkflowEnv">releaseWorkflowEnv</a></code> | <code>{[ key: string ]: string}</code> | Build environment variables for release workflows. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseWorkflowName">releaseWorkflowName</a></code> | <code>string</code> | The name of the default release workflow. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseWorkflowSetupSteps">releaseWorkflowSetupSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | A set of workflow steps to execute in order to setup the workflow container. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.versionrcOptions">versionrcOptions</a></code> | <code>{[ key: string ]: any}</code> | Custom configuration used when creating changelog with commit-and-tag-version package. |
@@ -9545,6 +9548,8 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.workflowRunsOnGroup">workflowRunsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The name of the main release branch. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.auditDeps">auditDeps</a></code> | <code>boolean</code> | Run security audit on dependencies. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.auditDepsOptions">auditDepsOptions</a></code> | <code>projen.javascript.AuditOptions</code> | Security audit options. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.biome">biome</a></code> | <code>boolean</code> | Setup Biome. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.biomeOptions">biomeOptions</a></code> | <code>projen.javascript.BiomeOptions</code> | Biome options. |
@@ -9553,8 +9558,8 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
-| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.dependabot">dependabot</a></code> | <code>boolean</code> | Use dependabot to handle dependency upgrades. |
@@ -9605,7 +9610,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.buildCommand">buildCommand</a></code> | <code>string</code> | A command to execute before synthesis. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.cdkout">cdkout</a></code> | <code>string</code> | cdk.out directory. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.context">context</a></code> | <code>{[ key: string ]: any}</code> | Additional context to include in `cdk.json`. |
-| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.featureFlags">featureFlags</a></code> | <code>boolean</code> | Include all feature flags in cdk.json. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.featureFlags">featureFlags</a></code> | <code>projen.awscdk.ICdkFeatureFlags</code> | Feature flags that should be enabled in `cdk.json`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.requireApproval">requireApproval</a></code> | <code>projen.awscdk.ApprovalLevel</code> | To protect you against unintended changes that affect your security posture, the AWS CDK Toolkit prompts you to approve security-related changes before deploying them. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.watchExcludes">watchExcludes</a></code> | <code>string[]</code> | Glob patterns to exclude from `cdk watch`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.watchIncludes">watchIncludes</a></code> | <code>string[]</code> | Glob patterns to include in `cdk watch`. |
@@ -10474,6 +10479,19 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
+##### `npmTrustedPublishing`<sup>Optional</sup> <a name="npmTrustedPublishing" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.npmTrustedPublishing"></a>
+
+```typescript
+public readonly npmTrustedPublishing: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work.
+
+---
+
 ##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.packageManager"></a>
 
 ```typescript
@@ -10833,6 +10851,25 @@ be provided for the default branch.
 
 ---
 
+##### `releaseEnvironment`<sup>Optional</sup> <a name="releaseEnvironment" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseEnvironment"></a>
+
+```typescript
+public readonly releaseEnvironment: string;
+```
+
+- *Type:* string
+- *Default:* no environment used, unless set at the artifact level
+
+The GitHub Actions environment used for the release.
+
+This can be used to add an explicit approval step to the release
+or limit who can initiate a release through environment protection rules.
+
+When multiple artifacts are released, the environment can be overwritten
+on a per artifact basis.
+
+---
+
 ##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="releaseEveryCommit" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
@@ -10919,6 +10956,19 @@ public readonly releaseTrigger: ReleaseTrigger;
 - *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
 
 The release trigger to use.
+
+---
+
+##### `releaseWorkflowEnv`<sup>Optional</sup> <a name="releaseWorkflowEnv" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.releaseWorkflowEnv"></a>
+
+```typescript
+public readonly releaseWorkflowEnv: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Build environment variables for release workflows.
 
 ---
 
@@ -11023,6 +11073,36 @@ public readonly artifactsDirectory: string;
 - *Default:* "dist"
 
 A directory which will contain build artifacts.
+
+---
+
+##### `auditDeps`<sup>Optional</sup> <a name="auditDeps" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.auditDeps"></a>
+
+```typescript
+public readonly auditDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Run security audit on dependencies.
+
+When enabled, creates an "audit" task that checks for known security vulnerabilities
+in dependencies. By default, runs during every build and checks for "high" severity
+vulnerabilities or above in all dependencies (including dev dependencies).
+
+---
+
+##### `auditDepsOptions`<sup>Optional</sup> <a name="auditDepsOptions" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.auditDepsOptions"></a>
+
+```typescript
+public readonly auditDepsOptions: AuditOptions;
+```
+
+- *Type:* projen.javascript.AuditOptions
+- *Default:* default options
+
+Security audit options.
 
 ---
 
@@ -11143,7 +11223,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -11154,9 +11234,9 @@ public readonly codeCovTokenSecret: string;
 ```
 
 - *Type:* string
-- *Default:* if this option is not specified, only public repositories are supported
+- *Default:* OIDC auth is used
 
-Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.
+Define the secret name for a specified https://codecov.io/ token.
 
 ---
 
@@ -11518,7 +11598,7 @@ public readonly workflowGitIdentity: GitIdentity;
 ```
 
 - *Type:* projen.github.GitIdentity
-- *Default:* GitHub Actions
+- *Default:* default GitHub Actions user
 
 The git identity to use in workflows.
 
@@ -11838,13 +11918,17 @@ Additional context to include in `cdk.json`.
 ##### `featureFlags`<sup>Optional</sup> <a name="featureFlags" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.featureFlags"></a>
 
 ```typescript
-public readonly featureFlags: boolean;
+public readonly featureFlags: ICdkFeatureFlags;
 ```
 
-- *Type:* boolean
-- *Default:* true
+- *Type:* projen.awscdk.ICdkFeatureFlags
+- *Default:* no feature flags are enabled by default
 
-Include all feature flags in cdk.json.
+Feature flags that should be enabled in `cdk.json`.
+
+Make sure to double-check any changes to feature flags in `cdk.json` before deploying.
+Unexpected changes may cause breaking changes in your CDK app.
+You can overwrite any feature flag by passing it into the context field.
 
 ---
 
@@ -12228,6 +12312,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.npmRegistry">npmRegistry</a></code> | <code>string</code> | The host name of the npm registry to publish to. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.npmRegistryUrl">npmRegistryUrl</a></code> | <code>string</code> | The base URL of the npm package registry. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.npmTokenSecret">npmTokenSecret</a></code> | <code>string</code> | GitHub secret which contains the NPM token to use when publishing packages. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.npmTrustedPublishing">npmTrustedPublishing</a></code> | <code>boolean</code> | Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | The Node Package Manager used to execute scripts. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
@@ -12251,12 +12336,14 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.publishTasks">publishTasks</a></code> | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releasableCommits">releasableCommits</a></code> | <code>projen.ReleasableCommits</code> | Find commits that should be considered releasable Used to decide if a release is required. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseBranches">releaseBranches</a></code> | <code>{[ key: string ]: projen.release.BranchOptions}</code> | Defines additional release branches. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseEnvironment">releaseEnvironment</a></code> | <code>string</code> | The GitHub Actions environment used for the release. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseEveryCommit">releaseEveryCommit</a></code> | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseFailureIssue">releaseFailureIssue</a></code> | <code>boolean</code> | Create a github issue on every failed publishing task. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseFailureIssueLabel">releaseFailureIssueLabel</a></code> | <code>string</code> | The label to apply to issues indicating publish failures. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseSchedule">releaseSchedule</a></code> | <code>string</code> | CRON schedule to trigger new releases. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseTagPrefix">releaseTagPrefix</a></code> | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseTrigger">releaseTrigger</a></code> | <code>projen.release.ReleaseTrigger</code> | The release trigger to use. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseWorkflowEnv">releaseWorkflowEnv</a></code> | <code>{[ key: string ]: string}</code> | Build environment variables for release workflows. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseWorkflowName">releaseWorkflowName</a></code> | <code>string</code> | The name of the default release workflow. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseWorkflowSetupSteps">releaseWorkflowSetupSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | A set of workflow steps to execute in order to setup the workflow container. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.versionrcOptions">versionrcOptions</a></code> | <code>{[ key: string ]: any}</code> | Custom configuration used when creating changelog with commit-and-tag-version package. |
@@ -12265,6 +12352,8 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.workflowRunsOnGroup">workflowRunsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The name of the main release branch. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.auditDeps">auditDeps</a></code> | <code>boolean</code> | Run security audit on dependencies. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.auditDepsOptions">auditDepsOptions</a></code> | <code>projen.javascript.AuditOptions</code> | Security audit options. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.biome">biome</a></code> | <code>boolean</code> | Setup Biome. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.biomeOptions">biomeOptions</a></code> | <code>projen.javascript.BiomeOptions</code> | Biome options. |
@@ -12273,8 +12362,8 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
-| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.dependabot">dependabot</a></code> | <code>boolean</code> | Use dependabot to handle dependency upgrades. |
@@ -12325,7 +12414,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.buildCommand">buildCommand</a></code> | <code>string</code> | A command to execute before synthesis. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.cdkout">cdkout</a></code> | <code>string</code> | cdk.out directory. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.context">context</a></code> | <code>{[ key: string ]: any}</code> | Additional context to include in `cdk.json`. |
-| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.featureFlags">featureFlags</a></code> | <code>boolean</code> | Include all feature flags in cdk.json. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.featureFlags">featureFlags</a></code> | <code>projen.awscdk.ICdkFeatureFlags</code> | Feature flags that should be enabled in `cdk.json`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.requireApproval">requireApproval</a></code> | <code>projen.awscdk.ApprovalLevel</code> | To protect you against unintended changes that affect your security posture, the AWS CDK Toolkit prompts you to approve security-related changes before deploying them. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.watchExcludes">watchExcludes</a></code> | <code>string[]</code> | Glob patterns to exclude from `cdk watch`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.watchIncludes">watchIncludes</a></code> | <code>string[]</code> | Glob patterns to include in `cdk watch`. |
@@ -13198,6 +13287,19 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
+##### `npmTrustedPublishing`<sup>Optional</sup> <a name="npmTrustedPublishing" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.npmTrustedPublishing"></a>
+
+```typescript
+public readonly npmTrustedPublishing: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work.
+
+---
+
 ##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.packageManager"></a>
 
 ```typescript
@@ -13557,6 +13659,25 @@ be provided for the default branch.
 
 ---
 
+##### `releaseEnvironment`<sup>Optional</sup> <a name="releaseEnvironment" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseEnvironment"></a>
+
+```typescript
+public readonly releaseEnvironment: string;
+```
+
+- *Type:* string
+- *Default:* no environment used, unless set at the artifact level
+
+The GitHub Actions environment used for the release.
+
+This can be used to add an explicit approval step to the release
+or limit who can initiate a release through environment protection rules.
+
+When multiple artifacts are released, the environment can be overwritten
+on a per artifact basis.
+
+---
+
 ##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="releaseEveryCommit" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
@@ -13643,6 +13764,19 @@ public readonly releaseTrigger: ReleaseTrigger;
 - *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
 
 The release trigger to use.
+
+---
+
+##### `releaseWorkflowEnv`<sup>Optional</sup> <a name="releaseWorkflowEnv" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.releaseWorkflowEnv"></a>
+
+```typescript
+public readonly releaseWorkflowEnv: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Build environment variables for release workflows.
 
 ---
 
@@ -13747,6 +13881,36 @@ public readonly artifactsDirectory: string;
 - *Default:* "dist"
 
 A directory which will contain build artifacts.
+
+---
+
+##### `auditDeps`<sup>Optional</sup> <a name="auditDeps" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.auditDeps"></a>
+
+```typescript
+public readonly auditDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Run security audit on dependencies.
+
+When enabled, creates an "audit" task that checks for known security vulnerabilities
+in dependencies. By default, runs during every build and checks for "high" severity
+vulnerabilities or above in all dependencies (including dev dependencies).
+
+---
+
+##### `auditDepsOptions`<sup>Optional</sup> <a name="auditDepsOptions" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.auditDepsOptions"></a>
+
+```typescript
+public readonly auditDepsOptions: AuditOptions;
+```
+
+- *Type:* projen.javascript.AuditOptions
+- *Default:* default options
+
+Security audit options.
 
 ---
 
@@ -13867,7 +14031,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -13878,9 +14042,9 @@ public readonly codeCovTokenSecret: string;
 ```
 
 - *Type:* string
-- *Default:* if this option is not specified, only public repositories are supported
+- *Default:* OIDC auth is used
 
-Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.
+Define the secret name for a specified https://codecov.io/ token.
 
 ---
 
@@ -14242,7 +14406,7 @@ public readonly workflowGitIdentity: GitIdentity;
 ```
 
 - *Type:* projen.github.GitIdentity
-- *Default:* GitHub Actions
+- *Default:* default GitHub Actions user
 
 The git identity to use in workflows.
 
@@ -14562,13 +14726,17 @@ Additional context to include in `cdk.json`.
 ##### `featureFlags`<sup>Optional</sup> <a name="featureFlags" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.featureFlags"></a>
 
 ```typescript
-public readonly featureFlags: boolean;
+public readonly featureFlags: ICdkFeatureFlags;
 ```
 
-- *Type:* boolean
-- *Default:* true
+- *Type:* projen.awscdk.ICdkFeatureFlags
+- *Default:* no feature flags are enabled by default
 
-Include all feature flags in cdk.json.
+Feature flags that should be enabled in `cdk.json`.
+
+Make sure to double-check any changes to feature flags in `cdk.json` before deploying.
+Unexpected changes may cause breaking changes in your CDK app.
+You can overwrite any feature flag by passing it into the context field.
 
 ---
 
@@ -15046,6 +15214,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.npmRegistry">npmRegistry</a></code> | <code>string</code> | The host name of the npm registry to publish to. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.npmRegistryUrl">npmRegistryUrl</a></code> | <code>string</code> | The base URL of the npm package registry. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.npmTokenSecret">npmTokenSecret</a></code> | <code>string</code> | GitHub secret which contains the NPM token to use when publishing packages. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.npmTrustedPublishing">npmTrustedPublishing</a></code> | <code>boolean</code> | Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | The Node Package Manager used to execute scripts. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
@@ -15069,12 +15238,14 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.publishTasks">publishTasks</a></code> | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releasableCommits">releasableCommits</a></code> | <code>projen.ReleasableCommits</code> | Find commits that should be considered releasable Used to decide if a release is required. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseBranches">releaseBranches</a></code> | <code>{[ key: string ]: projen.release.BranchOptions}</code> | Defines additional release branches. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseEnvironment">releaseEnvironment</a></code> | <code>string</code> | The GitHub Actions environment used for the release. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseEveryCommit">releaseEveryCommit</a></code> | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseFailureIssue">releaseFailureIssue</a></code> | <code>boolean</code> | Create a github issue on every failed publishing task. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseFailureIssueLabel">releaseFailureIssueLabel</a></code> | <code>string</code> | The label to apply to issues indicating publish failures. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseSchedule">releaseSchedule</a></code> | <code>string</code> | CRON schedule to trigger new releases. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseTagPrefix">releaseTagPrefix</a></code> | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseTrigger">releaseTrigger</a></code> | <code>projen.release.ReleaseTrigger</code> | The release trigger to use. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseWorkflowEnv">releaseWorkflowEnv</a></code> | <code>{[ key: string ]: string}</code> | Build environment variables for release workflows. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseWorkflowName">releaseWorkflowName</a></code> | <code>string</code> | The name of the default release workflow. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.releaseWorkflowSetupSteps">releaseWorkflowSetupSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | A set of workflow steps to execute in order to setup the workflow container. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.versionrcOptions">versionrcOptions</a></code> | <code>{[ key: string ]: any}</code> | Custom configuration used when creating changelog with commit-and-tag-version package. |
@@ -15083,6 +15254,8 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.workflowRunsOnGroup">workflowRunsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The name of the main release branch. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.auditDeps">auditDeps</a></code> | <code>boolean</code> | Run security audit on dependencies. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.auditDepsOptions">auditDepsOptions</a></code> | <code>projen.javascript.AuditOptions</code> | Security audit options. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.biome">biome</a></code> | <code>boolean</code> | Setup Biome. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.biomeOptions">biomeOptions</a></code> | <code>projen.javascript.BiomeOptions</code> | Biome options. |
@@ -15091,8 +15264,8 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
-| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.dependabot">dependabot</a></code> | <code>boolean</code> | Use dependabot to handle dependency upgrades. |
@@ -15143,7 +15316,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.buildCommand">buildCommand</a></code> | <code>string</code> | A command to execute before synthesis. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.cdkout">cdkout</a></code> | <code>string</code> | cdk.out directory. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.context">context</a></code> | <code>{[ key: string ]: any}</code> | Additional context to include in `cdk.json`. |
-| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.featureFlags">featureFlags</a></code> | <code>boolean</code> | Include all feature flags in cdk.json. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.featureFlags">featureFlags</a></code> | <code>projen.awscdk.ICdkFeatureFlags</code> | Feature flags that should be enabled in `cdk.json`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.requireApproval">requireApproval</a></code> | <code>projen.awscdk.ApprovalLevel</code> | To protect you against unintended changes that affect your security posture, the AWS CDK Toolkit prompts you to approve security-related changes before deploying them. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.watchExcludes">watchExcludes</a></code> | <code>string[]</code> | Glob patterns to exclude from `cdk watch`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.watchIncludes">watchIncludes</a></code> | <code>string[]</code> | Glob patterns to include in `cdk watch`. |
@@ -16012,6 +16185,19 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
+##### `npmTrustedPublishing`<sup>Optional</sup> <a name="npmTrustedPublishing" id="@taimos/projen.TaimosCdkAppOptions.property.npmTrustedPublishing"></a>
+
+```typescript
+public readonly npmTrustedPublishing: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work.
+
+---
+
 ##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@taimos/projen.TaimosCdkAppOptions.property.packageManager"></a>
 
 ```typescript
@@ -16371,6 +16557,25 @@ be provided for the default branch.
 
 ---
 
+##### `releaseEnvironment`<sup>Optional</sup> <a name="releaseEnvironment" id="@taimos/projen.TaimosCdkAppOptions.property.releaseEnvironment"></a>
+
+```typescript
+public readonly releaseEnvironment: string;
+```
+
+- *Type:* string
+- *Default:* no environment used, unless set at the artifact level
+
+The GitHub Actions environment used for the release.
+
+This can be used to add an explicit approval step to the release
+or limit who can initiate a release through environment protection rules.
+
+When multiple artifacts are released, the environment can be overwritten
+on a per artifact basis.
+
+---
+
 ##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="releaseEveryCommit" id="@taimos/projen.TaimosCdkAppOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
@@ -16457,6 +16662,19 @@ public readonly releaseTrigger: ReleaseTrigger;
 - *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
 
 The release trigger to use.
+
+---
+
+##### `releaseWorkflowEnv`<sup>Optional</sup> <a name="releaseWorkflowEnv" id="@taimos/projen.TaimosCdkAppOptions.property.releaseWorkflowEnv"></a>
+
+```typescript
+public readonly releaseWorkflowEnv: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Build environment variables for release workflows.
 
 ---
 
@@ -16561,6 +16779,36 @@ public readonly artifactsDirectory: string;
 - *Default:* "dist"
 
 A directory which will contain build artifacts.
+
+---
+
+##### `auditDeps`<sup>Optional</sup> <a name="auditDeps" id="@taimos/projen.TaimosCdkAppOptions.property.auditDeps"></a>
+
+```typescript
+public readonly auditDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Run security audit on dependencies.
+
+When enabled, creates an "audit" task that checks for known security vulnerabilities
+in dependencies. By default, runs during every build and checks for "high" severity
+vulnerabilities or above in all dependencies (including dev dependencies).
+
+---
+
+##### `auditDepsOptions`<sup>Optional</sup> <a name="auditDepsOptions" id="@taimos/projen.TaimosCdkAppOptions.property.auditDepsOptions"></a>
+
+```typescript
+public readonly auditDepsOptions: AuditOptions;
+```
+
+- *Type:* projen.javascript.AuditOptions
+- *Default:* default options
+
+Security audit options.
 
 ---
 
@@ -16681,7 +16929,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -16692,9 +16940,9 @@ public readonly codeCovTokenSecret: string;
 ```
 
 - *Type:* string
-- *Default:* if this option is not specified, only public repositories are supported
+- *Default:* OIDC auth is used
 
-Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.
+Define the secret name for a specified https://codecov.io/ token.
 
 ---
 
@@ -17056,7 +17304,7 @@ public readonly workflowGitIdentity: GitIdentity;
 ```
 
 - *Type:* projen.github.GitIdentity
-- *Default:* GitHub Actions
+- *Default:* default GitHub Actions user
 
 The git identity to use in workflows.
 
@@ -17376,13 +17624,17 @@ Additional context to include in `cdk.json`.
 ##### `featureFlags`<sup>Optional</sup> <a name="featureFlags" id="@taimos/projen.TaimosCdkAppOptions.property.featureFlags"></a>
 
 ```typescript
-public readonly featureFlags: boolean;
+public readonly featureFlags: ICdkFeatureFlags;
 ```
 
-- *Type:* boolean
-- *Default:* true
+- *Type:* projen.awscdk.ICdkFeatureFlags
+- *Default:* no feature flags are enabled by default
 
-Include all feature flags in cdk.json.
+Feature flags that should be enabled in `cdk.json`.
+
+Make sure to double-check any changes to feature flags in `cdk.json` before deploying.
+Unexpected changes may cause breaking changes in your CDK app.
+You can overwrite any feature flag by passing it into the context field.
 
 ---
 
@@ -17766,6 +18018,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.npmRegistry">npmRegistry</a></code> | <code>string</code> | The host name of the npm registry to publish to. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.npmRegistryUrl">npmRegistryUrl</a></code> | <code>string</code> | The base URL of the npm package registry. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.npmTokenSecret">npmTokenSecret</a></code> | <code>string</code> | GitHub secret which contains the NPM token to use when publishing packages. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.npmTrustedPublishing">npmTrustedPublishing</a></code> | <code>boolean</code> | Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | The Node Package Manager used to execute scripts. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
@@ -17789,12 +18042,14 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.publishTasks">publishTasks</a></code> | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releasableCommits">releasableCommits</a></code> | <code>projen.ReleasableCommits</code> | Find commits that should be considered releasable Used to decide if a release is required. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseBranches">releaseBranches</a></code> | <code>{[ key: string ]: projen.release.BranchOptions}</code> | Defines additional release branches. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseEnvironment">releaseEnvironment</a></code> | <code>string</code> | The GitHub Actions environment used for the release. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseEveryCommit">releaseEveryCommit</a></code> | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseFailureIssue">releaseFailureIssue</a></code> | <code>boolean</code> | Create a github issue on every failed publishing task. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseFailureIssueLabel">releaseFailureIssueLabel</a></code> | <code>string</code> | The label to apply to issues indicating publish failures. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseSchedule">releaseSchedule</a></code> | <code>string</code> | CRON schedule to trigger new releases. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseTagPrefix">releaseTagPrefix</a></code> | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseTrigger">releaseTrigger</a></code> | <code>projen.release.ReleaseTrigger</code> | The release trigger to use. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseWorkflowEnv">releaseWorkflowEnv</a></code> | <code>{[ key: string ]: string}</code> | Build environment variables for release workflows. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseWorkflowName">releaseWorkflowName</a></code> | <code>string</code> | The name of the default release workflow. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseWorkflowSetupSteps">releaseWorkflowSetupSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | A set of workflow steps to execute in order to setup the workflow container. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.versionrcOptions">versionrcOptions</a></code> | <code>{[ key: string ]: any}</code> | Custom configuration used when creating changelog with commit-and-tag-version package. |
@@ -17803,6 +18058,8 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.workflowRunsOnGroup">workflowRunsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The name of the main release branch. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.auditDeps">auditDeps</a></code> | <code>boolean</code> | Run security audit on dependencies. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.auditDepsOptions">auditDepsOptions</a></code> | <code>projen.javascript.AuditOptions</code> | Security audit options. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.biome">biome</a></code> | <code>boolean</code> | Setup Biome. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.biomeOptions">biomeOptions</a></code> | <code>projen.javascript.BiomeOptions</code> | Biome options. |
@@ -17811,8 +18068,8 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
-| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.dependabot">dependabot</a></code> | <code>boolean</code> | Use dependabot to handle dependency upgrades. |
@@ -18740,6 +18997,19 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
+##### `npmTrustedPublishing`<sup>Optional</sup> <a name="npmTrustedPublishing" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.npmTrustedPublishing"></a>
+
+```typescript
+public readonly npmTrustedPublishing: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work.
+
+---
+
 ##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.packageManager"></a>
 
 ```typescript
@@ -19099,6 +19369,25 @@ be provided for the default branch.
 
 ---
 
+##### `releaseEnvironment`<sup>Optional</sup> <a name="releaseEnvironment" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseEnvironment"></a>
+
+```typescript
+public readonly releaseEnvironment: string;
+```
+
+- *Type:* string
+- *Default:* no environment used, unless set at the artifact level
+
+The GitHub Actions environment used for the release.
+
+This can be used to add an explicit approval step to the release
+or limit who can initiate a release through environment protection rules.
+
+When multiple artifacts are released, the environment can be overwritten
+on a per artifact basis.
+
+---
+
 ##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="releaseEveryCommit" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
@@ -19185,6 +19474,19 @@ public readonly releaseTrigger: ReleaseTrigger;
 - *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
 
 The release trigger to use.
+
+---
+
+##### `releaseWorkflowEnv`<sup>Optional</sup> <a name="releaseWorkflowEnv" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.releaseWorkflowEnv"></a>
+
+```typescript
+public readonly releaseWorkflowEnv: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Build environment variables for release workflows.
 
 ---
 
@@ -19289,6 +19591,36 @@ public readonly artifactsDirectory: string;
 - *Default:* "dist"
 
 A directory which will contain build artifacts.
+
+---
+
+##### `auditDeps`<sup>Optional</sup> <a name="auditDeps" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.auditDeps"></a>
+
+```typescript
+public readonly auditDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Run security audit on dependencies.
+
+When enabled, creates an "audit" task that checks for known security vulnerabilities
+in dependencies. By default, runs during every build and checks for "high" severity
+vulnerabilities or above in all dependencies (including dev dependencies).
+
+---
+
+##### `auditDepsOptions`<sup>Optional</sup> <a name="auditDepsOptions" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.auditDepsOptions"></a>
+
+```typescript
+public readonly auditDepsOptions: AuditOptions;
+```
+
+- *Type:* projen.javascript.AuditOptions
+- *Default:* default options
+
+Security audit options.
 
 ---
 
@@ -19409,7 +19741,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -19420,9 +19752,9 @@ public readonly codeCovTokenSecret: string;
 ```
 
 - *Type:* string
-- *Default:* if this option is not specified, only public repositories are supported
+- *Default:* OIDC auth is used
 
-Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.
+Define the secret name for a specified https://codecov.io/ token.
 
 ---
 
@@ -19784,7 +20116,7 @@ public readonly workflowGitIdentity: GitIdentity;
 ```
 
 - *Type:* projen.github.GitIdentity
-- *Default:* GitHub Actions
+- *Default:* default GitHub Actions user
 
 The git identity to use in workflows.
 
@@ -20189,7 +20521,7 @@ public readonly jsiiVersion: string;
 ```
 
 - *Type:* string
-- *Default:* "~5.6.0"
+- *Default:* "~5.8.0"
 
 Version of the jsii compiler to use.
 
@@ -20617,6 +20949,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.npmRegistry">npmRegistry</a></code> | <code>string</code> | The host name of the npm registry to publish to. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.npmRegistryUrl">npmRegistryUrl</a></code> | <code>string</code> | The base URL of the npm package registry. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.npmTokenSecret">npmTokenSecret</a></code> | <code>string</code> | GitHub secret which contains the NPM token to use when publishing packages. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.npmTrustedPublishing">npmTrustedPublishing</a></code> | <code>boolean</code> | Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | The Node Package Manager used to execute scripts. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
@@ -20640,12 +20973,14 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.publishTasks">publishTasks</a></code> | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releasableCommits">releasableCommits</a></code> | <code>projen.ReleasableCommits</code> | Find commits that should be considered releasable Used to decide if a release is required. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseBranches">releaseBranches</a></code> | <code>{[ key: string ]: projen.release.BranchOptions}</code> | Defines additional release branches. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseEnvironment">releaseEnvironment</a></code> | <code>string</code> | The GitHub Actions environment used for the release. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseEveryCommit">releaseEveryCommit</a></code> | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseFailureIssue">releaseFailureIssue</a></code> | <code>boolean</code> | Create a github issue on every failed publishing task. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseFailureIssueLabel">releaseFailureIssueLabel</a></code> | <code>string</code> | The label to apply to issues indicating publish failures. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseSchedule">releaseSchedule</a></code> | <code>string</code> | CRON schedule to trigger new releases. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseTagPrefix">releaseTagPrefix</a></code> | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseTrigger">releaseTrigger</a></code> | <code>projen.release.ReleaseTrigger</code> | The release trigger to use. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseWorkflowEnv">releaseWorkflowEnv</a></code> | <code>{[ key: string ]: string}</code> | Build environment variables for release workflows. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseWorkflowName">releaseWorkflowName</a></code> | <code>string</code> | The name of the default release workflow. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseWorkflowSetupSteps">releaseWorkflowSetupSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | A set of workflow steps to execute in order to setup the workflow container. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.versionrcOptions">versionrcOptions</a></code> | <code>{[ key: string ]: any}</code> | Custom configuration used when creating changelog with commit-and-tag-version package. |
@@ -20654,6 +20989,8 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.workflowRunsOnGroup">workflowRunsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The name of the main release branch. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.auditDeps">auditDeps</a></code> | <code>boolean</code> | Run security audit on dependencies. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.auditDepsOptions">auditDepsOptions</a></code> | <code>projen.javascript.AuditOptions</code> | Security audit options. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.biome">biome</a></code> | <code>boolean</code> | Setup Biome. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.biomeOptions">biomeOptions</a></code> | <code>projen.javascript.BiomeOptions</code> | Biome options. |
@@ -20662,8 +20999,8 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
-| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.dependabot">dependabot</a></code> | <code>boolean</code> | Use dependabot to handle dependency upgrades. |
@@ -21559,6 +21896,19 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
+##### `npmTrustedPublishing`<sup>Optional</sup> <a name="npmTrustedPublishing" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.npmTrustedPublishing"></a>
+
+```typescript
+public readonly npmTrustedPublishing: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work.
+
+---
+
 ##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.packageManager"></a>
 
 ```typescript
@@ -21918,6 +22268,25 @@ be provided for the default branch.
 
 ---
 
+##### `releaseEnvironment`<sup>Optional</sup> <a name="releaseEnvironment" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseEnvironment"></a>
+
+```typescript
+public readonly releaseEnvironment: string;
+```
+
+- *Type:* string
+- *Default:* no environment used, unless set at the artifact level
+
+The GitHub Actions environment used for the release.
+
+This can be used to add an explicit approval step to the release
+or limit who can initiate a release through environment protection rules.
+
+When multiple artifacts are released, the environment can be overwritten
+on a per artifact basis.
+
+---
+
 ##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="releaseEveryCommit" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
@@ -22004,6 +22373,19 @@ public readonly releaseTrigger: ReleaseTrigger;
 - *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
 
 The release trigger to use.
+
+---
+
+##### `releaseWorkflowEnv`<sup>Optional</sup> <a name="releaseWorkflowEnv" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.releaseWorkflowEnv"></a>
+
+```typescript
+public readonly releaseWorkflowEnv: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Build environment variables for release workflows.
 
 ---
 
@@ -22108,6 +22490,36 @@ public readonly artifactsDirectory: string;
 - *Default:* "dist"
 
 A directory which will contain build artifacts.
+
+---
+
+##### `auditDeps`<sup>Optional</sup> <a name="auditDeps" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.auditDeps"></a>
+
+```typescript
+public readonly auditDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Run security audit on dependencies.
+
+When enabled, creates an "audit" task that checks for known security vulnerabilities
+in dependencies. By default, runs during every build and checks for "high" severity
+vulnerabilities or above in all dependencies (including dev dependencies).
+
+---
+
+##### `auditDepsOptions`<sup>Optional</sup> <a name="auditDepsOptions" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.auditDepsOptions"></a>
+
+```typescript
+public readonly auditDepsOptions: AuditOptions;
+```
+
+- *Type:* projen.javascript.AuditOptions
+- *Default:* default options
+
+Security audit options.
 
 ---
 
@@ -22228,7 +22640,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -22239,9 +22651,9 @@ public readonly codeCovTokenSecret: string;
 ```
 
 - *Type:* string
-- *Default:* if this option is not specified, only public repositories are supported
+- *Default:* OIDC auth is used
 
-Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.
+Define the secret name for a specified https://codecov.io/ token.
 
 ---
 
@@ -22603,7 +23015,7 @@ public readonly workflowGitIdentity: GitIdentity;
 ```
 
 - *Type:* projen.github.GitIdentity
-- *Default:* GitHub Actions
+- *Default:* default GitHub Actions user
 
 The git identity to use in workflows.
 
@@ -22973,6 +23385,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.npmRegistry">npmRegistry</a></code> | <code>string</code> | The host name of the npm registry to publish to. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.npmRegistryUrl">npmRegistryUrl</a></code> | <code>string</code> | The base URL of the npm package registry. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.npmTokenSecret">npmTokenSecret</a></code> | <code>string</code> | GitHub secret which contains the NPM token to use when publishing packages. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.npmTrustedPublishing">npmTrustedPublishing</a></code> | <code>boolean</code> | Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | The Node Package Manager used to execute scripts. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
@@ -22996,12 +23409,14 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.publishTasks">publishTasks</a></code> | <code>boolean</code> | Define publishing tasks that can be executed manually as well as workflows. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releasableCommits">releasableCommits</a></code> | <code>projen.ReleasableCommits</code> | Find commits that should be considered releasable Used to decide if a release is required. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseBranches">releaseBranches</a></code> | <code>{[ key: string ]: projen.release.BranchOptions}</code> | Defines additional release branches. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseEnvironment">releaseEnvironment</a></code> | <code>string</code> | The GitHub Actions environment used for the release. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseEveryCommit">releaseEveryCommit</a></code> | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseFailureIssue">releaseFailureIssue</a></code> | <code>boolean</code> | Create a github issue on every failed publishing task. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseFailureIssueLabel">releaseFailureIssueLabel</a></code> | <code>string</code> | The label to apply to issues indicating publish failures. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseSchedule">releaseSchedule</a></code> | <code>string</code> | CRON schedule to trigger new releases. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseTagPrefix">releaseTagPrefix</a></code> | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseTrigger">releaseTrigger</a></code> | <code>projen.release.ReleaseTrigger</code> | The release trigger to use. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseWorkflowEnv">releaseWorkflowEnv</a></code> | <code>{[ key: string ]: string}</code> | Build environment variables for release workflows. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseWorkflowName">releaseWorkflowName</a></code> | <code>string</code> | The name of the default release workflow. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseWorkflowSetupSteps">releaseWorkflowSetupSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | A set of workflow steps to execute in order to setup the workflow container. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.versionrcOptions">versionrcOptions</a></code> | <code>{[ key: string ]: any}</code> | Custom configuration used when creating changelog with commit-and-tag-version package. |
@@ -23010,6 +23425,8 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.workflowRunsOnGroup">workflowRunsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The name of the main release branch. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.artifactsDirectory">artifactsDirectory</a></code> | <code>string</code> | A directory which will contain build artifacts. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.auditDeps">auditDeps</a></code> | <code>boolean</code> | Run security audit on dependencies. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.auditDepsOptions">auditDepsOptions</a></code> | <code>projen.javascript.AuditOptions</code> | Security audit options. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.autoApproveUpgrades">autoApproveUpgrades</a></code> | <code>boolean</code> | Automatically approve deps upgrade PRs, allowing them to be merged by mergify (if configued). |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.biome">biome</a></code> | <code>boolean</code> | Setup Biome. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.biomeOptions">biomeOptions</a></code> | <code>projen.javascript.BiomeOptions</code> | Biome options. |
@@ -23018,8 +23435,8 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.buildWorkflowTriggers">buildWorkflowTriggers</a></code> | <code>projen.github.workflows.Triggers</code> | Build workflow triggers. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`. |
-| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.dependabot">dependabot</a></code> | <code>boolean</code> | Use dependabot to handle dependency upgrades. |
@@ -23915,6 +24332,19 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
+##### `npmTrustedPublishing`<sup>Optional</sup> <a name="npmTrustedPublishing" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.npmTrustedPublishing"></a>
+
+```typescript
+public readonly npmTrustedPublishing: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use trusted publishing for publishing to npmjs.com Needs to be pre-configured on npm.js to work.
+
+---
+
 ##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.packageManager"></a>
 
 ```typescript
@@ -24274,6 +24704,25 @@ be provided for the default branch.
 
 ---
 
+##### `releaseEnvironment`<sup>Optional</sup> <a name="releaseEnvironment" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseEnvironment"></a>
+
+```typescript
+public readonly releaseEnvironment: string;
+```
+
+- *Type:* string
+- *Default:* no environment used, unless set at the artifact level
+
+The GitHub Actions environment used for the release.
+
+This can be used to add an explicit approval step to the release
+or limit who can initiate a release through environment protection rules.
+
+When multiple artifacts are released, the environment can be overwritten
+on a per artifact basis.
+
+---
+
 ##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="releaseEveryCommit" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
@@ -24360,6 +24809,19 @@ public readonly releaseTrigger: ReleaseTrigger;
 - *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
 
 The release trigger to use.
+
+---
+
+##### `releaseWorkflowEnv`<sup>Optional</sup> <a name="releaseWorkflowEnv" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.releaseWorkflowEnv"></a>
+
+```typescript
+public readonly releaseWorkflowEnv: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Build environment variables for release workflows.
 
 ---
 
@@ -24464,6 +24926,36 @@ public readonly artifactsDirectory: string;
 - *Default:* "dist"
 
 A directory which will contain build artifacts.
+
+---
+
+##### `auditDeps`<sup>Optional</sup> <a name="auditDeps" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.auditDeps"></a>
+
+```typescript
+public readonly auditDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Run security audit on dependencies.
+
+When enabled, creates an "audit" task that checks for known security vulnerabilities
+in dependencies. By default, runs during every build and checks for "high" severity
+vulnerabilities or above in all dependencies (including dev dependencies).
+
+---
+
+##### `auditDepsOptions`<sup>Optional</sup> <a name="auditDepsOptions" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.auditDepsOptions"></a>
+
+```typescript
+public readonly auditDepsOptions: AuditOptions;
+```
+
+- *Type:* projen.javascript.AuditOptions
+- *Default:* default options
+
+Security audit options.
 
 ---
 
@@ -24584,7 +25076,7 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v4 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -24595,9 +25087,9 @@ public readonly codeCovTokenSecret: string;
 ```
 
 - *Type:* string
-- *Default:* if this option is not specified, only public repositories are supported
+- *Default:* OIDC auth is used
 
-Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories.
+Define the secret name for a specified https://codecov.io/ token.
 
 ---
 
@@ -24959,7 +25451,7 @@ public readonly workflowGitIdentity: GitIdentity;
 ```
 
 - *Type:* projen.github.GitIdentity
-- *Default:* GitHub Actions
+- *Default:* default GitHub Actions user
 
 The git identity to use in workflows.
 
