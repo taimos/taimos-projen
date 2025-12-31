@@ -35,6 +35,7 @@ export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
       stability: 'experimental',
       docgen: true,
       releaseToNpm: true,
+      npmTrustedPublishing: true,
       npmAccess: javascript.NpmAccess.PUBLIC,
       gitpod: false,
       autoApproveUpgrades: true,
