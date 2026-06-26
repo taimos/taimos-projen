@@ -12,12 +12,14 @@ const project = new cdk.JsiiProject({
   defaultReleaseBranch: 'main',
   jsiiVersion: '5.9.21',
   peerDeps: [
-    'projen@>=0.98.32 <1.0.0',
-    'constructs@^10.4.4',
+    'projen@>=0.100.7 <1.0.0',
+    'constructs@^10.5.1',
+    'projen-pipelines@>=0.3.19',
   ],
   devDeps: [
-    'projen@0.98.32',
-    'constructs@10.4.4',
+    'projen@0.100.7',
+    'constructs@10.6.0',
+    'projen-pipelines@0.3.19',
   ],
   license: 'Apache-2.0',
   licensed: true,
@@ -35,6 +37,13 @@ const project = new cdk.JsiiProject({
       autoQueue: true,
     },
   },
+});
+
+// projen 0.100.x switched eslint to typescript-eslint's `projectService`, which
+// cannot resolve `.projenrc.js` because it is not part of any tsconfig. Allow it
+// to use the default (inferred) project so linting the projenrc does not fail.
+project.tryFindObjectFile('.eslintrc.json').addOverride('parserOptions.projectService', {
+  allowDefaultProject: ['.projenrc.js'],
 });
 
 project.synth();
