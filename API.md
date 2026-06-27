@@ -2,6 +2,213 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### GitHubProductionRelease <a name="GitHubProductionRelease" id="@taimos/projen.GitHubProductionRelease"></a>
+
+Adds a manual "Production Release" workflow that promotes a branch into a production branch.
+
+The workflow is triggered via `workflow_dispatch`. It fast-forward merges the
+project's default release branch into the selected production branch and
+pushes it. This keeps a production promotion a deliberate, auditable manual
+action separate from merging to the default release branch. When several
+production branches are configured, the operator chooses the target at
+dispatch time.
+
+#### Initializers <a name="Initializers" id="@taimos/projen.GitHubProductionRelease.Initializer"></a>
+
+```typescript
+import { GitHubProductionRelease } from '@taimos/projen'
+
+new GitHubProductionRelease(scope: GitHubProject, options?: GitHubProductionReleaseOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.Initializer.parameter.scope">scope</a></code> | <code>projen.github.GitHubProject</code> | *No description.* |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.Initializer.parameter.options">options</a></code> | <code><a href="#@taimos/projen.GitHubProductionReleaseOptions">GitHubProductionReleaseOptions</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@taimos/projen.GitHubProductionRelease.Initializer.parameter.scope"></a>
+
+- *Type:* projen.github.GitHubProject
+
+---
+
+##### `options`<sup>Optional</sup> <a name="options" id="@taimos/projen.GitHubProductionRelease.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#@taimos/projen.GitHubProductionReleaseOptions">GitHubProductionReleaseOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+
+---
+
+##### `toString` <a name="toString" id="@taimos/projen.GitHubProductionRelease.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@taimos/projen.GitHubProductionRelease.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@taimos/projen.GitHubProductionRelease.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+##### `postSynthesize` <a name="postSynthesize" id="@taimos/projen.GitHubProductionRelease.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="@taimos/projen.GitHubProductionRelease.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="@taimos/projen.GitHubProductionRelease.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@taimos/projen.GitHubProductionRelease.isConstruct"></a>
+
+```typescript
+import { GitHubProductionRelease } from '@taimos/projen'
+
+GitHubProductionRelease.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.GitHubProductionRelease.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="@taimos/projen.GitHubProductionRelease.isComponent"></a>
+
+```typescript
+import { GitHubProductionRelease } from '@taimos/projen'
+
+GitHubProductionRelease.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.GitHubProductionRelease.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.property.workflow">workflow</a></code> | <code>projen.github.GithubWorkflow</code> | The generated production release workflow. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@taimos/projen.GitHubProductionRelease.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@taimos/projen.GitHubProductionRelease.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+##### `workflow`<sup>Required</sup> <a name="workflow" id="@taimos/projen.GitHubProductionRelease.property.workflow"></a>
+
+```typescript
+public readonly workflow: GithubWorkflow;
+```
+
+- *Type:* projen.github.GithubWorkflow
+
+The generated production release workflow.
+
+---
+
+
 ### MonorepoProject <a name="MonorepoProject" id="@taimos/projen.MonorepoProject"></a>
 
 Private PNPM-workspace monorepo root, following Taimos ADR-0002.
@@ -666,10 +873,12 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.MonorepoProject.property.eslint">eslint</a></code> | <code>projen.javascript.Eslint</code> | *No description.* |
 | <code><a href="#@taimos/projen.MonorepoProject.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
 | <code><a href="#@taimos/projen.MonorepoProject.property.tsconfigEslint">tsconfigEslint</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
+| <code><a href="#@taimos/projen.MonorepoProject.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The default release branch (promoted by the production release workflow). |
 | <code><a href="#@taimos/projen.MonorepoProject.property.prBuildWorkflow">prBuildWorkflow</a></code> | <code>projen.github.GithubWorkflow</code> | The unified PR build workflow. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.workspaceFile">workspaceFile</a></code> | <code>projen.YamlFile</code> | The generated `pnpm-workspace.yaml`. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.amplifyFile">amplifyFile</a></code> | <code>projen.YamlFile</code> | The generated `amplify.yml`, if any Amplify apps were configured. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.assignApprover">assignApprover</a></code> | <code>projen-pipelines.GitHubAssignApprover</code> | The PR approver assignment, if enabled. |
+| <code><a href="#@taimos/projen.MonorepoProject.property.productionRelease">productionRelease</a></code> | <code><a href="#@taimos/projen.GitHubProductionRelease">GitHubProductionRelease</a></code> | The production release workflow, if enabled. |
 
 ---
 
@@ -1356,6 +1565,18 @@ public readonly tsconfigEslint: TypescriptConfig;
 
 ---
 
+##### `defaultReleaseBranch`<sup>Required</sup> <a name="defaultReleaseBranch" id="@taimos/projen.MonorepoProject.property.defaultReleaseBranch"></a>
+
+```typescript
+public readonly defaultReleaseBranch: string;
+```
+
+- *Type:* string
+
+The default release branch (promoted by the production release workflow).
+
+---
+
 ##### `prBuildWorkflow`<sup>Required</sup> <a name="prBuildWorkflow" id="@taimos/projen.MonorepoProject.property.prBuildWorkflow"></a>
 
 ```typescript
@@ -1401,6 +1622,18 @@ public readonly assignApprover: GitHubAssignApprover;
 - *Type:* projen-pipelines.GitHubAssignApprover
 
 The PR approver assignment, if enabled.
+
+---
+
+##### `productionRelease`<sup>Optional</sup> <a name="productionRelease" id="@taimos/projen.MonorepoProject.property.productionRelease"></a>
+
+```typescript
+public readonly productionRelease: GitHubProductionRelease;
+```
+
+- *Type:* <a href="#@taimos/projen.GitHubProductionRelease">GitHubProductionRelease</a>
+
+The production release workflow, if enabled.
 
 ---
 
@@ -9922,6 +10155,72 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### GitHubProductionReleaseOptions <a name="GitHubProductionReleaseOptions" id="@taimos/projen.GitHubProductionReleaseOptions"></a>
+
+#### Initializer <a name="Initializer" id="@taimos/projen.GitHubProductionReleaseOptions.Initializer"></a>
+
+```typescript
+import { GitHubProductionReleaseOptions } from '@taimos/projen'
+
+const gitHubProductionReleaseOptions: GitHubProductionReleaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHubProductionReleaseOptions.property.productionBranches">productionBranches</a></code> | <code>string[]</code> | The production branches that the source branch may be promoted into. |
+| <code><a href="#@taimos/projen.GitHubProductionReleaseOptions.property.runnerTags">runnerTags</a></code> | <code>string[]</code> | The runner tags used to select the runner. |
+| <code><a href="#@taimos/projen.GitHubProductionReleaseOptions.property.workflowName">workflowName</a></code> | <code>string</code> | The name of the generated workflow (and its `.yml` file). |
+
+---
+
+##### `productionBranches`<sup>Optional</sup> <a name="productionBranches" id="@taimos/projen.GitHubProductionReleaseOptions.property.productionBranches"></a>
+
+```typescript
+public readonly productionBranches: string[];
+```
+
+- *Type:* string[]
+- *Default:* ['production']
+
+The production branches that the source branch may be promoted into.
+
+Each branch typically backs its own production deployment — e.g. one Amplify
+app tracking `production` and another tracking `production2`. When more than
+one branch is given, the `workflow_dispatch` trigger exposes a `target`
+choice input so the operator picks which branch to promote into at dispatch
+time. The first entry is the default selection. With a single branch, no
+input is rendered and that branch is always the target.
+
+---
+
+##### `runnerTags`<sup>Optional</sup> <a name="runnerTags" id="@taimos/projen.GitHubProductionReleaseOptions.property.runnerTags"></a>
+
+```typescript
+public readonly runnerTags: string[];
+```
+
+- *Type:* string[]
+- *Default:* ['ubuntu-latest']
+
+The runner tags used to select the runner.
+
+---
+
+##### `workflowName`<sup>Optional</sup> <a name="workflowName" id="@taimos/projen.GitHubProductionReleaseOptions.property.workflowName"></a>
+
+```typescript
+public readonly workflowName: string;
+```
+
+- *Type:* string
+- *Default:* 'production-release'
+
+The name of the generated workflow (and its `.yml` file).
+
+---
+
 ### MonorepoAmplifyApp <a name="MonorepoAmplifyApp" id="@taimos/projen.MonorepoAmplifyApp"></a>
 
 One AWS Amplify Hosting application served from a workspace package.
@@ -10257,6 +10556,8 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.defaultApprovers">defaultApprovers</a></code> | <code>string[]</code> | Approvers assigned when no author-specific mapping matches. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.nodeVersion">nodeVersion</a></code> | <code>string</code> | The Node.js version used in the generated build workflow. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.pnpmWorkspaceVersion">pnpmWorkspaceVersion</a></code> | <code>string</code> | The pnpm version pinned for the workspace and CI. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.productionRelease">productionRelease</a></code> | <code>boolean</code> | Whether to add a manual "Production Release" workflow that promotes a branch to the production branch (see `GitHubProductionRelease`). |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.productionReleaseOptions">productionReleaseOptions</a></code> | <code><a href="#@taimos/projen.GitHubProductionReleaseOptions">GitHubProductionReleaseOptions</a></code> | Options for the production release workflow. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.runTestsInBuild">runTestsInBuild</a></code> | <code>boolean</code> | Whether the unified build workflow also runs `pnpm -r run test`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.workspaceOptions">workspaceOptions</a></code> | <code><a href="#@taimos/projen.MonorepoWorkspaceOptions">MonorepoWorkspaceOptions</a></code> | PNPM workspace tuning for the generated `pnpm-workspace.yaml`. |
 
@@ -12466,6 +12767,35 @@ public readonly pnpmWorkspaceVersion: string;
 - *Default:* '10.33.0'
 
 The pnpm version pinned for the workspace and CI.
+
+---
+
+##### `productionRelease`<sup>Optional</sup> <a name="productionRelease" id="@taimos/projen.MonorepoProjectOptions.property.productionRelease"></a>
+
+```typescript
+public readonly productionRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to add a manual "Production Release" workflow that promotes a branch to the production branch (see `GitHubProductionRelease`).
+
+---
+
+##### `productionReleaseOptions`<sup>Optional</sup> <a name="productionReleaseOptions" id="@taimos/projen.MonorepoProjectOptions.property.productionReleaseOptions"></a>
+
+```typescript
+public readonly productionReleaseOptions: GitHubProductionReleaseOptions;
+```
+
+- *Type:* <a href="#@taimos/projen.GitHubProductionReleaseOptions">GitHubProductionReleaseOptions</a>
+- *Default:* promote `main` to a `production` branch
+
+Options for the production release workflow.
+
+Only used when
+`productionRelease` is enabled.
 
 ---
 

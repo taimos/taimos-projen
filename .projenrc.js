@@ -20,6 +20,7 @@ const project = new cdk.JsiiProject({
     'projen@0.100.7',
     'constructs@10.6.0',
     'projen-pipelines@0.3.19',
+    'yaml',
   ],
   license: 'Apache-2.0',
   licensed: true,

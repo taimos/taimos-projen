@@ -1,5 +1,6 @@
 import { github, javascript, typescript, YamlFile } from 'projen';
 import { GitHubAssignApprover } from 'projen-pipelines';
+import { GitHubProductionRelease, GitHubProductionReleaseOptions } from '../components';
 
 /**
  * The frontend framework an Amplify Hosting application is built with.
@@ -198,6 +199,22 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
    * @default []
    */
   readonly amplifyApps?: MonorepoAmplifyApp[];
+
+  /**
+   * Whether to add a manual "Production Release" workflow that promotes a branch
+   * to the production branch (see `GitHubProductionRelease`).
+   *
+   * @default false
+   */
+  readonly productionRelease?: boolean;
+
+  /**
+   * Options for the production release workflow. Only used when
+   * `productionRelease` is enabled.
+   *
+   * @default - promote `main` to a `production` branch
+   */
+  readonly productionReleaseOptions?: GitHubProductionReleaseOptions;
 }
 
 /**
@@ -226,6 +243,12 @@ export class MonorepoProject extends typescript.TypeScriptProject {
 
   /** The PR approver assignment, if enabled. */
   public readonly assignApprover?: GitHubAssignApprover;
+
+  /** The production release workflow, if enabled. */
+  public readonly productionRelease?: GitHubProductionRelease;
+
+  /** The default release branch (promoted by the production release workflow). */
+  public readonly defaultReleaseBranch: string;
 
   constructor(options: MonorepoProjectOptions) {
     const pnpmVersion = options.pnpmWorkspaceVersion ?? '10.33.0';
@@ -275,6 +298,8 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     // Private workspace root — never published, resolves packages locally.
     this.package.addField('private', true);
 
+    this.defaultReleaseBranch = options.defaultReleaseBranch ?? 'main';
+
     // PR approver routing.
     if (options.assignApprover ?? true) {
       this.assignApprover = new GitHubAssignApprover(this, {
@@ -284,6 +309,11 @@ export class MonorepoProject extends typescript.TypeScriptProject {
         ],
         defaultApprovers: options.defaultApprovers ?? ['hoegertn', 'hoegerma'],
       });
+    }
+
+    // Manual production release — promotes a branch to the production branch.
+    if (options.productionRelease ?? false) {
+      this.productionRelease = new GitHubProductionRelease(this, options.productionReleaseOptions);
     }
 
     // The projenrc is split into modules under .projen/ — make them part of the
