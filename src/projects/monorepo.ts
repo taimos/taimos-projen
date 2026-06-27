@@ -337,10 +337,30 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     if (options.runTestsInBuild ?? true) {
       buildSteps.push({ name: 'Test', run: 'pnpm -r run test' });
     }
-    // Path filter: only trigger builds when workspace package files change.
-    // Changes to specs or docs alone should not trigger a new build.
+    // Path filter: only trigger builds when workspace package files or
+    // build-relevant root configuration changes. Changes to specs or docs
+    // alone should not trigger a new build.
     const workspacePackages = ws.packages ?? ['packages/*'];
-    const buildPaths = workspacePackages.map((pkg) => `${pkg}/**`);
+    const buildPaths: string[] = [
+      // Workspace package source files.
+      ...workspacePackages.map((pkg) => `${pkg}/**`),
+      // Dependency lock & workspace configuration.
+      'pnpm-lock.yaml',
+      'pnpm-workspace.yaml',
+      // Root package.json (scripts, devDeps, engines).
+      'package.json',
+      // Projen configuration — regenerates project files.
+      '.projenrc.ts',
+      '.projenrc.js',
+      // Shared TypeScript configuration.
+      'tsconfig.json',
+      'tsconfig.*.json',
+      // The build workflow itself.
+      '.github/workflows/build.yml',
+      // Shared lint configuration.
+      '.eslintrc.*',
+      'eslint.config.*',
+    ];
 
     this.prBuildWorkflow = new github.GithubWorkflow(this.github!, 'build');
     this.prBuildWorkflow.on({
