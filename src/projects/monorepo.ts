@@ -337,10 +337,15 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     if (options.runTestsInBuild ?? true) {
       buildSteps.push({ name: 'Test', run: 'pnpm -r run test' });
     }
+    // Path filter: only trigger builds when workspace package files change.
+    // Changes to specs or docs alone should not trigger a new build.
+    const workspacePackages = ws.packages ?? ['packages/*'];
+    const buildPaths = workspacePackages.map((pkg) => `${pkg}/**`);
+
     this.prBuildWorkflow = new github.GithubWorkflow(this.github!, 'build');
     this.prBuildWorkflow.on({
-      pullRequest: {},
-      push: { branches: ['main'] },
+      pullRequest: { paths: buildPaths },
+      push: { branches: ['main'], paths: buildPaths },
       workflowDispatch: {},
     });
     this.prBuildWorkflow.addJob('build', {
