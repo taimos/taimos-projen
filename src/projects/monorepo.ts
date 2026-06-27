@@ -352,6 +352,7 @@ export class MonorepoProject extends typescript.TypeScriptProject {
       // Projen configuration — regenerates project files.
       '.projenrc.ts',
       '.projenrc.js',
+      '.projen/**',
       // Shared TypeScript configuration.
       'tsconfig.json',
       'tsconfig.*.json',
