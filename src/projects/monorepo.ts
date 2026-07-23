@@ -73,6 +73,28 @@ export interface MonorepoAmplifyApp {
    * (`<appRoot>/.next/cache/**` or `<appRoot>/.angular/cache/**`).
    */
   readonly cachePaths?: string[];
+
+  /**
+   * pnpm `--filter` expression for the scoped install in the preBuild phase.
+   *
+   * The trailing `...` syntax pulls in the app's transitive workspace
+   * dependencies (e.g. a shared API package) but excludes unrelated packages,
+   * avoiding concurrent `projen/node_modules` rename races under the hoisted
+   * linker.
+   *
+   * @default `${buildFilter}...`
+   */
+  readonly installFilter?: string;
+
+  /**
+   * Full override of the install command in the preBuild phase.
+   *
+   * When set, `installFilter` is ignored and this string is emitted verbatim.
+   * Use this as an escape hatch when the default scoped install is insufficient.
+   *
+   * @default - `pnpm install --frozen-lockfile --node-linker hoisted --filter "<installFilter>"`
+   */
+  readonly installCommand?: string;
 }
 
 /**
@@ -420,11 +442,14 @@ export class MonorepoProject extends typescript.TypeScriptProject {
 
   private renderAmplifyApp(app: MonorepoAmplifyApp) {
     const angular = app.framework === MonorepoAmplifyFramework.ANGULAR;
+    // Scope the install to the app's dependency closure to avoid concurrent
+    // projen/node_modules rename races under the hoisted linker (see #372).
+    const filter = app.installFilter ?? `${app.buildFilter}...`;
+    const installCommand = app.installCommand
+      ?? `pnpm install --frozen-lockfile --node-linker hoisted --filter "${filter}"`;
     const preBuild = [
       'corepack enable',
-      // Force pnpm's hoisted linker for the Amplify build only — Amplify's
-      // managed compute traces runtime deps from a flat node_modules.
-      'pnpm install --frozen-lockfile --node-linker hoisted',
+      installCommand,
       ...(app.preBuildFilters ?? []).map((f) => `pnpm --filter ${f} run build`),
     ];
     // BUILD_ENV (dev|prod) is provided as an Amplify environment variable.
