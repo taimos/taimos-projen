@@ -10248,6 +10248,8 @@ const monorepoAmplifyApp: MonorepoAmplifyApp = { ... }
 | <code><a href="#@taimos/projen.MonorepoAmplifyApp.property.artifactBaseDirectory">artifactBaseDirectory</a></code> | <code>string</code> | Override the artifact base directory. |
 | <code><a href="#@taimos/projen.MonorepoAmplifyApp.property.buildCommand">buildCommand</a></code> | <code>string</code> | Override the build command run in the Amplify `build` phase. |
 | <code><a href="#@taimos/projen.MonorepoAmplifyApp.property.cachePaths">cachePaths</a></code> | <code>string[]</code> | Override the Amplify build cache paths. |
+| <code><a href="#@taimos/projen.MonorepoAmplifyApp.property.installCommand">installCommand</a></code> | <code>string</code> | Full override of the install command in the preBuild phase. |
+| <code><a href="#@taimos/projen.MonorepoAmplifyApp.property.installFilter">installFilter</a></code> | <code>string</code> | pnpm `--filter` expression for the scoped install in the preBuild phase. |
 | <code><a href="#@taimos/projen.MonorepoAmplifyApp.property.preBuildFilters">preBuildFilters</a></code> | <code>string[]</code> | Workspace packages to build before the app, as `--filter` targets. |
 
 ---
@@ -10324,6 +10326,40 @@ public readonly cachePaths: string[];
 - *Default:* `node_modules/**` plus the framework build cache (`<appRoot>/.next/cache/**` or `<appRoot>/.angular/cache/**`).
 
 Override the Amplify build cache paths.
+
+---
+
+##### `installCommand`<sup>Optional</sup> <a name="installCommand" id="@taimos/projen.MonorepoAmplifyApp.property.installCommand"></a>
+
+```typescript
+public readonly installCommand: string;
+```
+
+- *Type:* string
+- *Default:* `pnpm install --frozen-lockfile --node-linker hoisted --filter "<installFilter>"`
+
+Full override of the install command in the preBuild phase.
+
+When set, `installFilter` is ignored and this string is emitted verbatim.
+Use this as an escape hatch when the default scoped install is insufficient.
+
+---
+
+##### `installFilter`<sup>Optional</sup> <a name="installFilter" id="@taimos/projen.MonorepoAmplifyApp.property.installFilter"></a>
+
+```typescript
+public readonly installFilter: string;
+```
+
+- *Type:* string
+- *Default:* `${buildFilter}...`
+
+pnpm `--filter` expression for the scoped install in the preBuild phase.
+
+The trailing `...` syntax pulls in the app's transitive workspace
+dependencies (e.g. a shared API package) but excludes unrelated packages,
+avoiding concurrent `projen/node_modules` rename races under the hoisted
+linker.
 
 ---
 
