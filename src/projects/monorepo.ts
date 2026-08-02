@@ -275,6 +275,12 @@ export class MonorepoProject extends typescript.TypeScriptProject {
   constructor(options: MonorepoProjectOptions) {
     const pnpmVersion = options.pnpmWorkspaceVersion ?? '10.33.0';
 
+    // PNPM workspace tuning — mapped onto projen's native `pnpm-workspace.yaml`
+    // support (projen >= 0.101) through `allowScripts` + `pnpmOptions` below,
+    // rather than hand-rolling the YAML file.
+    const ws = options.workspaceOptions ?? {};
+    const allowedBuilds = ws.allowedBuilds ?? ['@aws-amplify/cli', 'esbuild', 'sharp', 'unrs-resolver'];
+
     super({
       licensed: false,
       release: false,
@@ -289,6 +295,25 @@ export class MonorepoProject extends typescript.TypeScriptProject {
       // Forced — defining what a Taimos monorepo root is.
       packageManager: javascript.NodePackageManager.PNPM,
       pnpmVersion,
+      // Native pnpm-workspace.yaml (projen >= 0.101). `allowScripts` renders the
+      // build allowlist into `onlyBuiltDependencies`; the remaining tuning maps
+      // onto `workspaceYamlOptions`. Any consumer-supplied `pnpmOptions` are
+      // merged in and win over our defaults.
+      allowScripts: allowedBuilds,
+      pnpmOptions: {
+        ...options.pnpmOptions,
+        workspaceYamlOptions: {
+          packages: ws.packages ?? ['packages/*'],
+          minimumReleaseAge: ws.minimumReleaseAge ?? 2880, // 2 days in minutes
+          minimumReleaseAgeExclude: ws.minimumReleaseAgeExclude ?? [
+            'projen-pipelines',
+            'cdk-serverless',
+            '@taimos/projen',
+          ],
+          ...(ws.overrides && Object.keys(ws.overrides).length > 0 ? { overrides: ws.overrides } : {}),
+          ...options.pnpmOptions?.workspaceYamlOptions,
+        },
+      },
       projenrcTs: true,
       github: true,
       githubOptions: {
@@ -342,29 +367,10 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     // dev tsconfig so the IDE and ts-node type-check them.
     this.tsconfigDev?.addInclude('.projen/*.ts');
 
-    // pnpm workspace definition.
-    const ws = options.workspaceOptions ?? {};
-    const allowedBuilds = ws.allowedBuilds ?? ['@aws-amplify/cli', 'esbuild', 'sharp', 'unrs-resolver'];
-    const allowBuilds: { [name: string]: boolean } = {};
-    for (const dep of allowedBuilds) {
-      allowBuilds[dep] = true;
-    }
-    this.workspaceFile = new YamlFile(this, 'pnpm-workspace.yaml', {
-      obj: {
-        packages: ws.packages ?? ['packages/*'],
-        // Allow native/build-step packages to run install scripts (pnpm >= 10
-        // blocks these by default), so pnpm does not treat node_modules as stale.
-        allowBuilds,
-        onlyBuiltDependencies: allowedBuilds,
-        ...(ws.overrides && Object.keys(ws.overrides).length > 0 ? { overrides: ws.overrides } : {}),
-        minimumReleaseAge: ws.minimumReleaseAge ?? 2880, // 2 days in minutes
-        minimumReleaseAgeExclude: ws.minimumReleaseAgeExclude ?? [
-          'projen-pipelines',
-          'cdk-serverless',
-          '@taimos/projen',
-        ],
-      },
-    });
+    // projen's NodePackage generates `pnpm-workspace.yaml` natively (projen >=
+    // 0.101), configured via the `pnpmOptions`/`allowScripts` passed to super().
+    // Expose the generated file so consumers can further customize it.
+    this.workspaceFile = this.tryFindObjectFile('pnpm-workspace.yaml') as YamlFile;
 
     // Convenience root scripts delegate to the workspace.
     const rootPkg = this.tryFindObjectFile('package.json')!;
