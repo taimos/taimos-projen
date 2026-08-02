@@ -24,6 +24,13 @@ describe('MonorepoProject pnpm-workspace.yaml (native projen component)', () => 
       'sharp',
       'unrs-resolver',
     ]);
+    // ...and mirrored into `allowBuilds`, the key pnpm 11 reads instead.
+    expect(ws.allowBuilds).toEqual({
+      '@aws-amplify/cli': true,
+      'esbuild': true,
+      'sharp': true,
+      'unrs-resolver': true,
+    });
     expect(ws.minimumReleaseAge).toBe(2880);
     expect(ws.minimumReleaseAgeExclude).toEqual([
       'projen-pipelines',
@@ -48,8 +55,20 @@ describe('MonorepoProject pnpm-workspace.yaml (native projen component)', () => 
     expect(ws.packages).toEqual(['packages/*', 'apps/*']);
     expect(ws.overrides).toEqual({ 'left-pad': '1.3.0' });
     expect(ws.onlyBuiltDependencies).toEqual(['esbuild', 'sharp']);
+    expect(ws.allowBuilds).toEqual({ esbuild: true, sharp: true });
     expect(ws.minimumReleaseAge).toBe(60);
     expect(ws.minimumReleaseAgeExclude).toEqual(['@taimos/projen']);
+  });
+
+  test('lets consumer pnpmOptions win over the defaults', () => {
+    const ws = getWorkspaceYaml({
+      workspaceOptions: { allowedBuilds: ['esbuild'] },
+      pnpmOptions: {
+        workspaceYamlOptions: { allowBuilds: { 'esbuild': true, 'better-sqlite3': true } },
+      },
+    });
+
+    expect(ws.allowBuilds).toEqual({ 'esbuild': true, 'better-sqlite3': true });
   });
 
   test('exposes the generated file via workspaceFile', () => {

@@ -303,6 +303,12 @@ export class MonorepoProject extends typescript.TypeScriptProject {
       pnpmOptions: {
         ...options.pnpmOptions,
         workspaceYamlOptions: {
+          // pnpm 11 replaced `onlyBuiltDependencies` (which `allowScripts`
+          // renders) with `allowBuilds`, and reads only the latter — a pnpm 11
+          // install otherwise aborts with ERR_PNPM_IGNORED_BUILDS. pnpm 10 reads
+          // only `onlyBuiltDependencies`. Emit both so the same workspace file
+          // works on either, whatever `pnpmVersion` a consumer pins.
+          allowBuilds: Object.fromEntries(allowedBuilds.map((pkg) => [pkg, true])),
           packages: ws.packages ?? ['packages/*'],
           minimumReleaseAge: ws.minimumReleaseAge ?? 2880, // 2 days in minutes
           minimumReleaseAgeExclude: ws.minimumReleaseAgeExclude ?? [
