@@ -46,8 +46,10 @@ new GitHubProductionRelease(scope: GitHubProject, options?: GitHubProductionRele
 | --- | --- |
 | <code><a href="#@taimos/projen.GitHubProductionRelease.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#@taimos/projen.GitHubProductionRelease.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.postProjectCreation">postProjectCreation</a></code> | Called once, right after `postSynthesize()`, only when the project is created for the first time. |
 | <code><a href="#@taimos/projen.GitHubProductionRelease.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
 | <code><a href="#@taimos/projen.GitHubProductionRelease.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#@taimos/projen.GitHubProductionRelease.projectCreation">projectCreation</a></code> | Called once, right after `synthesize()`, only when the project is created for the first time. |
 | <code><a href="#@taimos/projen.GitHubProductionRelease.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
 
 ---
@@ -81,6 +83,27 @@ The mixins to apply.
 
 ---
 
+##### `postProjectCreation` <a name="postProjectCreation" id="@taimos/projen.GitHubProductionRelease.postProjectCreation"></a>
+
+```typescript
+public postProjectCreation(initProject: InitProject): void
+```
+
+Called once, right after `postSynthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+It is also skipped when post-synthesis steps are disabled, e.g. `--no-post` or `PROJEN_DISABLE_POST`.
+Use it for one-off setup that can be turned off by the user, like running a task to give the user immediate
+feedback on their new project. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.GitHubProductionRelease.postProjectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
 ##### `postSynthesize` <a name="postSynthesize" id="@taimos/projen.GitHubProductionRelease.postSynthesize"></a>
 
 ```typescript
@@ -98,6 +121,25 @@ public preSynthesize(): void
 ```
 
 Called before synthesis.
+
+##### `projectCreation` <a name="projectCreation" id="@taimos/projen.GitHubProductionRelease.projectCreation"></a>
+
+```typescript
+public projectCreation(initProject: InitProject): void
+```
+
+Called once, right after `synthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+Use it for deterministic, one-off file generation. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.GitHubProductionRelease.projectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
 
 ##### `synthesize` <a name="synthesize" id="@taimos/projen.GitHubProductionRelease.synthesize"></a>
 
@@ -468,8 +510,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.MonorepoProject.tryFindFile"></a>
 
@@ -865,6 +909,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.MonorepoProject.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.MonorepoProject.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.MonorepoProject.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -1149,7 +1194,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.MonorepoProject.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.MonorepoProject.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -1474,6 +1521,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.MonorepoProject.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -1922,8 +1981,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.PrivateTaimosCdkApp.tryFindFile"></a>
 
@@ -2319,6 +2380,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkApp.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -2602,7 +2664,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.PrivateTaimosCdkApp.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.PrivateTaimosCdkApp.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -2927,6 +2991,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.PrivateTaimosCdkApp.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -3361,8 +3437,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.ProductionTaimosCdkApp.tryFindFile"></a>
 
@@ -3758,6 +3836,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkApp.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -4042,7 +4121,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.ProductionTaimosCdkApp.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.ProductionTaimosCdkApp.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -4367,6 +4448,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.ProductionTaimosCdkApp.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -4813,8 +4906,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.TaimosCdkApp.tryFindFile"></a>
 
@@ -5210,6 +5305,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.TaimosCdkApp.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.TaimosCdkApp.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.TaimosCdkApp.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.TaimosCdkApp.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosCdkApp.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.TaimosCdkApp.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.TaimosCdkApp.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -5493,7 +5589,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosCdkApp.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosCdkApp.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -5818,6 +5916,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.TaimosCdkApp.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -6252,8 +6362,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.TaimosCdkConstructLibrary.tryFindFile"></a>
 
@@ -6649,6 +6761,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibrary.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -6929,7 +7042,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosCdkConstructLibrary.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosCdkConstructLibrary.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -7254,6 +7369,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.TaimosCdkConstructLibrary.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -7652,8 +7779,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.TaimosPrivateTypescriptLibrary.tryFindFile"></a>
 
@@ -8049,6 +8178,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibrary.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -8327,7 +8457,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosPrivateTypescriptLibrary.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosPrivateTypescriptLibrary.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -8652,6 +8784,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.TaimosPrivateTypescriptLibrary.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -9028,8 +9172,10 @@ Synthesize all project files into `outdir`.
 2. Delete all generated files
 3. Synthesize all subprojects
 4. Synthesize all components of this project
-5. Call "postSynthesize()" for all components of this project
-6. Call "this.postSynthesize()"
+5. Call "projectCreation()" for all components, only if the project is being created for the first time
+6. Call "postSynthesize()" for all components of this project
+7. Call "this.postSynthesize()"
+8. Call "postProjectCreation()" for all components, only if the project is being created for the first time
 
 ##### `tryFindFile` <a name="tryFindFile" id="@taimos/projen.TaimosTypescriptLibrary.tryFindFile"></a>
 
@@ -9425,6 +9571,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.upgradeWorkflow">upgradeWorkflow</a></code> | <code>projen.javascript.UpgradeDependencies</code> | The upgrade workflow. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.docsDirectory">docsDirectory</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.libdir">libdir</a></code> | <code>string</code> | The directory in which compiled .js files reside. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner used for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.srcdir">srcdir</a></code> | <code>string</code> | The directory in which the .ts sources reside. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.testdir">testdir</a></code> | <code>string</code> | The directory in which tests reside. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibrary.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers all files (sources, tests, projen). |
@@ -9703,7 +9850,9 @@ the project is being ejected.
 
 ---
 
-##### `initProject`<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosTypescriptLibrary.property.initProject"></a>
+##### ~~`initProject`~~<sup>Optional</sup> <a name="initProject" id="@taimos/projen.TaimosTypescriptLibrary.property.initProject"></a>
+
+- *Deprecated:* use the `initProject` argument passed to `Component.projectCreation()` instead.
 
 ```typescript
 public readonly initProject: InitProject;
@@ -10028,6 +10177,18 @@ public readonly libdir: string;
 - *Type:* string
 
 The directory in which compiled .js files reside.
+
+---
+
+##### `runner`<sup>Required</sup> <a name="runner" id="@taimos/projen.TaimosTypescriptLibrary.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+
+The TypeScript runner used for executing TypeScript files.
 
 ---
 
@@ -10466,6 +10627,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -10498,6 +10660,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -10577,6 +10740,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -10989,6 +11153,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.MonorepoProjectOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -11500,6 +11702,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.MonorepoProjectOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -12120,6 +12335,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.MonorepoProjectOptions.property.copyrightPeriod"></a>
@@ -12132,6 +12351,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -12593,6 +12816,22 @@ Options for .projenrc.ts.
 
 ---
 
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.MonorepoProjectOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
+
+---
+
 ##### `sampleCode`<sup>Optional</sup> <a name="sampleCode" id="@taimos/projen.MonorepoProjectOptions.property.sampleCode"></a>
 
 ```typescript
@@ -12997,6 +13236,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -13029,6 +13269,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -13108,6 +13349,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -13531,6 +13773,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -14042,6 +14322,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -14662,6 +14955,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.copyrightPeriod"></a>
@@ -14674,6 +14971,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -15135,6 +15436,22 @@ Options for .projenrc.ts.
 
 ---
 
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
+
+---
+
 ##### `sampleCode`<sup>Optional</sup> <a name="sampleCode" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.sampleCode"></a>
 
 ```typescript
@@ -15592,6 +15909,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -15624,6 +15942,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -15703,6 +16022,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -16130,6 +16450,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -16641,6 +16999,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -17261,6 +17632,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.copyrightPeriod"></a>
@@ -17273,6 +17648,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -17731,6 +18110,22 @@ public readonly projenrcTsOptions: ProjenrcOptions;
 - *Type:* projen.typescript.ProjenrcOptions
 
 Options for .projenrc.ts.
+
+---
+
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
 
 ---
 
@@ -18285,6 +18680,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -18317,6 +18713,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -18396,6 +18793,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -18819,6 +19217,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.TaimosCdkAppOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -19330,6 +19766,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.TaimosCdkAppOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -19950,6 +20399,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.TaimosCdkAppOptions.property.copyrightPeriod"></a>
@@ -19962,6 +20415,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -20423,6 +20880,22 @@ Options for .projenrc.ts.
 
 ---
 
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.TaimosCdkAppOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
+
+---
+
 ##### `sampleCode`<sup>Optional</sup> <a name="sampleCode" id="@taimos/projen.TaimosCdkAppOptions.property.sampleCode"></a>
 
 ```typescript
@@ -20880,6 +21353,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -20912,6 +21386,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -20991,6 +21466,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -21421,6 +21897,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -21932,6 +22446,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -22552,6 +23079,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.copyrightPeriod"></a>
@@ -22564,6 +23095,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -23022,6 +23557,22 @@ public readonly projenrcTsOptions: ProjenrcOptions;
 - *Type:* projen.typescript.ProjenrcOptions
 
 Options for .projenrc.ts.
+
+---
+
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
 
 ---
 
@@ -23595,6 +24146,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -23627,6 +24179,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -23706,6 +24259,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -24109,6 +24663,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -24620,6 +25212,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -25240,6 +25845,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.copyrightPeriod"></a>
@@ -25252,6 +25861,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -25713,6 +26326,22 @@ Options for .projenrc.ts.
 
 ---
 
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
+
+---
+
 ##### `sampleCode`<sup>Optional</sup> <a name="sampleCode" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.sampleCode"></a>
 
 ```typescript
@@ -25896,6 +26525,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.vscode">vscode</a></code> | <code>boolean</code> | Enable VSCode integration. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.addPackageManagerToDevEngines">addPackageManagerToDevEngines</a></code> | <code>boolean</code> | Automatically add the resolved `packageManager` to `devEngines.packageManager` in `package.json`, setting `onFail` to `ignore`. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.allowLibraryDependencies">allowLibraryDependencies</a></code> | <code>boolean</code> | Allow the project to include `peerDependencies` and `bundledDependencies`. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.allowScripts">allowScripts</a></code> | <code>string[]</code> | List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Author's e-mail. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.authorName">authorName</a></code> | <code>string</code> | Author's name. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.authorOrganization">authorOrganization</a></code> | <code>boolean</code> | Is the author an organization. |
@@ -25928,6 +26558,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.pnpmOptions">pnpmOptions</a></code> | <code>projen.javascript.PnpmOptions</code> | Options for pnpm. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
@@ -26007,6 +26638,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.libdir">libdir</a></code> | <code>string</code> | Typescript  artifacts output directory. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.projenrcTs">projenrcTs</a></code> | <code>boolean</code> | Use TypeScript for your projenrc file (`.projenrc.ts`). |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.projenrcTsOptions">projenrcTsOptions</a></code> | <code>projen.typescript.ProjenrcOptions</code> | Options for .projenrc.ts. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.runner">runner</a></code> | <code>projen.typescript.TypeScriptRunner</code> | The TypeScript runner to use for executing TypeScript files. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
@@ -26410,6 +27042,44 @@ Allow the project to include `peerDependencies` and `bundledDependencies`.
 
 This is normally only allowed for libraries. For apps, there's no meaning
 for specifying these.
+
+---
+
+##### `allowScripts`<sup>Optional</sup> <a name="allowScripts" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.allowScripts"></a>
+
+```typescript
+public readonly allowScripts: string[];
+```
+
+- *Type:* string[]
+- *Default:* all install scripts are allowed to run (package manager default)
+
+List of dependency (package) names that are allowed to run lifecycle install scripts (`preinstall`, `install`, `postinstall`, `prepare`) during dependency installation.
+
+These scripts can execute arbitrary code, making them a common
+supply-chain attack vector. Package managers are moving toward
+blocking them by default and requiring an explicit allowlist.
+Configuring `allowScripts` sets up that allowlist so scripts only run
+for the packages you have explicitly reviewed and trust.
+
+Support for this setting depends on the configured `packageManager`:
+
+- `NPM`: written to the native `allowScripts` field in `package.json`
+  (requires npm >= 11.16; see https://docs.npmjs.com/cli/v11/commands/npm-approve-scripts).
+- `BUN`: written to the native `trustedDependencies` field in
+  `package.json` (see https://bun.com/docs/pm/lifecycle).
+- `PNPM`: written to the `onlyBuiltDependencies` setting in
+  `pnpm-workspace.yaml` (see https://pnpm.io/settings#onlybuiltdependencies).
+- `YARN2`, `YARN_BERRY`: written to the native
+  `dependenciesMeta.<pkg>.built` allowlist in `package.json`, combined
+  with `enableScripts: false` in `.yarnrc.yml` (see
+  https://yarnpkg.com/features/security#postinstalls). If you set
+  `yarnBerryOptions.yarnRcOptions.enableScripts` explicitly, that value
+  is respected instead of being overridden.
+- `YARN`, `YARN_CLASSIC`: not supported. Yarn Classic has no native
+  mechanism to allowlist install scripts for specific dependencies.
+  Setting this option with one of these package managers throws an
+  error at synthesis time.
 
 ---
 
@@ -26921,6 +27591,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmOptions`<sup>Optional</sup> <a name="pnpmOptions" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.pnpmOptions"></a>
+
+```typescript
+public readonly pnpmOptions: PnpmOptions;
+```
+
+- *Type:* projen.javascript.PnpmOptions
+- *Default:* all default options
+
+Options for pnpm.
 
 ---
 
@@ -27541,6 +28224,10 @@ public readonly copyrightOwner: string;
 
 License copyright owner.
 
+This value is only used if the selected license text contains the
+`$copyright_owner` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
+
 ---
 
 ##### `copyrightPeriod`<sup>Optional</sup> <a name="copyrightPeriod" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.copyrightPeriod"></a>
@@ -27553,6 +28240,10 @@ public readonly copyrightPeriod: string;
 - *Default:* current year
 
 The copyright years to put in the LICENSE file.
+
+This value is only used if the selected license text contains the
+`$copyright_period` placeholder. For example, it has no effect on the
+MPL-2.0 license text.
 
 ---
 
@@ -28011,6 +28702,22 @@ public readonly projenrcTsOptions: ProjenrcOptions;
 - *Type:* projen.typescript.ProjenrcOptions
 
 Options for .projenrc.ts.
+
+---
+
+##### `runner`<sup>Optional</sup> <a name="runner" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.runner"></a>
+
+```typescript
+public readonly runner: TypeScriptRunner;
+```
+
+- *Type:* projen.typescript.TypeScriptRunner
+- *Default:* TypeScriptRunner.tsNode()
+
+The TypeScript runner to use for executing TypeScript files.
+
+This is a project-level setting that components (e.g. projenrc) will
+use as their default runner.
 
 ---
 

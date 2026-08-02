@@ -12,12 +12,12 @@ const project = new cdk.JsiiProject({
   defaultReleaseBranch: 'main',
   jsiiVersion: '5.9.21',
   peerDeps: [
-    'projen@>=0.100.7 <1.0.0',
+    'projen@>=0.101.23 <1.0.0',
     'constructs@^10.5.1',
     'projen-pipelines@>=0.3.19',
   ],
   devDeps: [
-    'projen@0.100.7',
+    'projen@0.101.23',
     'constructs@10.6.0',
     'projen-pipelines@0.3.19',
     'yaml',

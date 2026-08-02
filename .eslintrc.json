@@ -17,7 +17,8 @@
     "projectService": {
       "allowDefaultProject": [
         ".projenrc.js"
-      ]
+      ],
+      "defaultProject": "./tsconfig.json"
     }
   },
   "extends": [
@@ -155,7 +156,8 @@
       {
         "devDependencies": [
           "**/test/**",
-          "**/build-tools/**"
+          "**/build-tools/**",
+          ".projenrc.js"
         ],
         "optionalDependencies": false,
         "peerDependencies": true
