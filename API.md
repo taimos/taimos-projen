@@ -2,6 +2,322 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### GitHubAmplifyDeploy <a name="GitHubAmplifyDeploy" id="@taimos/projen.GitHubAmplifyDeploy"></a>
+
+Adds one path-scoped deploy workflow per Amplify Hosting app.
+
+Amplify's own auto-build fires on every push to a tracked branch. In a
+monorepo that means every frontend rebuilds whenever anything changes — the
+marketing site rebuilding for a backend-only commit and vice versa, once per
+tracked branch. Amplify bills build minutes, so most of those are waste.
+
+Amplify's native answer, `AMPLIFY_DIFF_DEPLOY`, diffs exactly one directory
+(`AMPLIFY_MONOREPO_APP_ROOT`, overridable via `AMPLIFY_DIFF_DEPLOY_ROOT` —
+still a single path). That is enough for a self-contained app but not for one
+that also depends on a shared workspace package: a one-directory diff would
+ship a stale frontend whenever the shared types changed. GitHub's `paths:`
+filters accept multiple globs, so builds move to CI.
+
+Each generated workflow resolves the pushed branch to its stage and account,
+chains OIDC -> deployment role -> build-trigger role, reads the app id from
+SSM, starts a `RELEASE` job and polls until it reaches a terminal state — so
+a failed Amplify build fails the workflow instead of passing silently.
+
+This component generates the CI half only. The infrastructure half belongs in
+the project's own CDK app, which must:
+
+  1. set `autoBuild: false` on every branch these workflows build,
+  2. publish each app's id to `<parameterPrefix>/<key>/app-id`, and
+  3. create a role named `buildTriggerRoleName` in each stage account,
+     trusted by `deploymentRoleArn` and granting `amplify:StartJob` +
+     `amplify:GetJob` on the tracked branch ARNs only.
+
+Use `buildTriggerRoleName` and `appIdParameterName()` from the projenrc to
+keep those names in step; a mismatch fails the workflow loudly at the
+assume-role or parameter-read step rather than skipping a deploy.
+
+#### Initializers <a name="Initializers" id="@taimos/projen.GitHubAmplifyDeploy.Initializer"></a>
+
+```typescript
+import { GitHubAmplifyDeploy } from '@taimos/projen'
+
+new GitHubAmplifyDeploy(scope: GitHubProject, options: GitHubAmplifyDeployOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.Initializer.parameter.scope">scope</a></code> | <code>projen.github.GitHubProject</code> | *No description.* |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.Initializer.parameter.options">options</a></code> | <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions">GitHubAmplifyDeployOptions</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@taimos/projen.GitHubAmplifyDeploy.Initializer.parameter.scope"></a>
+
+- *Type:* projen.github.GitHubProject
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="@taimos/projen.GitHubAmplifyDeploy.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#@taimos/projen.GitHubAmplifyDeployOptions">GitHubAmplifyDeployOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.postProjectCreation">postProjectCreation</a></code> | Called once, right after `postSynthesize()`, only when the project is created for the first time. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.projectCreation">projectCreation</a></code> | Called once, right after `synthesize()`, only when the project is created for the first time. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.appIdParameterName">appIdParameterName</a></code> | The SSM parameter path holding an app's Amplify app id. |
+
+---
+
+##### `toString` <a name="toString" id="@taimos/projen.GitHubAmplifyDeploy.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@taimos/projen.GitHubAmplifyDeploy.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@taimos/projen.GitHubAmplifyDeploy.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+##### `postProjectCreation` <a name="postProjectCreation" id="@taimos/projen.GitHubAmplifyDeploy.postProjectCreation"></a>
+
+```typescript
+public postProjectCreation(initProject: InitProject): void
+```
+
+Called once, right after `postSynthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+It is also skipped when post-synthesis steps are disabled, e.g. `--no-post` or `PROJEN_DISABLE_POST`.
+Use it for one-off setup that can be turned off by the user, like running a task to give the user immediate
+feedback on their new project. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.GitHubAmplifyDeploy.postProjectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
+##### `postSynthesize` <a name="postSynthesize" id="@taimos/projen.GitHubAmplifyDeploy.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="@taimos/projen.GitHubAmplifyDeploy.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `projectCreation` <a name="projectCreation" id="@taimos/projen.GitHubAmplifyDeploy.projectCreation"></a>
+
+```typescript
+public projectCreation(initProject: InitProject): void
+```
+
+Called once, right after `synthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+Use it for deterministic, one-off file generation. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.GitHubAmplifyDeploy.projectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
+##### `synthesize` <a name="synthesize" id="@taimos/projen.GitHubAmplifyDeploy.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+##### `appIdParameterName` <a name="appIdParameterName" id="@taimos/projen.GitHubAmplifyDeploy.appIdParameterName"></a>
+
+```typescript
+public appIdParameterName(key: string): string
+```
+
+The SSM parameter path holding an app's Amplify app id.
+
+The CDK side must
+publish the id under exactly this name.
+
+###### `key`<sup>Required</sup> <a name="key" id="@taimos/projen.GitHubAmplifyDeploy.appIdParameterName.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@taimos/projen.GitHubAmplifyDeploy.isConstruct"></a>
+
+```typescript
+import { GitHubAmplifyDeploy } from '@taimos/projen'
+
+GitHubAmplifyDeploy.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.GitHubAmplifyDeploy.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="@taimos/projen.GitHubAmplifyDeploy.isComponent"></a>
+
+```typescript
+import { GitHubAmplifyDeploy } from '@taimos/projen'
+
+GitHubAmplifyDeploy.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.GitHubAmplifyDeploy.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.property.buildTriggerRoleName">buildTriggerRoleName</a></code> | <code>string</code> | Name of the IAM role CI chains into, in every stage account. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.property.parameterPrefix">parameterPrefix</a></code> | <code>string</code> | Prefix of the SSM parameter path holding each app's Amplify app id. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeploy.property.workflows">workflows</a></code> | <code>projen.github.GithubWorkflow[]</code> | The generated deploy workflows, one per app. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@taimos/projen.GitHubAmplifyDeploy.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@taimos/projen.GitHubAmplifyDeploy.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+##### `buildTriggerRoleName`<sup>Required</sup> <a name="buildTriggerRoleName" id="@taimos/projen.GitHubAmplifyDeploy.property.buildTriggerRoleName"></a>
+
+```typescript
+public readonly buildTriggerRoleName: string;
+```
+
+- *Type:* string
+
+Name of the IAM role CI chains into, in every stage account.
+
+---
+
+##### `parameterPrefix`<sup>Required</sup> <a name="parameterPrefix" id="@taimos/projen.GitHubAmplifyDeploy.property.parameterPrefix"></a>
+
+```typescript
+public readonly parameterPrefix: string;
+```
+
+- *Type:* string
+
+Prefix of the SSM parameter path holding each app's Amplify app id.
+
+---
+
+##### `workflows`<sup>Required</sup> <a name="workflows" id="@taimos/projen.GitHubAmplifyDeploy.property.workflows"></a>
+
+```typescript
+public readonly workflows: GithubWorkflow[];
+```
+
+- *Type:* projen.github.GithubWorkflow[]
+
+The generated deploy workflows, one per app.
+
+---
+
+
 ### GitHubProductionRelease <a name="GitHubProductionRelease" id="@taimos/projen.GitHubProductionRelease"></a>
 
 Adds a manual "Production Release" workflow that promotes a branch into a production branch.
@@ -921,6 +1237,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.MonorepoProject.property.defaultReleaseBranch">defaultReleaseBranch</a></code> | <code>string</code> | The default release branch (promoted by the production release workflow). |
 | <code><a href="#@taimos/projen.MonorepoProject.property.prBuildWorkflow">prBuildWorkflow</a></code> | <code>projen.github.GithubWorkflow</code> | The unified PR build workflow. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.workspaceFile">workspaceFile</a></code> | <code>projen.YamlFile</code> | The generated `pnpm-workspace.yaml`. |
+| <code><a href="#@taimos/projen.MonorepoProject.property.amplifyDeploy">amplifyDeploy</a></code> | <code><a href="#@taimos/projen.GitHubAmplifyDeploy">GitHubAmplifyDeploy</a></code> | The Amplify deploy workflows, when `amplifyDeployOptions` is set. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.amplifyFile">amplifyFile</a></code> | <code>projen.YamlFile</code> | The generated `amplify.yml`, if any Amplify apps were configured. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.assignApprover">assignApprover</a></code> | <code>projen-pipelines.GitHubAssignApprover</code> | The PR approver assignment, if enabled. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.productionRelease">productionRelease</a></code> | <code><a href="#@taimos/projen.GitHubProductionRelease">GitHubProductionRelease</a></code> | The production release workflow, if enabled. |
@@ -1657,6 +1974,18 @@ public readonly workspaceFile: YamlFile;
 - *Type:* projen.YamlFile
 
 The generated `pnpm-workspace.yaml`.
+
+---
+
+##### `amplifyDeploy`<sup>Optional</sup> <a name="amplifyDeploy" id="@taimos/projen.MonorepoProject.property.amplifyDeploy"></a>
+
+```typescript
+public readonly amplifyDeploy: GitHubAmplifyDeploy;
+```
+
+- *Type:* <a href="#@taimos/projen.GitHubAmplifyDeploy">GitHubAmplifyDeploy</a>
+
+The Amplify deploy workflows, when `amplifyDeployOptions` is set.
 
 ---
 
@@ -10316,6 +10645,321 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### AmplifyDeployApp <a name="AmplifyDeployApp" id="@taimos/projen.AmplifyDeployApp"></a>
+
+One Amplify Hosting application whose builds CI drives.
+
+Mirrors a `MonorepoAmplifyApp` entry in the generated `amplify.yml`; the
+`appRoot` should match so a build is triggered by exactly the directory it is
+built from.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.AmplifyDeployApp.Initializer"></a>
+
+```typescript
+import { AmplifyDeployApp } from '@taimos/projen'
+
+const amplifyDeployApp: AmplifyDeployApp = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.AmplifyDeployApp.property.appRoot">appRoot</a></code> | <code>string</code> | The package path that is the Amplify app root, e.g. `packages/frontend`. `<appRoot>/**` becomes a push trigger path. |
+| <code><a href="#@taimos/projen.AmplifyDeployApp.property.key">key</a></code> | <code>string</code> | Short key identifying the app. Used in the app-id SSM parameter path and, by default, in the workflow name. |
+| <code><a href="#@taimos/projen.AmplifyDeployApp.property.dependencyPaths">dependencyPaths</a></code> | <code>string[]</code> | Extra path globs that affect this app's build output. |
+| <code><a href="#@taimos/projen.AmplifyDeployApp.property.label">label</a></code> | <code>string</code> | Human-readable name used in step names and log lines. |
+| <code><a href="#@taimos/projen.AmplifyDeployApp.property.workflowName">workflowName</a></code> | <code>string</code> | The generated workflow name, which is also its `.yml` file name. |
+
+---
+
+##### `appRoot`<sup>Required</sup> <a name="appRoot" id="@taimos/projen.AmplifyDeployApp.property.appRoot"></a>
+
+```typescript
+public readonly appRoot: string;
+```
+
+- *Type:* string
+
+The package path that is the Amplify app root, e.g. `packages/frontend`. `<appRoot>/**` becomes a push trigger path.
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="@taimos/projen.AmplifyDeployApp.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+Short key identifying the app. Used in the app-id SSM parameter path and, by default, in the workflow name.
+
+Must match the key the CDK side registers the app under.
+
+---
+
+##### `dependencyPaths`<sup>Optional</sup> <a name="dependencyPaths" id="@taimos/projen.AmplifyDeployApp.property.dependencyPaths"></a>
+
+```typescript
+public readonly dependencyPaths: string[];
+```
+
+- *Type:* string[]
+- *Default:* []
+
+Extra path globs that affect this app's build output.
+
+Set this for workspace packages the app consumes via `workspace:*` and that
+the build spec pre-builds — a shared API package, say. Without them a change
+to shared types would not rebuild the app and it would ship stale.
+
+---
+
+##### `label`<sup>Optional</sup> <a name="label" id="@taimos/projen.AmplifyDeployApp.property.label"></a>
+
+```typescript
+public readonly label: string;
+```
+
+- *Type:* string
+- *Default:* the `key`
+
+Human-readable name used in step names and log lines.
+
+---
+
+##### `workflowName`<sup>Optional</sup> <a name="workflowName" id="@taimos/projen.AmplifyDeployApp.property.workflowName"></a>
+
+```typescript
+public readonly workflowName: string;
+```
+
+- *Type:* string
+- *Default:* `<key>-deploy`
+
+The generated workflow name, which is also its `.yml` file name.
+
+---
+
+### AmplifyDeployStage <a name="AmplifyDeployStage" id="@taimos/projen.AmplifyDeployStage"></a>
+
+One deploy stage: a git branch, the logical stage it serves, and the AWS account its Amplify apps live in.
+
+Both shapes seen in practice are expressible: separate accounts per stage
+(each entry has its own `account`), or a single account serving several
+branches (every entry repeats the same `account`, and the branch alone
+selects which Amplify branch is built).
+
+#### Initializer <a name="Initializer" id="@taimos/projen.AmplifyDeployStage.Initializer"></a>
+
+```typescript
+import { AmplifyDeployStage } from '@taimos/projen'
+
+const amplifyDeployStage: AmplifyDeployStage = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.AmplifyDeployStage.property.account">account</a></code> | <code>string</code> | The AWS account hosting this stage's Amplify apps. |
+| <code><a href="#@taimos/projen.AmplifyDeployStage.property.branch">branch</a></code> | <code>string</code> | The git branch the Amplify apps build from, e.g. `main` or `production`. |
+| <code><a href="#@taimos/projen.AmplifyDeployStage.property.stageName">stageName</a></code> | <code>string</code> | The logical stage this branch serves, e.g. `dev` or `prod`. Used as the GitHub environment so protection rules apply per stage. |
+
+---
+
+##### `account`<sup>Required</sup> <a name="account" id="@taimos/projen.AmplifyDeployStage.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+The AWS account hosting this stage's Amplify apps.
+
+---
+
+##### `branch`<sup>Required</sup> <a name="branch" id="@taimos/projen.AmplifyDeployStage.property.branch"></a>
+
+```typescript
+public readonly branch: string;
+```
+
+- *Type:* string
+
+The git branch the Amplify apps build from, e.g. `main` or `production`.
+
+---
+
+##### `stageName`<sup>Required</sup> <a name="stageName" id="@taimos/projen.AmplifyDeployStage.property.stageName"></a>
+
+```typescript
+public readonly stageName: string;
+```
+
+- *Type:* string
+
+The logical stage this branch serves, e.g. `dev` or `prod`. Used as the GitHub environment so protection rules apply per stage.
+
+---
+
+### GitHubAmplifyDeployOptions <a name="GitHubAmplifyDeployOptions" id="@taimos/projen.GitHubAmplifyDeployOptions"></a>
+
+#### Initializer <a name="Initializer" id="@taimos/projen.GitHubAmplifyDeployOptions.Initializer"></a>
+
+```typescript
+import { GitHubAmplifyDeployOptions } from '@taimos/projen'
+
+const gitHubAmplifyDeployOptions: GitHubAmplifyDeployOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.apps">apps</a></code> | <code><a href="#@taimos/projen.AmplifyDeployApp">AmplifyDeployApp</a>[]</code> | The Amplify apps to generate deploy workflows for. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.deploymentRoleArn">deploymentRoleArn</a></code> | <code>string</code> | The GitHub OIDC deployment role every workflow assumes first, typically in a management account. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.stages">stages</a></code> | <code><a href="#@taimos/projen.AmplifyDeployStage">AmplifyDeployStage</a>[]</code> | The branches that deploy, and the account each one deploys into. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.buildTriggerRoleName">buildTriggerRoleName</a></code> | <code>string</code> | Name of the per-account IAM role CI chains into to start builds. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.parameterPrefix">parameterPrefix</a></code> | <code>string</code> | Prefix of the SSM parameter path holding each app's Amplify app id. The full path is `<prefix>/<app key>/app-id`. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.region">region</a></code> | <code>string</code> | The AWS region the Amplify apps live in. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.runnerTags">runnerTags</a></code> | <code>string[]</code> | The runner tags used to select the runner. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.sharedBuildPaths">sharedBuildPaths</a></code> | <code>string[]</code> | Paths that change what *every* Amplify build produces, added to each app's own paths. |
+| <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions.property.timeoutMinutes">timeoutMinutes</a></code> | <code>number</code> | Timeout for a deploy job, bounding a hung Amplify build. |
+
+---
+
+##### `apps`<sup>Required</sup> <a name="apps" id="@taimos/projen.GitHubAmplifyDeployOptions.property.apps"></a>
+
+```typescript
+public readonly apps: AmplifyDeployApp[];
+```
+
+- *Type:* <a href="#@taimos/projen.AmplifyDeployApp">AmplifyDeployApp</a>[]
+
+The Amplify apps to generate deploy workflows for.
+
+At least one.
+
+---
+
+##### `deploymentRoleArn`<sup>Required</sup> <a name="deploymentRoleArn" id="@taimos/projen.GitHubAmplifyDeployOptions.property.deploymentRoleArn"></a>
+
+```typescript
+public readonly deploymentRoleArn: string;
+```
+
+- *Type:* string
+
+The GitHub OIDC deployment role every workflow assumes first, typically in a management account.
+
+The per-stage build-trigger role is reached from it
+by role chaining, so it must be allowed to `sts:AssumeRole` on that role —
+an IAM grant that lives outside the generated code.
+
+---
+
+##### `stages`<sup>Required</sup> <a name="stages" id="@taimos/projen.GitHubAmplifyDeployOptions.property.stages"></a>
+
+```typescript
+public readonly stages: AmplifyDeployStage[];
+```
+
+- *Type:* <a href="#@taimos/projen.AmplifyDeployStage">AmplifyDeployStage</a>[]
+
+The branches that deploy, and the account each one deploys into.
+
+At least one.
+
+---
+
+##### `buildTriggerRoleName`<sup>Optional</sup> <a name="buildTriggerRoleName" id="@taimos/projen.GitHubAmplifyDeployOptions.property.buildTriggerRoleName"></a>
+
+```typescript
+public readonly buildTriggerRoleName: string;
+```
+
+- *Type:* string
+- *Default:* `<project name>-amplify-build-trigger`
+
+Name of the per-account IAM role CI chains into to start builds.
+
+The same name is expected in every stage account, so the workflow can build
+the ARN from the account id alone. The CDK side must create a role with
+exactly this name.
+
+---
+
+##### `parameterPrefix`<sup>Optional</sup> <a name="parameterPrefix" id="@taimos/projen.GitHubAmplifyDeployOptions.property.parameterPrefix"></a>
+
+```typescript
+public readonly parameterPrefix: string;
+```
+
+- *Type:* string
+- *Default:* `/<project name>/amplify`
+
+Prefix of the SSM parameter path holding each app's Amplify app id. The full path is `<prefix>/<app key>/app-id`.
+
+Reading the app id at run time means CI never hardcodes an id that changes
+whenever an app is replaced.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="@taimos/projen.GitHubAmplifyDeployOptions.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+- *Default:* 'eu-central-1'
+
+The AWS region the Amplify apps live in.
+
+---
+
+##### `runnerTags`<sup>Optional</sup> <a name="runnerTags" id="@taimos/projen.GitHubAmplifyDeployOptions.property.runnerTags"></a>
+
+```typescript
+public readonly runnerTags: string[];
+```
+
+- *Type:* string[]
+- *Default:* ['ubuntu-latest']
+
+The runner tags used to select the runner.
+
+---
+
+##### `sharedBuildPaths`<sup>Optional</sup> <a name="sharedBuildPaths" id="@taimos/projen.GitHubAmplifyDeployOptions.property.sharedBuildPaths"></a>
+
+```typescript
+public readonly sharedBuildPaths: string[];
+```
+
+- *Type:* string[]
+- *Default:* the Amplify build spec, the lockfile and the workspace file
+
+Paths that change what *every* Amplify build produces, added to each app's own paths.
+
+---
+
+##### `timeoutMinutes`<sup>Optional</sup> <a name="timeoutMinutes" id="@taimos/projen.GitHubAmplifyDeployOptions.property.timeoutMinutes"></a>
+
+```typescript
+public readonly timeoutMinutes: number;
+```
+
+- *Type:* number
+- *Default:* 45
+
+Timeout for a deploy job, bounding a hung Amplify build.
+
+---
+
 ### GitHubProductionReleaseOptions <a name="GitHubProductionReleaseOptions" id="@taimos/projen.GitHubProductionReleaseOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.GitHubProductionReleaseOptions.Initializer"></a>
@@ -10750,6 +11394,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.amplifyApps">amplifyApps</a></code> | <code><a href="#@taimos/projen.MonorepoAmplifyApp">MonorepoAmplifyApp</a>[]</code> | AWS Amplify Hosting applications. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.amplifyDeployOptions">amplifyDeployOptions</a></code> | <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions">GitHubAmplifyDeployOptions</a></code> | Drive Amplify Hosting builds from GitHub Actions instead of Amplify's own auto-build, so an app only rebuilds when the packages it is built from actually changed (see `GitHubAmplifyDeploy`). |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.approverMapping">approverMapping</a></code> | <code><a href="#@taimos/projen.MonorepoApproverMapping">MonorepoApproverMapping</a>[]</code> | Author-to-approvers routing for the PR approver assignment. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.assignApprover">assignApprover</a></code> | <code>boolean</code> | Whether to assign PR approvers via `GitHubAssignApprover`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.cdkServerless">cdkServerless</a></code> | <code>boolean</code> | Whether to add `cdk-serverless` as a workspace dev dependency. |
@@ -12960,6 +13605,23 @@ AWS Amplify Hosting applications.
 
 When set, an `amplify.yml` is generated
 with one entry per app. When omitted, no `amplify.yml` is created.
+
+---
+
+##### `amplifyDeployOptions`<sup>Optional</sup> <a name="amplifyDeployOptions" id="@taimos/projen.MonorepoProjectOptions.property.amplifyDeployOptions"></a>
+
+```typescript
+public readonly amplifyDeployOptions: GitHubAmplifyDeployOptions;
+```
+
+- *Type:* <a href="#@taimos/projen.GitHubAmplifyDeployOptions">GitHubAmplifyDeployOptions</a>
+- *Default:* Amplify's own auto-build is left in place
+
+Drive Amplify Hosting builds from GitHub Actions instead of Amplify's own auto-build, so an app only rebuilds when the packages it is built from actually changed (see `GitHubAmplifyDeploy`).
+
+Setting this generates one deploy workflow per listed app. The project's
+CDK app must disable `autoBuild` on the tracked branches and provide the
+app-id parameters and build-trigger role the workflows expect.
 
 ---
 
