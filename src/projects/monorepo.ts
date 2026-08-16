@@ -1,6 +1,6 @@
 import { github, javascript, typescript, YamlFile } from 'projen';
 import { GitHubAssignApprover } from 'projen-pipelines';
-import { GitHubProductionRelease, GitHubProductionReleaseOptions } from '../components';
+import { GitHubAmplifyDeploy, GitHubAmplifyDeployOptions, GitHubProductionRelease, GitHubProductionReleaseOptions } from '../components';
 
 /**
  * The frontend framework an Amplify Hosting application is built with.
@@ -237,6 +237,19 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
    * @default - promote `main` to a `production` branch
    */
   readonly productionReleaseOptions?: GitHubProductionReleaseOptions;
+
+  /**
+   * Drive Amplify Hosting builds from GitHub Actions instead of Amplify's own
+   * auto-build, so an app only rebuilds when the packages it is built from
+   * actually changed (see `GitHubAmplifyDeploy`).
+   *
+   * Setting this generates one deploy workflow per listed app. The project's
+   * CDK app must disable `autoBuild` on the tracked branches and provide the
+   * app-id parameters and build-trigger role the workflows expect.
+   *
+   * @default - Amplify's own auto-build is left in place
+   */
+  readonly amplifyDeployOptions?: GitHubAmplifyDeployOptions;
 }
 
 /**
@@ -268,6 +281,9 @@ export class MonorepoProject extends typescript.TypeScriptProject {
 
   /** The production release workflow, if enabled. */
   public readonly productionRelease?: GitHubProductionRelease;
+
+  /** The Amplify deploy workflows, when `amplifyDeployOptions` is set. */
+  public readonly amplifyDeploy?: GitHubAmplifyDeploy;
 
   /** The default release branch (promoted by the production release workflow). */
   public readonly defaultReleaseBranch: string;
@@ -365,6 +381,10 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     }
 
     // Manual production release — promotes a branch to the production branch.
+    if (options.amplifyDeployOptions) {
+      this.amplifyDeploy = new GitHubAmplifyDeploy(this, options.amplifyDeployOptions);
+    }
+
     if (options.productionRelease ?? false) {
       this.productionRelease = new GitHubProductionRelease(this, options.productionReleaseOptions);
     }
