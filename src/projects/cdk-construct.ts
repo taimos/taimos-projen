@@ -26,7 +26,7 @@ export class TaimosCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
     super({
       authorOrganization: true,
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2025',
+      copyrightPeriod: new Date().getFullYear().toString(),
       catalog: {
         announce: true,
         twitter: 'hoegertn',
