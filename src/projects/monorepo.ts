@@ -1,6 +1,6 @@
 import { github, javascript, typescript, YamlFile } from 'projen';
 import { GitHubAssignApprover } from 'projen-pipelines';
-import { GitHubAmplifyDeploy, GitHubAmplifyDeployOptions, GitHubProductionRelease, GitHubProductionReleaseOptions } from '../components';
+import { GitHubAmplifyDeploy, GitHubAmplifyDeployOptions, GitHubProductionRelease, GitHubProductionReleaseOptions, Gitleaks, GitleaksOptions } from '../components';
 
 /**
  * The frontend framework an Amplify Hosting application is built with.
@@ -253,6 +253,21 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
   readonly productionReleaseOptions?: GitHubProductionReleaseOptions;
 
   /**
+   * Whether to add gitleaks secret-scanning: a `.gitleaks.toml` config plus a
+   * pull-request workflow that scans the full git history (see `Gitleaks`).
+   *
+   * @default false
+   */
+  readonly gitleaks?: boolean;
+
+  /**
+   * Options for the gitleaks component. Only used when `gitleaks` is enabled.
+   *
+   * @default - extend the default ruleset, no extra allowlists
+   */
+  readonly gitleaksOptions?: GitleaksOptions;
+
+  /**
    * Drive Amplify Hosting builds from GitHub Actions instead of Amplify's own
    * auto-build, so an app only rebuilds when the packages it is built from
    * actually changed (see `GitHubAmplifyDeploy`).
@@ -310,6 +325,9 @@ export class MonorepoProject extends typescript.TypeScriptProject {
 
   /** The Amplify deploy workflows, when `amplifyDeployOptions` is set. */
   public readonly amplifyDeploy?: GitHubAmplifyDeploy;
+
+  /** The gitleaks secret-scanning component, if enabled. */
+  public readonly gitleaks?: Gitleaks;
 
   /** The default release branch (promoted by the production release workflow). */
   public readonly defaultReleaseBranch: string;
@@ -419,6 +437,11 @@ export class MonorepoProject extends typescript.TypeScriptProject {
 
     if (options.productionRelease ?? false) {
       this.productionRelease = new GitHubProductionRelease(this, options.productionReleaseOptions);
+    }
+
+    // gitleaks secret-scanning: .gitleaks.toml + a PR workflow scanning history.
+    if (options.gitleaks ?? false) {
+      this.gitleaks = new Gitleaks(this, options.gitleaksOptions);
     }
 
     // The projenrc is split into modules under .projen/ — make them part of the
