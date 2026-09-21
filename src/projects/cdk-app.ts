@@ -29,12 +29,14 @@ export class TaimosCdkApp extends awscdk.AwsCdkTypeScriptApp {
       authorOrganization: true,
       authorUrl: 'https://www.taimos.de',
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2025',
+      copyrightPeriod: new Date().getFullYear().toString(),
       requireApproval: awscdk.ApprovalLevel.NEVER,
       cdkVersionPinning: true,
-      constructsVersion: '10.4.2',
+      constructsVersion: '10.6.0',
       projenrcTs: true,
-      packageManager: javascript.NodePackageManager.NPM,
+      // Taimos CDK apps live in a pnpm workspace monorepo; default to PNPM so a
+      // sub-project does not have to restate it. A standalone app can override.
+      packageManager: javascript.NodePackageManager.PNPM,
       ...options ?? {},
       githubOptions: {
         mergify: false,

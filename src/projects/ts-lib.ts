@@ -29,7 +29,7 @@ export class TaimosTypescriptLibrary extends typescript.TypeScriptProject {
       authorOrganization: true,
       authorUrl: 'https://taimos.de',
       copyrightOwner: 'Taimos GmbH',
-      copyrightPeriod: '2024',
+      copyrightPeriod: new Date().getFullYear().toString(),
       license: 'Apache-2.0',
       licensed: true,
       stability: 'experimental',
