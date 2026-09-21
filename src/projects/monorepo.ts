@@ -135,9 +135,11 @@ export interface MonorepoWorkspaceOptions {
 
   /**
    * Packages exempt from `minimumReleaseAge` so our own tooling can update
-   * without the cooldown.
+   * without the cooldown. MERGED on top of the built-in defaults
+   * (`projen-pipelines`, `cdk-serverless`, `@taimos/projen`, `projen`) and
+   * deduped — supplying this does not drop the tooling exemptions.
    *
-   * @default ['projen-pipelines', 'cdk-serverless', '@taimos/projen']
+   * @default [] // merged with DEFAULT_RELEASE_AGE_EXCLUDE
    */
   readonly minimumReleaseAgeExclude?: string[];
 }
@@ -208,9 +210,21 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
   readonly defaultApprovers?: string[];
 
   /**
-   * Whether the unified build workflow also runs `pnpm -r run test`.
+   * Whether the unified build workflow also runs a separate `pnpm -r run test`
+   * step.
    *
-   * @default true
+   * Each projen sub-project's own `build` task already runs its `test` sub-task
+   * (pre-compile → compile → post-compile → test → package), so `pnpm -r run
+   * build` already runs every projen package's jest + eslint. Enabling this adds
+   * a second full run — including the expensive CDK synths — roughly doubling CI.
+   *
+   * Caveat: with this off, a hand-managed (non-projen) package is only tested in
+   * CI if its own `build` script runs its checks (e.g. `tsc && jest`,
+   * `eslint . && vitest run && next build`). Make each hand-managed package's
+   * build self-contain its verification so `pnpm -r run build` stays the single
+   * gate.
+   *
+   * @default false
    */
   readonly runTestsInBuild?: boolean;
 
@@ -267,6 +281,18 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
  */
 export class MonorepoProject extends typescript.TypeScriptProject {
 
+  /**
+   * Packages exempt from `minimumReleaseAge` by default so our own build tooling
+   * can update without the cooldown. A consumer's
+   * `workspaceOptions.minimumReleaseAgeExclude` is merged on top of this list.
+   */
+  public static readonly DEFAULT_RELEASE_AGE_EXCLUDE: string[] = [
+    'projen-pipelines',
+    'cdk-serverless',
+    '@taimos/projen',
+    'projen',
+  ];
+
   /** The generated `pnpm-workspace.yaml`. */
   public readonly workspaceFile: YamlFile;
 
@@ -296,6 +322,16 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     // rather than hand-rolling the YAML file.
     const ws = options.workspaceOptions ?? {};
     const allowedBuilds = ws.allowedBuilds ?? ['@aws-amplify/cli', 'esbuild', 'sharp', 'unrs-resolver'];
+
+    // Packages exempt from `minimumReleaseAge` so our own build tooling can
+    // update without the cooldown. `projen` is included because `@taimos/projen`
+    // pins a projen floor, so the two must move in lockstep. A consumer-supplied
+    // list MERGES with these defaults (deduped) rather than replacing them, so
+    // adding one package does not silently drop the tooling exemptions.
+    const releaseAgeExclude = Array.from(new Set([
+      ...MonorepoProject.DEFAULT_RELEASE_AGE_EXCLUDE,
+      ...(ws.minimumReleaseAgeExclude ?? []),
+    ]));
 
     super({
       licensed: false,
@@ -327,11 +363,7 @@ export class MonorepoProject extends typescript.TypeScriptProject {
           allowBuilds: Object.fromEntries(allowedBuilds.map((pkg) => [pkg, true])),
           packages: ws.packages ?? ['packages/*'],
           minimumReleaseAge: ws.minimumReleaseAge ?? 2880, // 2 days in minutes
-          minimumReleaseAgeExclude: ws.minimumReleaseAgeExclude ?? [
-            'projen-pipelines',
-            'cdk-serverless',
-            '@taimos/projen',
-          ],
+          minimumReleaseAgeExclude: releaseAgeExclude,
           ...(ws.overrides && Object.keys(ws.overrides).length > 0 ? { overrides: ws.overrides } : {}),
           ...options.pnpmOptions?.workspaceYamlOptions,
         },
@@ -418,7 +450,7 @@ export class MonorepoProject extends typescript.TypeScriptProject {
       { name: 'Install', run: 'pnpm install --frozen-lockfile' },
       { name: 'Build', run: 'pnpm -r run build' },
     ];
-    if (options.runTestsInBuild ?? true) {
+    if (options.runTestsInBuild ?? false) {
       buildSteps.push({ name: 'Test', run: 'pnpm -r run test' });
     }
     // Path filter: only trigger builds when workspace package files or

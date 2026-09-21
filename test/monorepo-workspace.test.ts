@@ -36,6 +36,7 @@ describe('MonorepoProject pnpm-workspace.yaml (native projen component)', () => 
       'projen-pipelines',
       'cdk-serverless',
       '@taimos/projen',
+      'projen',
     ]);
     // No overrides by default — the field is omitted, not empty.
     expect(ws).not.toHaveProperty('overrides');
@@ -48,7 +49,7 @@ describe('MonorepoProject pnpm-workspace.yaml (native projen component)', () => 
         overrides: { 'left-pad': '1.3.0' },
         allowedBuilds: ['esbuild', 'sharp'],
         minimumReleaseAge: 60,
-        minimumReleaseAgeExclude: ['@taimos/projen'],
+        minimumReleaseAgeExclude: ['my-tool'],
       },
     });
 
@@ -57,7 +58,27 @@ describe('MonorepoProject pnpm-workspace.yaml (native projen component)', () => 
     expect(ws.onlyBuiltDependencies).toEqual(['esbuild', 'sharp']);
     expect(ws.allowBuilds).toEqual({ esbuild: true, sharp: true });
     expect(ws.minimumReleaseAge).toBe(60);
-    expect(ws.minimumReleaseAgeExclude).toEqual(['@taimos/projen']);
+    // Consumer entries MERGE with the defaults (deduped), not replace them.
+    expect(ws.minimumReleaseAgeExclude).toEqual([
+      'projen-pipelines',
+      'cdk-serverless',
+      '@taimos/projen',
+      'projen',
+      'my-tool',
+    ]);
+  });
+
+  test('dedupes a consumer exclude that repeats a default', () => {
+    const ws = getWorkspaceYaml({
+      workspaceOptions: { minimumReleaseAgeExclude: ['@taimos/projen', 'my-tool'] },
+    });
+    expect(ws.minimumReleaseAgeExclude).toEqual([
+      'projen-pipelines',
+      'cdk-serverless',
+      '@taimos/projen',
+      'projen',
+      'my-tool',
+    ]);
   });
 
   test('lets consumer pnpmOptions win over the defaults', () => {
@@ -78,5 +99,28 @@ describe('MonorepoProject pnpm-workspace.yaml (native projen component)', () => 
     });
     expect(project.workspaceFile).toBeDefined();
     expect(project.workspaceFile.path).toBe('pnpm-workspace.yaml');
+  });
+
+  function getBuildWorkflow(opts: Partial<MonorepoProjectOptions> = {}) {
+    const project = new MonorepoProject({
+      name: 'test-monorepo',
+      defaultReleaseBranch: 'main',
+      ...opts,
+    });
+    const out = Testing.synth(project) as Record<string, any>;
+    return yaml.parse(out['.github/workflows/build.yml']);
+  }
+
+  test('omits the separate Test step by default (runTestsInBuild=false)', () => {
+    const wf = getBuildWorkflow();
+    const stepNames = wf.jobs.build.steps.map((s: any) => s.name);
+    expect(stepNames).toContain('Build');
+    expect(stepNames).not.toContain('Test');
+  });
+
+  test('adds the Test step when runTestsInBuild is true', () => {
+    const wf = getBuildWorkflow({ runTestsInBuild: true });
+    const stepNames = wf.jobs.build.steps.map((s: any) => s.name);
+    expect(stepNames).toContain('Test');
   });
 });

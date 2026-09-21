@@ -2031,6 +2031,7 @@ The production release workflow, if enabled.
 | --- | --- | --- |
 | <code><a href="#@taimos/projen.MonorepoProject.property.DEFAULT_TASK">DEFAULT_TASK</a></code> | <code>string</code> | The name of the default task (the task executed when `projen` is run without arguments). |
 | <code><a href="#@taimos/projen.MonorepoProject.property.DEFAULT_TS_JEST_TRANFORM_PATTERN">DEFAULT_TS_JEST_TRANFORM_PATTERN</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@taimos/projen.MonorepoProject.property.DEFAULT_RELEASE_AGE_EXCLUDE">DEFAULT_RELEASE_AGE_EXCLUDE</a></code> | <code>string[]</code> | Packages exempt from `minimumReleaseAge` by default so our own build tooling can update without the cooldown. |
 
 ---
 
@@ -2056,6 +2057,21 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `DEFAULT_RELEASE_AGE_EXCLUDE`<sup>Required</sup> <a name="DEFAULT_RELEASE_AGE_EXCLUDE" id="@taimos/projen.MonorepoProject.property.DEFAULT_RELEASE_AGE_EXCLUDE"></a>
+
+```typescript
+public readonly DEFAULT_RELEASE_AGE_EXCLUDE: string[];
+```
+
+- *Type:* string[]
+
+Packages exempt from `minimumReleaseAge` by default so our own build tooling can update without the cooldown.
+
+A consumer's
+`workspaceOptions.minimumReleaseAgeExclude` is merged on top of this list.
 
 ---
 
@@ -11403,7 +11419,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.pnpmWorkspaceVersion">pnpmWorkspaceVersion</a></code> | <code>string</code> | The pnpm version pinned for the workspace and CI. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.productionRelease">productionRelease</a></code> | <code>boolean</code> | Whether to add a manual "Production Release" workflow that promotes a branch to the production branch (see `GitHubProductionRelease`). |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.productionReleaseOptions">productionReleaseOptions</a></code> | <code><a href="#@taimos/projen.GitHubProductionReleaseOptions">GitHubProductionReleaseOptions</a></code> | Options for the production release workflow. |
-| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.runTestsInBuild">runTestsInBuild</a></code> | <code>boolean</code> | Whether the unified build workflow also runs `pnpm -r run test`. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.runTestsInBuild">runTestsInBuild</a></code> | <code>boolean</code> | Whether the unified build workflow also runs a separate `pnpm -r run test` step. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.workspaceOptions">workspaceOptions</a></code> | <code><a href="#@taimos/projen.MonorepoWorkspaceOptions">MonorepoWorkspaceOptions</a></code> | PNPM workspace tuning for the generated `pnpm-workspace.yaml`. |
 
 ---
@@ -13743,9 +13759,20 @@ public readonly runTestsInBuild: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* true
+- *Default:* false
 
-Whether the unified build workflow also runs `pnpm -r run test`.
+Whether the unified build workflow also runs a separate `pnpm -r run test` step.
+
+Each projen sub-project's own `build` task already runs its `test` sub-task
+(pre-compile → compile → post-compile → test → package), so `pnpm -r run
+build` already runs every projen package's jest + eslint. Enabling this adds
+a second full run — including the expensive CDK synths — roughly doubling CI.
+
+Caveat: with this off, a hand-managed (non-projen) package is only tested in
+CI if its own `build` script runs its checks (e.g. `tsc && jest`,
+`eslint . && vitest run && next build`). Make each hand-managed package's
+build self-contain its verification so `pnpm -r run build` stays the single
+gate.
 
 ---
 
@@ -13822,9 +13849,13 @@ public readonly minimumReleaseAgeExclude: string[];
 ```
 
 - *Type:* string[]
-- *Default:* ['projen-pipelines', 'cdk-serverless', '@taimos/projen']
+- *Default:* [] // merged with DEFAULT_RELEASE_AGE_EXCLUDE
 
 Packages exempt from `minimumReleaseAge` so our own tooling can update without the cooldown.
+
+MERGED on top of the built-in defaults
+(`projen-pipelines`, `cdk-serverless`, `@taimos/projen`, `projen`) and
+deduped — supplying this does not drop the tooling exemptions.
 
 ---
 
