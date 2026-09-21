@@ -16053,6 +16053,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.singletonLambdaAutoDiscover">singletonLambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.SingletonFunction` for each `.singleton-lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.dash0">dash0</a></code> | <code>boolean</code> | Whether to enable Dash0 as the standard observability integration. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.lumigo">lumigo</a></code> | <code>boolean</code> | Whether to enable Lumigo. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sonarcloud">sonarcloud</a></code> | <code>boolean</code> | Whether to enable SonarCloud. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.sonarcloudOptions">sonarcloudOptions</a></code> | <code><a href="#@taimos/projen.SonarcloudOptions">SonarcloudOptions</a></code> | The SonarCloud options. |
@@ -18544,6 +18545,30 @@ The environment variable name containing the NPM authentication token.
 
 ---
 
+##### `dash0`<sup>Optional</sup> <a name="dash0" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.dash0"></a>
+
+```typescript
+public readonly dash0: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to enable Dash0 as the standard observability integration.
+
+Dash0 is the Taimos standard (EU-hosted): CloudWatch metrics stream to Dash0
+via a Kinesis Firehose HTTP endpoint, and Lambda auto-instrumentation (traces
++ logs) via the Dash0 extension layer. The API key is SOPS-encrypted per
+stage (`config.dash0.<stage>.json`), so this ensures `cdk-sops-secrets` is
+present.
+
+The Dash0 CDK construct itself is app-level `src/` code (Firehose stream +
+Lambda instrumentation Aspect) — see `nornkeep/packages/backend/src/dash0`
+for the reference. This option wires the project-level prerequisites and
+marks the app as using the standard setup.
+
+---
+
 ##### `lumigo`<sup>Optional</sup> <a name="lumigo" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.lumigo"></a>
 
 ```typescript
@@ -18551,7 +18576,7 @@ public readonly lumigo: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* true
+- *Default:* false
 
 Whether to enable Lumigo.
 

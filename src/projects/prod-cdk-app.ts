@@ -17,9 +17,28 @@ export interface ProductionTaimosCdkAppOptions extends TaimosCdkAppOptions {
   /**
    * Whether to enable Lumigo.
    *
-   * @default true
+   * @default false
    */
   readonly lumigo?: boolean;
+
+  /**
+   * Whether to enable Dash0 as the standard observability integration.
+   *
+   * Dash0 is the Taimos standard (EU-hosted): CloudWatch metrics stream to Dash0
+   * via a Kinesis Firehose HTTP endpoint, and Lambda auto-instrumentation (traces
+   * + logs) via the Dash0 extension layer. The API key is SOPS-encrypted per
+   * stage (`config.dash0.<stage>.json`), so this ensures `cdk-sops-secrets` is
+   * present.
+   *
+   * The Dash0 CDK construct itself is app-level `src/` code (Firehose stream +
+   * Lambda instrumentation Aspect) — see `nornkeep/packages/backend/src/dash0`
+   * for the reference. This option wires the project-level prerequisites and
+   * marks the app as using the standard setup.
+   *
+   * @default true
+   */
+  readonly dash0?: boolean;
+
   /**
    * Whether to enable SOPS.
    *
@@ -99,11 +118,15 @@ export class ProductionTaimosCdkApp extends TaimosCdkApp {
       ],
     });
 
-    if (options.lumigo ?? true) {
+    if (options.lumigo ?? false) {
       this.addDeps('@lumigo/cdk-constructs-v2');
     }
 
-    if (options.sops ?? true) {
+    // Dash0 is the standard observability integration; SOPS carries its
+    // per-stage API key. Either one requires cdk-sops-secrets (projen dedupes).
+    // The Dash0 CDK construct is app-level src/ code (see
+    // nornkeep/packages/backend/src/dash0).
+    if ((options.dash0 ?? true) || (options.sops ?? true)) {
       this.addDeps('cdk-sops-secrets');
     }
 
