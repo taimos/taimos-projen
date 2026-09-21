@@ -5,3 +5,4 @@ export * from './private-cdk-app';
 export * from './cdk-construct';
 export * from './prod-cdk-app';
 export * from './monorepo';
+export * from './api-library';
