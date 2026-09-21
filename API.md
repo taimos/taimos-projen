@@ -567,6 +567,265 @@ The generated production release workflow.
 ---
 
 
+### Gitleaks <a name="Gitleaks" id="@taimos/projen.Gitleaks"></a>
+
+gitleaks secret-scanning for a project: a `.gitleaks.toml` config that extends the bundled default ruleset plus tightly path-scoped allowlists, and a pull-request workflow that scans the full git history against it.
+
+projen has no native gitleaks component, so both artifacts are generated here
+to stay in the "never hand-edit generated files" model. Requires GitHub to be
+enabled on the project.
+
+#### Initializers <a name="Initializers" id="@taimos/projen.Gitleaks.Initializer"></a>
+
+```typescript
+import { Gitleaks } from '@taimos/projen'
+
+new Gitleaks(scope: TypeScriptProject, options?: GitleaksOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.Gitleaks.Initializer.parameter.scope">scope</a></code> | <code>projen.typescript.TypeScriptProject</code> | *No description.* |
+| <code><a href="#@taimos/projen.Gitleaks.Initializer.parameter.options">options</a></code> | <code><a href="#@taimos/projen.GitleaksOptions">GitleaksOptions</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@taimos/projen.Gitleaks.Initializer.parameter.scope"></a>
+
+- *Type:* projen.typescript.TypeScriptProject
+
+---
+
+##### `options`<sup>Optional</sup> <a name="options" id="@taimos/projen.Gitleaks.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#@taimos/projen.GitleaksOptions">GitleaksOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.Gitleaks.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@taimos/projen.Gitleaks.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@taimos/projen.Gitleaks.postProjectCreation">postProjectCreation</a></code> | Called once, right after `postSynthesize()`, only when the project is created for the first time. |
+| <code><a href="#@taimos/projen.Gitleaks.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#@taimos/projen.Gitleaks.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#@taimos/projen.Gitleaks.projectCreation">projectCreation</a></code> | Called once, right after `synthesize()`, only when the project is created for the first time. |
+| <code><a href="#@taimos/projen.Gitleaks.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+
+---
+
+##### `toString` <a name="toString" id="@taimos/projen.Gitleaks.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@taimos/projen.Gitleaks.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@taimos/projen.Gitleaks.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+##### `postProjectCreation` <a name="postProjectCreation" id="@taimos/projen.Gitleaks.postProjectCreation"></a>
+
+```typescript
+public postProjectCreation(initProject: InitProject): void
+```
+
+Called once, right after `postSynthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+It is also skipped when post-synthesis steps are disabled, e.g. `--no-post` or `PROJEN_DISABLE_POST`.
+Use it for one-off setup that can be turned off by the user, like running a task to give the user immediate
+feedback on their new project. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.Gitleaks.postProjectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
+##### `postSynthesize` <a name="postSynthesize" id="@taimos/projen.Gitleaks.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="@taimos/projen.Gitleaks.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `projectCreation` <a name="projectCreation" id="@taimos/projen.Gitleaks.projectCreation"></a>
+
+```typescript
+public projectCreation(initProject: InitProject): void
+```
+
+Called once, right after `synthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+Use it for deterministic, one-off file generation. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.Gitleaks.projectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
+##### `synthesize` <a name="synthesize" id="@taimos/projen.Gitleaks.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.Gitleaks.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@taimos/projen.Gitleaks.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@taimos/projen.Gitleaks.isConstruct"></a>
+
+```typescript
+import { Gitleaks } from '@taimos/projen'
+
+Gitleaks.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.Gitleaks.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="@taimos/projen.Gitleaks.isComponent"></a>
+
+```typescript
+import { Gitleaks } from '@taimos/projen'
+
+Gitleaks.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.Gitleaks.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.Gitleaks.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@taimos/projen.Gitleaks.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#@taimos/projen.Gitleaks.property.configFile">configFile</a></code> | <code>projen.TextFile</code> | The generated `.gitleaks.toml`. |
+| <code><a href="#@taimos/projen.Gitleaks.property.workflow">workflow</a></code> | <code>projen.github.GithubWorkflow</code> | The generated pull-request scanning workflow. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@taimos/projen.Gitleaks.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@taimos/projen.Gitleaks.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+##### `configFile`<sup>Required</sup> <a name="configFile" id="@taimos/projen.Gitleaks.property.configFile"></a>
+
+```typescript
+public readonly configFile: TextFile;
+```
+
+- *Type:* projen.TextFile
+
+The generated `.gitleaks.toml`.
+
+---
+
+##### `workflow`<sup>Required</sup> <a name="workflow" id="@taimos/projen.Gitleaks.property.workflow"></a>
+
+```typescript
+public readonly workflow: GithubWorkflow;
+```
+
+- *Type:* projen.github.GithubWorkflow
+
+The generated pull-request scanning workflow.
+
+---
+
+
 ### MonorepoProject <a name="MonorepoProject" id="@taimos/projen.MonorepoProject"></a>
 
 Private PNPM-workspace monorepo root, following Taimos ADR-0002.
@@ -1240,6 +1499,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.MonorepoProject.property.amplifyDeploy">amplifyDeploy</a></code> | <code><a href="#@taimos/projen.GitHubAmplifyDeploy">GitHubAmplifyDeploy</a></code> | The Amplify deploy workflows, when `amplifyDeployOptions` is set. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.amplifyFile">amplifyFile</a></code> | <code>projen.YamlFile</code> | The generated `amplify.yml`, if any Amplify apps were configured. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.assignApprover">assignApprover</a></code> | <code>projen-pipelines.GitHubAssignApprover</code> | The PR approver assignment, if enabled. |
+| <code><a href="#@taimos/projen.MonorepoProject.property.gitleaks">gitleaks</a></code> | <code><a href="#@taimos/projen.Gitleaks">Gitleaks</a></code> | The gitleaks secret-scanning component, if enabled. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.productionRelease">productionRelease</a></code> | <code><a href="#@taimos/projen.GitHubProductionRelease">GitHubProductionRelease</a></code> | The production release workflow, if enabled. |
 
 ---
@@ -2010,6 +2270,18 @@ public readonly assignApprover: GitHubAssignApprover;
 - *Type:* projen-pipelines.GitHubAssignApprover
 
 The PR approver assignment, if enabled.
+
+---
+
+##### `gitleaks`<sup>Optional</sup> <a name="gitleaks" id="@taimos/projen.MonorepoProject.property.gitleaks"></a>
+
+```typescript
+public readonly gitleaks: Gitleaks;
+```
+
+- *Type:* <a href="#@taimos/projen.Gitleaks">Gitleaks</a>
+
+The gitleaks secret-scanning component, if enabled.
 
 ---
 
@@ -11042,6 +11314,145 @@ The name of the generated workflow (and its `.yml` file).
 
 ---
 
+### GitleaksAllowlist <a name="GitleaksAllowlist" id="@taimos/projen.GitleaksAllowlist"></a>
+
+One path-scoped allowlist entry for the generated `.gitleaks.toml`.
+
+Each entry is rendered as a `[[allowlists]]` block. Keep every allowlist as
+tightly path-scoped as possible so it cannot mask a real secret elsewhere in
+the repo.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.GitleaksAllowlist.Initializer"></a>
+
+```typescript
+import { GitleaksAllowlist } from '@taimos/projen'
+
+const gitleaksAllowlist: GitleaksAllowlist = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitleaksAllowlist.property.description">description</a></code> | <code>string</code> | Human-readable description of what this allowlist exempts and why. |
+| <code><a href="#@taimos/projen.GitleaksAllowlist.property.condition">condition</a></code> | <code>string</code> | gitleaks `condition` combining `paths` and `regexes` (`AND` requires both). |
+| <code><a href="#@taimos/projen.GitleaksAllowlist.property.paths">paths</a></code> | <code>string[]</code> | Regex paths the allowlist applies to (rendered as gitleaks `paths`), e.g. `['^\\.npmrc$']`. Omit to apply the regexes repo-wide (discouraged). |
+| <code><a href="#@taimos/projen.GitleaksAllowlist.property.regexes">regexes</a></code> | <code>string[]</code> | Regexes matching the allowed secret values (rendered as gitleaks `regexes`). |
+| <code><a href="#@taimos/projen.GitleaksAllowlist.property.regexTarget">regexTarget</a></code> | <code>string</code> | gitleaks `regexTarget` (`secret` \| `match` \| `line`). |
+
+---
+
+##### `description`<sup>Required</sup> <a name="description" id="@taimos/projen.GitleaksAllowlist.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Human-readable description of what this allowlist exempts and why.
+
+---
+
+##### `condition`<sup>Optional</sup> <a name="condition" id="@taimos/projen.GitleaksAllowlist.property.condition"></a>
+
+```typescript
+public readonly condition: string;
+```
+
+- *Type:* string
+- *Default:* gitleaks default (OR)
+
+gitleaks `condition` combining `paths` and `regexes` (`AND` requires both).
+
+---
+
+##### `paths`<sup>Optional</sup> <a name="paths" id="@taimos/projen.GitleaksAllowlist.property.paths"></a>
+
+```typescript
+public readonly paths: string[];
+```
+
+- *Type:* string[]
+- *Default:* no path scope
+
+Regex paths the allowlist applies to (rendered as gitleaks `paths`), e.g. `['^\\.npmrc$']`. Omit to apply the regexes repo-wide (discouraged).
+
+---
+
+##### `regexes`<sup>Optional</sup> <a name="regexes" id="@taimos/projen.GitleaksAllowlist.property.regexes"></a>
+
+```typescript
+public readonly regexes: string[];
+```
+
+- *Type:* string[]
+- *Default:* no value regexes
+
+Regexes matching the allowed secret values (rendered as gitleaks `regexes`).
+
+Omit to allow anything on the scoped paths.
+
+---
+
+##### `regexTarget`<sup>Optional</sup> <a name="regexTarget" id="@taimos/projen.GitleaksAllowlist.property.regexTarget"></a>
+
+```typescript
+public readonly regexTarget: string;
+```
+
+- *Type:* string
+- *Default:* gitleaks default
+
+gitleaks `regexTarget` (`secret` | `match` | `line`).
+
+---
+
+### GitleaksOptions <a name="GitleaksOptions" id="@taimos/projen.GitleaksOptions"></a>
+
+#### Initializer <a name="Initializer" id="@taimos/projen.GitleaksOptions.Initializer"></a>
+
+```typescript
+import { GitleaksOptions } from '@taimos/projen'
+
+const gitleaksOptions: GitleaksOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitleaksOptions.property.allowlists">allowlists</a></code> | <code><a href="#@taimos/projen.GitleaksAllowlist">GitleaksAllowlist</a>[]</code> | Path-scoped allowlists for known false positives, appended after `[extend] useDefault = true`. |
+| <code><a href="#@taimos/projen.GitleaksOptions.property.version">version</a></code> | <code>string</code> | The gitleaks version downloaded in CI. |
+
+---
+
+##### `allowlists`<sup>Optional</sup> <a name="allowlists" id="@taimos/projen.GitleaksOptions.property.allowlists"></a>
+
+```typescript
+public readonly allowlists: GitleaksAllowlist[];
+```
+
+- *Type:* <a href="#@taimos/projen.GitleaksAllowlist">GitleaksAllowlist</a>[]
+- *Default:* []
+
+Path-scoped allowlists for known false positives, appended after `[extend] useDefault = true`.
+
+---
+
+##### `version`<sup>Optional</sup> <a name="version" id="@taimos/projen.GitleaksOptions.property.version"></a>
+
+```typescript
+public readonly version: string;
+```
+
+- *Type:* string
+- *Default:* '8.30.1'
+
+The gitleaks version downloaded in CI.
+
+---
+
 ### MonorepoAmplifyApp <a name="MonorepoAmplifyApp" id="@taimos/projen.MonorepoAmplifyApp"></a>
 
 One AWS Amplify Hosting application served from a workspace package.
@@ -11415,6 +11826,8 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.assignApprover">assignApprover</a></code> | <code>boolean</code> | Whether to assign PR approvers via `GitHubAssignApprover`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.cdkServerless">cdkServerless</a></code> | <code>boolean</code> | Whether to add `cdk-serverless` as a workspace dev dependency. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.defaultApprovers">defaultApprovers</a></code> | <code>string[]</code> | Approvers assigned when no author-specific mapping matches. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.gitleaks">gitleaks</a></code> | <code>boolean</code> | Whether to add gitleaks secret-scanning: a `.gitleaks.toml` config plus a pull-request workflow that scans the full git history (see `Gitleaks`). |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.gitleaksOptions">gitleaksOptions</a></code> | <code><a href="#@taimos/projen.GitleaksOptions">GitleaksOptions</a></code> | Options for the gitleaks component. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.nodeVersion">nodeVersion</a></code> | <code>string</code> | The Node.js version used in the generated build workflow. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.pnpmWorkspaceVersion">pnpmWorkspaceVersion</a></code> | <code>string</code> | The pnpm version pinned for the workspace and CI. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.productionRelease">productionRelease</a></code> | <code>boolean</code> | Whether to add a manual "Production Release" workflow that promotes a branch to the production branch (see `GitHubProductionRelease`). |
@@ -13694,6 +14107,34 @@ public readonly defaultApprovers: string[];
 Approvers assigned when no author-specific mapping matches.
 
 Only used when `assignApprover` is enabled.
+
+---
+
+##### `gitleaks`<sup>Optional</sup> <a name="gitleaks" id="@taimos/projen.MonorepoProjectOptions.property.gitleaks"></a>
+
+```typescript
+public readonly gitleaks: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to add gitleaks secret-scanning: a `.gitleaks.toml` config plus a pull-request workflow that scans the full git history (see `Gitleaks`).
+
+---
+
+##### `gitleaksOptions`<sup>Optional</sup> <a name="gitleaksOptions" id="@taimos/projen.MonorepoProjectOptions.property.gitleaksOptions"></a>
+
+```typescript
+public readonly gitleaksOptions: GitleaksOptions;
+```
+
+- *Type:* <a href="#@taimos/projen.GitleaksOptions">GitleaksOptions</a>
+- *Default:* extend the default ruleset, no extra allowlists
+
+Options for the gitleaks component.
+
+Only used when `gitleaks` is enabled.
 
 ---
 
