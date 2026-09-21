@@ -24104,6 +24104,314 @@ The environment variable name containing the NPM authentication token.
 
 ---
 
+### TaimosCdkPipelineOptions <a name="TaimosCdkPipelineOptions" id="@taimos/projen.TaimosCdkPipelineOptions"></a>
+
+Options for {@link taimosCdkPipeline}.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.TaimosCdkPipelineOptions.Initializer"></a>
+
+```typescript
+import { TaimosCdkPipelineOptions } from '@taimos/projen'
+
+const taimosCdkPipelineOptions: TaimosCdkPipelineOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.pipelineName">pipelineName</a></code> | <code>string</code> | The pipeline name (namespaces the generated workflow in a monorepo), e.g. `backend` or `infra`. |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.roleArn">roleArn</a></code> | <code>string</code> | The GitHub OIDC deploy-role ARN. |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.stages">stages</a></code> | <code><a href="#@taimos/projen.TaimosPipelineStage">TaimosPipelineStage</a>[]</code> | The deploy stages, in order. |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.iamRoleArns">iamRoleArns</a></code> | <code><a href="#@taimos/projen.TaimosPipelineRoleArns">TaimosPipelineRoleArns</a></code> | Per-role ARN overrides. |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.paths">paths</a></code> | <code>string[]</code> | CI trigger path filters scoping the pipeline to the package that owns it, e.g. `['packages/backend/**', 'packages/api/**']`. |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.personalStage">personalStage</a></code> | <code><a href="#@taimos/projen.TaimosPipelinePersonalStage">TaimosPipelinePersonalStage</a></code> | A personal sandbox stage for local iteration. |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.preBuildCommand">preBuildCommand</a></code> | <code>string</code> | A command run at the repo root before synth (e.g. building the workspace API dependency). |
+| <code><a href="#@taimos/projen.TaimosCdkPipelineOptions.property.stackPrefix">stackPrefix</a></code> | <code>string</code> | Pin live stack names to a historical prefix (load-bearing when migrating pre-existing stacks). |
+
+---
+
+##### `pipelineName`<sup>Required</sup> <a name="pipelineName" id="@taimos/projen.TaimosCdkPipelineOptions.property.pipelineName"></a>
+
+```typescript
+public readonly pipelineName: string;
+```
+
+- *Type:* string
+
+The pipeline name (namespaces the generated workflow in a monorepo), e.g. `backend` or `infra`.
+
+---
+
+##### `roleArn`<sup>Required</sup> <a name="roleArn" id="@taimos/projen.TaimosCdkPipelineOptions.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+
+The GitHub OIDC deploy-role ARN.
+
+Applied to `default`, `assetPublishing` and
+`synth` unless overridden via {@link iamRoleArns}.
+
+---
+
+##### `stages`<sup>Required</sup> <a name="stages" id="@taimos/projen.TaimosCdkPipelineOptions.property.stages"></a>
+
+```typescript
+public readonly stages: TaimosPipelineStage[];
+```
+
+- *Type:* <a href="#@taimos/projen.TaimosPipelineStage">TaimosPipelineStage</a>[]
+
+The deploy stages, in order.
+
+---
+
+##### `iamRoleArns`<sup>Optional</sup> <a name="iamRoleArns" id="@taimos/projen.TaimosCdkPipelineOptions.property.iamRoleArns"></a>
+
+```typescript
+public readonly iamRoleArns: TaimosPipelineRoleArns;
+```
+
+- *Type:* <a href="#@taimos/projen.TaimosPipelineRoleArns">TaimosPipelineRoleArns</a>
+- *Default:* roleArn for default, assetPublishing and synth
+
+Per-role ARN overrides.
+
+When omitted, {@link roleArn} is used for all three.
+
+---
+
+##### `paths`<sup>Optional</sup> <a name="paths" id="@taimos/projen.TaimosCdkPipelineOptions.property.paths"></a>
+
+```typescript
+public readonly paths: string[];
+```
+
+- *Type:* string[]
+
+CI trigger path filters scoping the pipeline to the package that owns it, e.g. `['packages/backend/**', 'packages/api/**']`.
+
+---
+
+##### `personalStage`<sup>Optional</sup> <a name="personalStage" id="@taimos/projen.TaimosCdkPipelineOptions.property.personalStage"></a>
+
+```typescript
+public readonly personalStage: TaimosPipelinePersonalStage;
+```
+
+- *Type:* <a href="#@taimos/projen.TaimosPipelinePersonalStage">TaimosPipelinePersonalStage</a>
+- *Default:* none
+
+A personal sandbox stage for local iteration.
+
+---
+
+##### `preBuildCommand`<sup>Optional</sup> <a name="preBuildCommand" id="@taimos/projen.TaimosCdkPipelineOptions.property.preBuildCommand"></a>
+
+```typescript
+public readonly preBuildCommand: string;
+```
+
+- *Type:* string
+- *Default:* none
+
+A command run at the repo root before synth (e.g. building the workspace API dependency).
+
+---
+
+##### `stackPrefix`<sup>Optional</sup> <a name="stackPrefix" id="@taimos/projen.TaimosCdkPipelineOptions.property.stackPrefix"></a>
+
+```typescript
+public readonly stackPrefix: string;
+```
+
+- *Type:* string
+- *Default:* the projen app name
+
+Pin live stack names to a historical prefix (load-bearing when migrating pre-existing stacks).
+
+Defaults to the projen app name.
+
+---
+
+### TaimosPipelinePersonalStage <a name="TaimosPipelinePersonalStage" id="@taimos/projen.TaimosPipelinePersonalStage"></a>
+
+A personal sandbox stage's target environment.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.TaimosPipelinePersonalStage.Initializer"></a>
+
+```typescript
+import { TaimosPipelinePersonalStage } from '@taimos/projen'
+
+const taimosPipelinePersonalStage: TaimosPipelinePersonalStage = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.TaimosPipelinePersonalStage.property.account">account</a></code> | <code>string</code> | The sandbox AWS account id. |
+| <code><a href="#@taimos/projen.TaimosPipelinePersonalStage.property.region">region</a></code> | <code>string</code> | The sandbox AWS region. |
+
+---
+
+##### `account`<sup>Required</sup> <a name="account" id="@taimos/projen.TaimosPipelinePersonalStage.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+The sandbox AWS account id.
+
+---
+
+##### `region`<sup>Required</sup> <a name="region" id="@taimos/projen.TaimosPipelinePersonalStage.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+The sandbox AWS region.
+
+---
+
+### TaimosPipelineRoleArns <a name="TaimosPipelineRoleArns" id="@taimos/projen.TaimosPipelineRoleArns"></a>
+
+Per-role deploy ARN overrides for a Taimos CDK pipeline.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.TaimosPipelineRoleArns.Initializer"></a>
+
+```typescript
+import { TaimosPipelineRoleArns } from '@taimos/projen'
+
+const taimosPipelineRoleArns: TaimosPipelineRoleArns = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.TaimosPipelineRoleArns.property.assetPublishing">assetPublishing</a></code> | <code>string</code> | ARN assumed for asset publishing. |
+| <code><a href="#@taimos/projen.TaimosPipelineRoleArns.property.default">default</a></code> | <code>string</code> | ARN assumed for the default deploy role. |
+| <code><a href="#@taimos/projen.TaimosPipelineRoleArns.property.synth">synth</a></code> | <code>string</code> | ARN assumed for synth. |
+
+---
+
+##### `assetPublishing`<sup>Required</sup> <a name="assetPublishing" id="@taimos/projen.TaimosPipelineRoleArns.property.assetPublishing"></a>
+
+```typescript
+public readonly assetPublishing: string;
+```
+
+- *Type:* string
+
+ARN assumed for asset publishing.
+
+---
+
+##### `default`<sup>Required</sup> <a name="default" id="@taimos/projen.TaimosPipelineRoleArns.property.default"></a>
+
+```typescript
+public readonly default: string;
+```
+
+- *Type:* string
+
+ARN assumed for the default deploy role.
+
+---
+
+##### `synth`<sup>Required</sup> <a name="synth" id="@taimos/projen.TaimosPipelineRoleArns.property.synth"></a>
+
+```typescript
+public readonly synth: string;
+```
+
+- *Type:* string
+
+ARN assumed for synth.
+
+---
+
+### TaimosPipelineStage <a name="TaimosPipelineStage" id="@taimos/projen.TaimosPipelineStage"></a>
+
+One deploy stage for a Taimos CDK pipeline.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.TaimosPipelineStage.Initializer"></a>
+
+```typescript
+import { TaimosPipelineStage } from '@taimos/projen'
+
+const taimosPipelineStage: TaimosPipelineStage = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.TaimosPipelineStage.property.account">account</a></code> | <code>string</code> | The target AWS account id. |
+| <code><a href="#@taimos/projen.TaimosPipelineStage.property.name">name</a></code> | <code>string</code> | The projen-pipelines stage name, e.g. `dev` or `prod`. |
+| <code><a href="#@taimos/projen.TaimosPipelineStage.property.region">region</a></code> | <code>string</code> | The target AWS region. |
+| <code><a href="#@taimos/projen.TaimosPipelineStage.property.watchable">watchable</a></code> | <code>boolean</code> | Whether this stage supports `cdk watch`. |
+
+---
+
+##### `account`<sup>Required</sup> <a name="account" id="@taimos/projen.TaimosPipelineStage.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+The target AWS account id.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@taimos/projen.TaimosPipelineStage.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The projen-pipelines stage name, e.g. `dev` or `prod`.
+
+---
+
+##### `region`<sup>Required</sup> <a name="region" id="@taimos/projen.TaimosPipelineStage.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+The target AWS region.
+
+---
+
+##### `watchable`<sup>Optional</sup> <a name="watchable" id="@taimos/projen.TaimosPipelineStage.property.watchable"></a>
+
+```typescript
+public readonly watchable: boolean;
+```
+
+- *Type:* boolean
+
+Whether this stage supports `cdk watch`.
+
+---
+
 ### TaimosPrivateTypescriptLibraryOptions <a name="TaimosPrivateTypescriptLibraryOptions" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.Initializer"></a>
