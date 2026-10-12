@@ -50,8 +50,16 @@ project.tryFindObjectFile('.eslintrc.json').addOverride('parserOptions.projectSe
 // Force patched versions of transitive dependencies flagged by `npm audit`.
 // These are same-major, in-range patches, so the tools that pull them (jest 29,
 // eslint, @babel, jsii tooling) keep working while the CVEs are resolved.
-// Review on the next dependency upgrade: once jest moves to 30 and the jsii
-// toolchain advances, most of these overrides become unnecessary.
+//
+// EXPIRY SIGNAL: every entry here is a temporary CVE floor, not a permanent pin.
+// Drop each one once the real dependency ships the fix in its own range:
+//  - jest-29 chain floors (brace-expansion, picomatch, @babel/core, flatted):
+//    remove once this project crosses to jest 30 / @types/jest 30.
+//  - jsii-toolchain floors (@xmldom/xmldom, fast-uri): remove once jsiiVersion
+//    advances past 5.9.21 and ships the patched transitive line.
+//  - the rest (js-yaml, handlebars, browserslist, baseline-browser-mapping,
+//    sprintf-js, @humanfs/node): remove once the direct consumer bumps its own
+//    range to the patched release. Re-check with `npm audit` on each upgrade.
 project.package.addPackageResolutions(
   'brace-expansion@^2.0.2',
   'picomatch@^2.3.2',
@@ -65,6 +73,15 @@ project.package.addPackageResolutions(
   '@xmldom/xmldom@^0.9.12',
   '@humanfs/node@^0.16.8',
   '@babel/core@^7.29.7',
+  // NOTE: the jsii-rosetta / stream-json advisories are NOT patchable here.
+  // jsii-rosetta@5.9.21 is a DIRECT devDep pinned by projen's JsiiBuild to the
+  // jsiiVersion string, so `addPackageResolutions('jsii-rosetta@5.9.70')` fails
+  // with npm EOVERRIDE (override conflicts with a direct dependency). Overriding
+  // the transitive `stream-json` to the patched 3.x line installs fine but breaks
+  // the build: jsii-rosetta 5.9.21 imports `stream-json/src/Assembler`, a path
+  // stream-json 3.x removed, so `jsii-docgen` dies with MODULE_NOT_FOUND. Both
+  // advisories therefore wait on raising jsiiVersion past 5.9.21 (jsii 5.9.70 is
+  // unpublished today). See FEAT-001 findings.
 );
 
 project.synth();
