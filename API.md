@@ -13219,6 +13219,8 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -13248,6 +13250,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -13281,7 +13284,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -13328,6 +13331,7 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.amplifyApps">amplifyApps</a></code> | <code><a href="#@taimos/projen.MonorepoAmplifyApp">MonorepoAmplifyApp</a>[]</code> | AWS Amplify Hosting applications. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.amplifyDeployOptions">amplifyDeployOptions</a></code> | <code><a href="#@taimos/projen.GitHubAmplifyDeployOptions">GitHubAmplifyDeployOptions</a></code> | Drive Amplify Hosting builds from GitHub Actions instead of Amplify's own auto-build, so an app only rebuilds when the packages it is built from actually changed (see `GitHubAmplifyDeploy`). |
@@ -13463,6 +13467,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -13926,6 +13934,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.MonorepoProjectOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.MonorepoProjectOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -14393,6 +14446,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.MonorepoProjectOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.MonorepoProjectOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -14720,7 +14789,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.MonorepoProjectOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.MonorepoProjectOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -14733,7 +14804,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.MonorepoProjectOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.MonorepoProjectOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -14890,7 +14963,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -15372,6 +15448,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.MonorepoProjectOptions.property.projenrcTs"></a>
@@ -15511,6 +15592,21 @@ public readonly tsJestOptions: TsJestOptions;
 - *Type:* projen.typescript.TsJestOptions
 
 Options for ts-jest.
+
+---
+
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.MonorepoProjectOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
 
 ---
 
@@ -15891,6 +15987,8 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -15920,6 +16018,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -15953,7 +16052,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -16000,6 +16099,7 @@ const privateTaimosCdkAppOptions: PrivateTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.buildCommand">buildCommand</a></code> | <code>string</code> | A command to execute before synthesis. |
 | <code><a href="#@taimos/projen.PrivateTaimosCdkAppOptions.property.cdkout">cdkout</a></code> | <code>string</code> | cdk.out directory. |
@@ -16143,6 +16243,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -16606,6 +16710,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -17073,6 +17222,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -17400,7 +17565,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -17413,7 +17580,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -17570,7 +17739,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -18052,6 +18224,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.projenrcTs"></a>
@@ -18194,6 +18371,21 @@ Options for ts-jest.
 
 ---
 
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
+
+---
+
 ##### `typescriptVersion`<sup>Optional</sup> <a name="typescriptVersion" id="@taimos/projen.PrivateTaimosCdkAppOptions.property.typescriptVersion"></a>
 
 ```typescript
@@ -18224,6 +18416,10 @@ A command to execute before synthesis.
 This command will be called when
 running `cdk synth` or when `cdk watch` identifies a change in your source
 code before redeployment.
+
+The CDK CLI runs it through a shell on every synthesis, on the machine of
+anyone who checks out the project, so shell syntax in it is interpreted and
+the command should be one you would run yourself.
 
 ---
 
@@ -18564,6 +18760,8 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -18593,6 +18791,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -18626,7 +18825,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -18673,6 +18872,7 @@ const productionTaimosCdkAppOptions: ProductionTaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.buildCommand">buildCommand</a></code> | <code>string</code> | A command to execute before synthesis. |
 | <code><a href="#@taimos/projen.ProductionTaimosCdkAppOptions.property.cdkout">cdkout</a></code> | <code>string</code> | cdk.out directory. |
@@ -18820,6 +19020,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -19283,6 +19487,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -19750,6 +19999,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -20077,7 +20342,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -20090,7 +20357,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -20247,7 +20516,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -20729,6 +21001,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.projenrcTs"></a>
@@ -20871,6 +21148,21 @@ Options for ts-jest.
 
 ---
 
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
+
+---
+
 ##### `typescriptVersion`<sup>Optional</sup> <a name="typescriptVersion" id="@taimos/projen.ProductionTaimosCdkAppOptions.property.typescriptVersion"></a>
 
 ```typescript
@@ -20901,6 +21193,10 @@ A command to execute before synthesis.
 This command will be called when
 running `cdk synth` or when `cdk watch` identifies a change in your source
 code before redeployment.
+
+The CDK CLI runs it through a shell on every synthesis, on the machine of
+anyone who checks out the project, so shell syntax in it is interpreted and
+the command should be one you would run yourself.
 
 ---
 
@@ -21335,6 +21631,8 @@ const taimosApiLibraryOptions: TaimosApiLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -21364,6 +21662,7 @@ const taimosApiLibraryOptions: TaimosApiLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -21397,7 +21696,7 @@ const taimosApiLibraryOptions: TaimosApiLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -21444,6 +21743,7 @@ const taimosApiLibraryOptions: TaimosApiLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 | <code><a href="#@taimos/projen.TaimosApiLibraryOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
@@ -21569,6 +21869,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -22032,6 +22336,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.TaimosApiLibraryOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.TaimosApiLibraryOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -22499,6 +22848,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.TaimosApiLibraryOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.TaimosApiLibraryOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -22826,7 +23191,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosApiLibraryOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosApiLibraryOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -22839,7 +23206,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosApiLibraryOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosApiLibraryOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -22996,7 +23365,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -23478,6 +23850,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.TaimosApiLibraryOptions.property.projenrcTs"></a>
@@ -23620,6 +23997,21 @@ Options for ts-jest.
 
 ---
 
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.TaimosApiLibraryOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
+
+---
+
 ##### `typescriptVersion`<sup>Optional</sup> <a name="typescriptVersion" id="@taimos/projen.TaimosApiLibraryOptions.property.typescriptVersion"></a>
 
 ```typescript
@@ -23748,6 +24140,8 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -23777,6 +24171,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -23810,7 +24205,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -23857,6 +24252,7 @@ const taimosCdkAppOptions: TaimosCdkAppOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.buildCommand">buildCommand</a></code> | <code>string</code> | A command to execute before synthesis. |
 | <code><a href="#@taimos/projen.TaimosCdkAppOptions.property.cdkout">cdkout</a></code> | <code>string</code> | cdk.out directory. |
@@ -24000,6 +24396,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -24463,6 +24863,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.TaimosCdkAppOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.TaimosCdkAppOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -24930,6 +25375,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.TaimosCdkAppOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.TaimosCdkAppOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -25257,7 +25718,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosCdkAppOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosCdkAppOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -25270,7 +25733,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosCdkAppOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosCdkAppOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -25427,7 +25892,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -25909,6 +26377,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.TaimosCdkAppOptions.property.projenrcTs"></a>
@@ -26051,6 +26524,21 @@ Options for ts-jest.
 
 ---
 
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.TaimosCdkAppOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
+
+---
+
 ##### `typescriptVersion`<sup>Optional</sup> <a name="typescriptVersion" id="@taimos/projen.TaimosCdkAppOptions.property.typescriptVersion"></a>
 
 ```typescript
@@ -26081,6 +26569,10 @@ A command to execute before synthesis.
 This command will be called when
 running `cdk synth` or when `cdk watch` identifies a change in your source
 code before redeployment.
+
+The CDK CLI runs it through a shell on every synthesis, on the machine of
+anyone who checks out the project, so shell syntax in it is interpreted and
+the command should be one you would run yourself.
 
 ---
 
@@ -26421,6 +26913,8 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -26450,6 +26944,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -26483,7 +26978,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -26530,6 +27025,7 @@ const taimosCdkConstructLibraryOptions: TaimosCdkConstructLibraryOptions = { ...
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.author">author</a></code> | <code>string</code> | The name of the library author. |
 | <code><a href="#@taimos/projen.TaimosCdkConstructLibraryOptions.property.authorAddress">authorAddress</a></code> | <code>string</code> | Email or URL of the library author. |
@@ -26680,6 +27176,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -27143,6 +27643,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -27610,6 +28155,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -27937,7 +28498,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -27950,7 +28513,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -28107,7 +28672,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -28589,6 +29157,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.projenrcTs"></a>
@@ -28728,6 +29301,21 @@ public readonly tsJestOptions: TsJestOptions;
 - *Type:* projen.typescript.TsJestOptions
 
 Options for ts-jest.
+
+---
+
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.TaimosCdkConstructLibraryOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
 
 ---
 
@@ -29214,6 +29802,8 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -29243,6 +29833,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -29276,7 +29867,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -29323,6 +29914,7 @@ const taimosPrivateTypescriptLibraryOptions: TaimosPrivateTypescriptLibraryOptio
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 | <code><a href="#@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
@@ -29446,6 +30038,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -29909,6 +30505,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -30376,6 +31017,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -30703,7 +31360,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -30716,7 +31375,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -30873,7 +31534,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -31355,6 +32019,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.projenrcTs"></a>
@@ -31497,6 +32166,21 @@ Options for ts-jest.
 
 ---
 
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
+
+---
+
 ##### `typescriptVersion`<sup>Optional</sup> <a name="typescriptVersion" id="@taimos/projen.TaimosPrivateTypescriptLibraryOptions.property.typescriptVersion"></a>
 
 ```typescript
@@ -31593,6 +32277,8 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.bundledDeps">bundledDeps</a></code> | <code>string[]</code> | List of dependencies to bundle into this module. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.bunVersion">bunVersion</a></code> | <code>string</code> | The version of Bun to use if using Bun as a package manager. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeArtifactOptions">codeArtifactOptions</a></code> | <code>projen.javascript.CodeArtifactOptions</code> | Options for npm packages using AWS CodeArtifact. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.config">config</a></code> | <code>{[ key: string ]: any}</code> | Configuration values available to package scripts at runtime. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.dedupeDeps">dedupeDeps</a></code> | <code>boolean</code> | Add a `dedupe` task that deduplicates project dependencies. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.deleteOrphanedLockFiles">deleteOrphanedLockFiles</a></code> | <code>boolean</code> | Automatically delete lockfiles from package managers that are not the active one. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.deps">deps</a></code> | <code>string[]</code> | Runtime dependencies of this module. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.description">description</a></code> | <code>string</code> | The description is just a string that helps people understand the purpose of the package. |
@@ -31622,6 +32308,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.stability">stability</a></code> | <code>string</code> | Package's Stability. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.yarnBerryOptions">yarnBerryOptions</a></code> | <code>projen.javascript.YarnBerryOptions</code> | Options for Yarn Berry. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.bumpPackage">bumpPackage</a></code> | <code>string</code> | The `commit-and-tag-version` compatible package used to bump the package version, as a dependency string. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.githubReleaseLatest">githubReleaseLatest</a></code> | <code>boolean</code> | Whether GitHub should explicitly mark the release from the default branch as the latest release. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.jsiiReleaseVersion">jsiiReleaseVersion</a></code> | <code>string</code> | Version requirement of `publib` which is used to publish modules to npm. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.majorVersion">majorVersion</a></code> | <code>number</code> | Major version to release from the default branch. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.minMajorVersion">minMajorVersion</a></code> | <code>number</code> | Minimal Major version to release. |
@@ -31655,7 +32342,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.buildWorkflowOptions">buildWorkflowOptions</a></code> | <code>projen.javascript.BuildWorkflowOptions</code> | Options for PR build workflow. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.bundlerOptions">bundlerOptions</a></code> | <code>projen.javascript.BundlerOptions</code> | Options for `Bundler`. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.checkLicenses">checkLicenses</a></code> | <code>projen.javascript.LicenseCheckerOptions</code> | Configure which licenses should be deemed acceptable for use by dependencies. |
-| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCov">codeCov</a></code> | <code>boolean</code> | Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.codeCovTokenSecret">codeCovTokenSecret</a></code> | <code>string</code> | Define the secret name for a specified https://codecov.io/ token. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.copyrightOwner">copyrightOwner</a></code> | <code>string</code> | License copyright owner. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.copyrightPeriod">copyrightPeriod</a></code> | <code>string</code> | The copyright years to put in the LICENSE file. |
@@ -31702,6 +32389,7 @@ const taimosTypescriptLibraryOptions: TaimosTypescriptLibraryOptions = { ... }
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name (and path) of the development tsconfig file. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
+| <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.typecheckTests">typecheckTests</a></code> | <code>boolean</code> | Type-check the test suite as part of the `test` task. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpm">privateNpm</a></code> | <code>boolean</code> | Whether to enable private NPM registry authentication. |
 | <code><a href="#@taimos/projen.TaimosTypescriptLibraryOptions.property.privateNpmTokenEnvVar">privateNpmTokenEnvVar</a></code> | <code>string</code> | The environment variable name containing the NPM authentication token. |
@@ -31825,6 +32513,10 @@ public readonly projenCommand: string;
 - *Default:* "npx projen"
 
 The shell command to use in order to run the projen CLI.
+
+Inserted verbatim into task steps, workflows and IDE configuration, and run
+by each of their shells - locally, in CI and in dev containers. Keep it a
+plain unquoted command, since shell syntax in it executes in all of them.
 
 Can be used to customize in special environments.
 
@@ -32288,6 +32980,51 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 Options for npm packages using AWS CodeArtifact.
 
 This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
+
+---
+
+##### `config`<sup>Optional</sup> <a name="config" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.config"></a>
+
+```typescript
+public readonly config: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no package configuration
+
+Configuration values available to package scripts at runtime.
+
+Values should be JSON-serializable.
+
+> [https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#config)
+
+---
+
+##### `dedupeDeps`<sup>Optional</sup> <a name="dedupeDeps" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.dedupeDeps"></a>
+
+```typescript
+public readonly dedupeDeps: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false, unless `yarnBerryOptions.dedupePackages` is set
+
+Add a `dedupe` task that deduplicates project dependencies.
+
+Deduplication prevents multiple versions of the same package from being
+installed, if a single version can satisfy all requested version ranges.
+This prevents version proliferation and reduces the size of the dependency
+tree.
+
+The behavior depends on the package manager:
+- npm: runs `npm dedupe` after every mutating install.
+- pnpm: runs `pnpm dedupe` after every mutating install.
+- Yarn Berry: runs `yarn dedupe` after every mutating install. If
+  `yarnBerryOptions.dedupePackages` is set, only the listed packages are
+  deduplicated.
+- Yarn Classic: `yarn install` already deduplicates, so the task only
+  prints an informational message.
+- Bun: not supported, enabling this option throws an error.
 
 ---
 
@@ -32755,6 +33492,22 @@ This can be any compatible package version, including the deprecated `standard-v
 
 ---
 
+##### `githubReleaseLatest`<sup>Optional</sup> <a name="githubReleaseLatest" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.githubReleaseLatest"></a>
+
+```typescript
+public readonly githubReleaseLatest: boolean;
+```
+
+- *Type:* boolean
+- *Default:* GitHub determines the latest release based on date and semantic version.
+
+Whether GitHub should explicitly mark the release from the default branch as the latest release.
+
+Set to `true` to mark the release as latest, or `false` to explicitly not
+mark it as latest.
+
+---
+
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="jsiiReleaseVersion" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -33082,7 +33835,9 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.workflowRunsOn"></a>
+##### ~~`workflowRunsOn`~~<sup>Optional</sup> <a name="workflowRunsOn" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.workflowRunsOn"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOn` on the project, or `runsOn` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -33095,7 +33850,9 @@ Github Runner selection labels.
 
 ---
 
-##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.workflowRunsOnGroup"></a>
+##### ~~`workflowRunsOnGroup`~~<sup>Optional</sup> <a name="workflowRunsOnGroup" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.workflowRunsOnGroup"></a>
+
+- *Deprecated:* use `githubOptions.workflowRunsOnGroup` on the project, or `runsOnGroup` on `ReleaseOptions`
 
 ```typescript
 public readonly workflowRunsOnGroup: GroupRunnerOptions;
@@ -33252,7 +34009,10 @@ public readonly codeCov: boolean;
 - *Type:* boolean
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v5 By default, OIDC auth is used. Alternatively a token can be provided via `codeCovTokenSecret`.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/.
+
+Uses codecov/codecov-action. By default, OIDC auth is used.
+Alternatively a token can be provided via `codeCovTokenSecret`.
 
 ---
 
@@ -33734,6 +34494,11 @@ public readonly libdir: string;
 
 Typescript  artifacts output directory.
 
+When `libdir` is changed, set `entrypoint` to match it (for example
+`libdir: "dist"` with `entrypoint: "dist/index.js"`). `types` follows the
+entrypoint rather than `libdir`, and `main` still defaults to
+`lib/index.js`.
+
 ---
 
 ##### `projenrcTs`<sup>Optional</sup> <a name="projenrcTs" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.projenrcTs"></a>
@@ -33873,6 +34638,21 @@ public readonly tsJestOptions: TsJestOptions;
 - *Type:* projen.typescript.TsJestOptions
 
 Options for ts-jest.
+
+---
+
+##### `typecheckTests`<sup>Optional</sup> <a name="typecheckTests" id="@taimos/projen.TaimosTypescriptLibraryOptions.property.typecheckTests"></a>
+
+```typescript
+public readonly typecheckTests: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Type-check the test suite as part of the `test` task.
+
+Adds a `tsc --noEmit` step against the development tsconfig.
 
 ---
 

@@ -40,7 +40,7 @@
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "commit-and-tag-version": "^12",
+    "commit-and-tag-version": "^13",
     "constructs": "10.5.1",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.4.5",
@@ -52,16 +52,16 @@
     "jsii-docgen": "^10.5.0",
     "jsii-pacmak": "^1.141.0",
     "jsii-rosetta": "5.9.21",
-    "projen": "0.101.23",
-    "projen-pipelines": "0.3.19",
+    "projen": "0.104.5",
+    "projen-pipelines": "0.3.25",
     "ts-jest": "^29",
     "typescript": "^5.9.3",
     "yaml": "^2.9.1"
   },
   "peerDependencies": {
     "constructs": "^10.5.1",
-    "projen": ">=0.101.23 <1.0.0",
-    "projen-pipelines": ">=0.3.19"
+    "projen": ">=0.104.5 <1.0.0",
+    "projen-pipelines": ">=0.3.25"
   },
   "devEngines": {
     "packageManager": {
