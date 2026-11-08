@@ -33,6 +33,9 @@ const project = new cdk.JsiiProject({
   depsUpgradeOptions: { workflowOptions: { schedule: javascript.UpgradeDependenciesSchedule.WEEKLY } },
   githubOptions: {
     projenCredentials: github.GithubCredentials.fromApp(),
+    pullRequestLintOptions: {
+      semanticTitleOptions: { types: ['feat', 'fix', 'chore', 'docs', 'ci', 'spec'] },
+    },
     mergeQueue: true,
     mergeQueueOptions: {
       autoQueue: true,
