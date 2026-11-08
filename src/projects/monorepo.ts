@@ -1,6 +1,6 @@
 import { github, javascript, typescript, YamlFile } from 'projen';
 import { GitHubAssignApprover } from 'projen-pipelines';
-import { GitHubAmplifyDeploy, GitHubAmplifyDeployOptions, GitHubProductionRelease, GitHubProductionReleaseOptions, Gitleaks, GitleaksOptions } from '../components';
+import { GitHubAmplifyDeploy, GitHubAmplifyDeployOptions, GitHubProductionRelease, GitHubProductionReleaseOptions, GitHooks, GitHooksOptions, Gitleaks, GitleaksOptions } from '../components';
 
 /**
  * The frontend framework an Amplify Hosting application is built with.
@@ -268,6 +268,21 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
   readonly gitleaksOptions?: GitleaksOptions;
 
   /**
+   * Whether to add local git hooks managed by Lefthook: a `lefthook.yml`, a
+   * root `prepare` script and a pinned `lefthook` devDependency (see `GitHooks`).
+   *
+   * @default false
+   */
+  readonly gitHooks?: boolean;
+
+  /**
+   * Options for the git hooks component. Only used when `gitHooks` is enabled.
+   *
+   * @default - all checks enabled, first-commit types feat, fix, chore
+   */
+  readonly gitHooksOptions?: GitHooksOptions;
+
+  /**
    * Drive Amplify Hosting builds from GitHub Actions instead of Amplify's own
    * auto-build, so an app only rebuilds when the packages it is built from
    * actually changed (see `GitHubAmplifyDeploy`).
@@ -328,6 +343,9 @@ export class MonorepoProject extends typescript.TypeScriptProject {
 
   /** The gitleaks secret-scanning component, if enabled. */
   public readonly gitleaks?: Gitleaks;
+
+  /** The Lefthook git hooks component, if enabled. */
+  public readonly gitHooks?: GitHooks;
 
   /** The default release branch (promoted by the production release workflow). */
   public readonly defaultReleaseBranch: string;
@@ -442,6 +460,14 @@ export class MonorepoProject extends typescript.TypeScriptProject {
     // gitleaks secret-scanning: .gitleaks.toml + a PR workflow scanning history.
     if (options.gitleaks ?? false) {
       this.gitleaks = new Gitleaks(this, options.gitleaksOptions);
+    }
+
+    // Local git hooks (ADR-0013): lefthook.yml + prepare script.
+    if (options.gitHooks ?? false) {
+      this.gitHooks = new GitHooks(this, {
+        defaultBranch: options.defaultReleaseBranch,
+        ...options.gitHooksOptions,
+      });
     }
 
     // The projenrc is split into modules under .projen/ — make them part of the

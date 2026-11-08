@@ -2,6 +2,293 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### GitHooks <a name="GitHooks" id="@taimos/projen.GitHooks"></a>
+
+Local git hooks managed by Lefthook (ADR-0013): a generated `lefthook.yml`, a root `prepare` script that runs `lefthook install`, and a pinned `lefthook` devDependency.
+
+Hooks cover a staged secret scan, projen drift, lint and typecheck per
+package, and a Conventional Commits check on the first commit of a branch.
+CI should set `LEFTHOOK=0`.
+
+#### Initializers <a name="Initializers" id="@taimos/projen.GitHooks.Initializer"></a>
+
+```typescript
+import { GitHooks } from '@taimos/projen'
+
+new GitHooks(tsProject: TypeScriptProject, options?: GitHooksOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHooks.Initializer.parameter.tsProject">tsProject</a></code> | <code>projen.typescript.TypeScriptProject</code> | *No description.* |
+| <code><a href="#@taimos/projen.GitHooks.Initializer.parameter.options">options</a></code> | <code><a href="#@taimos/projen.GitHooksOptions">GitHooksOptions</a></code> | *No description.* |
+
+---
+
+##### `tsProject`<sup>Required</sup> <a name="tsProject" id="@taimos/projen.GitHooks.Initializer.parameter.tsProject"></a>
+
+- *Type:* projen.typescript.TypeScriptProject
+
+---
+
+##### `options`<sup>Optional</sup> <a name="options" id="@taimos/projen.GitHooks.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#@taimos/projen.GitHooksOptions">GitHooksOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.GitHooks.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@taimos/projen.GitHooks.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@taimos/projen.GitHooks.postProjectCreation">postProjectCreation</a></code> | Called once, right after `postSynthesize()`, only when the project is created for the first time. |
+| <code><a href="#@taimos/projen.GitHooks.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#@taimos/projen.GitHooks.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#@taimos/projen.GitHooks.projectCreation">projectCreation</a></code> | Called once, right after `synthesize()`, only when the project is created for the first time. |
+| <code><a href="#@taimos/projen.GitHooks.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+| <code><a href="#@taimos/projen.GitHooks.addPackage">addPackage</a></code> | Add a package that runs its own lint and typecheck scripts. |
+
+---
+
+##### `toString` <a name="toString" id="@taimos/projen.GitHooks.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@taimos/projen.GitHooks.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@taimos/projen.GitHooks.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+##### `postProjectCreation` <a name="postProjectCreation" id="@taimos/projen.GitHooks.postProjectCreation"></a>
+
+```typescript
+public postProjectCreation(initProject: InitProject): void
+```
+
+Called once, right after `postSynthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+It is also skipped when post-synthesis steps are disabled, e.g. `--no-post` or `PROJEN_DISABLE_POST`.
+Use it for one-off setup that can be turned off by the user, like running a task to give the user immediate
+feedback on their new project. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.GitHooks.postProjectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
+##### `postSynthesize` <a name="postSynthesize" id="@taimos/projen.GitHooks.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="@taimos/projen.GitHooks.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `projectCreation` <a name="projectCreation" id="@taimos/projen.GitHooks.projectCreation"></a>
+
+```typescript
+public projectCreation(initProject: InitProject): void
+```
+
+Called once, right after `synthesize()`, only when the project is created for the first time.
+
+It does not run on later `projen` invocations. It only fires for `projen new` (or `Projects.createProject`).
+Use it for deterministic, one-off file generation. Order across components is not guaranteed.
+
+###### `initProject`<sup>Required</sup> <a name="initProject" id="@taimos/projen.GitHooks.projectCreation.parameter.initProject"></a>
+
+- *Type:* projen.InitProject
+
+Details about how the project was created, e.g. its type and the original CLI args.
+
+---
+
+##### `synthesize` <a name="synthesize" id="@taimos/projen.GitHooks.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+##### `addPackage` <a name="addPackage" id="@taimos/projen.GitHooks.addPackage"></a>
+
+```typescript
+public addPackage(pkg: GitHooksPackage): void
+```
+
+Add a package that runs its own lint and typecheck scripts.
+
+###### `pkg`<sup>Required</sup> <a name="pkg" id="@taimos/projen.GitHooks.addPackage.parameter.pkg"></a>
+
+- *Type:* <a href="#@taimos/projen.GitHooksPackage">GitHooksPackage</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@taimos/projen.GitHooks.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@taimos/projen.GitHooks.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@taimos/projen.GitHooks.isConstruct"></a>
+
+```typescript
+import { GitHooks } from '@taimos/projen'
+
+GitHooks.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.GitHooks.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="@taimos/projen.GitHooks.isComponent"></a>
+
+```typescript
+import { GitHooks } from '@taimos/projen'
+
+GitHooks.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="@taimos/projen.GitHooks.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHooks.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@taimos/projen.GitHooks.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#@taimos/projen.GitHooks.property.commitMsgScript">commitMsgScript</a></code> | <code>projen.TextFile</code> | The generated commit-msg check script. |
+| <code><a href="#@taimos/projen.GitHooks.property.configFile">configFile</a></code> | <code>projen.YamlFile</code> | The generated `lefthook.yml`. |
+| <code><a href="#@taimos/projen.GitHooks.property.projenDriftScript">projenDriftScript</a></code> | <code>projen.TextFile</code> | The generated projen drift check script, if enabled. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@taimos/projen.GitHooks.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@taimos/projen.GitHooks.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+##### `commitMsgScript`<sup>Required</sup> <a name="commitMsgScript" id="@taimos/projen.GitHooks.property.commitMsgScript"></a>
+
+```typescript
+public readonly commitMsgScript: TextFile;
+```
+
+- *Type:* projen.TextFile
+
+The generated commit-msg check script.
+
+---
+
+##### `configFile`<sup>Required</sup> <a name="configFile" id="@taimos/projen.GitHooks.property.configFile"></a>
+
+```typescript
+public readonly configFile: YamlFile;
+```
+
+- *Type:* projen.YamlFile
+
+The generated `lefthook.yml`.
+
+---
+
+##### `projenDriftScript`<sup>Optional</sup> <a name="projenDriftScript" id="@taimos/projen.GitHooks.property.projenDriftScript"></a>
+
+```typescript
+public readonly projenDriftScript: TextFile;
+```
+
+- *Type:* projen.TextFile
+
+The generated projen drift check script, if enabled.
+
+---
+
+
 ### GitHubAmplifyDeploy <a name="GitHubAmplifyDeploy" id="@taimos/projen.GitHubAmplifyDeploy"></a>
 
 Adds one path-scoped deploy workflow per Amplify Hosting app.
@@ -1499,6 +1786,7 @@ When given a project, this it the project itself.
 | <code><a href="#@taimos/projen.MonorepoProject.property.amplifyDeploy">amplifyDeploy</a></code> | <code><a href="#@taimos/projen.GitHubAmplifyDeploy">GitHubAmplifyDeploy</a></code> | The Amplify deploy workflows, when `amplifyDeployOptions` is set. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.amplifyFile">amplifyFile</a></code> | <code>projen.YamlFile</code> | The generated `amplify.yml`, if any Amplify apps were configured. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.assignApprover">assignApprover</a></code> | <code>projen-pipelines.GitHubAssignApprover</code> | The PR approver assignment, if enabled. |
+| <code><a href="#@taimos/projen.MonorepoProject.property.gitHooks">gitHooks</a></code> | <code><a href="#@taimos/projen.GitHooks">GitHooks</a></code> | The Lefthook git hooks component, if enabled. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.gitleaks">gitleaks</a></code> | <code><a href="#@taimos/projen.Gitleaks">Gitleaks</a></code> | The gitleaks secret-scanning component, if enabled. |
 | <code><a href="#@taimos/projen.MonorepoProject.property.productionRelease">productionRelease</a></code> | <code><a href="#@taimos/projen.GitHubProductionRelease">GitHubProductionRelease</a></code> | The production release workflow, if enabled. |
 
@@ -2270,6 +2558,18 @@ public readonly assignApprover: GitHubAssignApprover;
 - *Type:* projen-pipelines.GitHubAssignApprover
 
 The PR approver assignment, if enabled.
+
+---
+
+##### `gitHooks`<sup>Optional</sup> <a name="gitHooks" id="@taimos/projen.MonorepoProject.property.gitHooks"></a>
+
+```typescript
+public readonly gitHooks: GitHooks;
+```
+
+- *Type:* <a href="#@taimos/projen.GitHooks">GitHooks</a>
+
+The Lefthook git hooks component, if enabled.
 
 ---
 
@@ -12602,6 +12902,202 @@ The OpenAPI spec file, relative to the package root.
 
 ---
 
+### GitHooksOptions <a name="GitHooksOptions" id="@taimos/projen.GitHooksOptions"></a>
+
+#### Initializer <a name="Initializer" id="@taimos/projen.GitHooksOptions.Initializer"></a>
+
+```typescript
+import { GitHooksOptions } from '@taimos/projen'
+
+const gitHooksOptions: GitHooksOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.commitTypes">commitTypes</a></code> | <code>string[]</code> | Types accepted by the commit-msg check on the first commit of a branch. |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.defaultBranch">defaultBranch</a></code> | <code>string</code> | The branch the first-commit detection compares against. |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.gitleaks">gitleaks</a></code> | <code>boolean</code> | Add a pre-commit gitleaks scan of staged changes. |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.lefthookVersion">lefthookVersion</a></code> | <code>string</code> | The pinned lefthook version added as a devDependency. |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.packages">packages</a></code> | <code><a href="#@taimos/projen.GitHooksPackage">GitHooksPackage</a>[]</code> | Additional (non-projen) packages, e.g. frontends, that run their own `lint` and `typecheck` package scripts. |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.projenDrift">projenDrift</a></code> | <code>boolean</code> | Add a pre-commit check that fails when `projen` synth changes any file. |
+| <code><a href="#@taimos/projen.GitHooksOptions.property.subprojectChecks">subprojectChecks</a></code> | <code>boolean</code> | Generate eslint and `tsc --noEmit` jobs for every projen TypeScript subproject, scoped to the subproject directory. |
+
+---
+
+##### `commitTypes`<sup>Optional</sup> <a name="commitTypes" id="@taimos/projen.GitHooksOptions.property.commitTypes"></a>
+
+```typescript
+public readonly commitTypes: string[];
+```
+
+- *Type:* string[]
+- *Default:* ['feat', 'fix', 'chore']
+
+Types accepted by the commit-msg check on the first commit of a branch.
+
+Keep this in sync with the PR title check.
+
+---
+
+##### `defaultBranch`<sup>Optional</sup> <a name="defaultBranch" id="@taimos/projen.GitHooksOptions.property.defaultBranch"></a>
+
+```typescript
+public readonly defaultBranch: string;
+```
+
+- *Type:* string
+- *Default:* the `defaultReleaseBranch` of the project, falling back to 'main'
+
+The branch the first-commit detection compares against.
+
+---
+
+##### `gitleaks`<sup>Optional</sup> <a name="gitleaks" id="@taimos/projen.GitHooksOptions.property.gitleaks"></a>
+
+```typescript
+public readonly gitleaks: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Add a pre-commit gitleaks scan of staged changes.
+
+Requires the `gitleaks`
+binary on the PATH. It reuses `.gitleaks.toml` when that file exists.
+
+---
+
+##### `lefthookVersion`<sup>Optional</sup> <a name="lefthookVersion" id="@taimos/projen.GitHooksOptions.property.lefthookVersion"></a>
+
+```typescript
+public readonly lefthookVersion: string;
+```
+
+- *Type:* string
+- *Default:* '1.11.13'
+
+The pinned lefthook version added as a devDependency.
+
+---
+
+##### `packages`<sup>Optional</sup> <a name="packages" id="@taimos/projen.GitHooksOptions.property.packages"></a>
+
+```typescript
+public readonly packages: GitHooksPackage[];
+```
+
+- *Type:* <a href="#@taimos/projen.GitHooksPackage">GitHooksPackage</a>[]
+- *Default:* []
+
+Additional (non-projen) packages, e.g. frontends, that run their own `lint` and `typecheck` package scripts.
+
+---
+
+##### `projenDrift`<sup>Optional</sup> <a name="projenDrift" id="@taimos/projen.GitHooksOptions.property.projenDrift"></a>
+
+```typescript
+public readonly projenDrift: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Add a pre-commit check that fails when `projen` synth changes any file.
+
+---
+
+##### `subprojectChecks`<sup>Optional</sup> <a name="subprojectChecks" id="@taimos/projen.GitHooksOptions.property.subprojectChecks"></a>
+
+```typescript
+public readonly subprojectChecks: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Generate eslint and `tsc --noEmit` jobs for every projen TypeScript subproject, scoped to the subproject directory.
+
+---
+
+### GitHooksPackage <a name="GitHooksPackage" id="@taimos/projen.GitHooksPackage"></a>
+
+A package that gets lint and typecheck jobs in `lefthook.yml`.
+
+#### Initializer <a name="Initializer" id="@taimos/projen.GitHooksPackage.Initializer"></a>
+
+```typescript
+import { GitHooksPackage } from '@taimos/projen'
+
+const gitHooksPackage: GitHooksPackage = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@taimos/projen.GitHooksPackage.property.path">path</a></code> | <code>string</code> | Package directory relative to the repo root, e.g. `packages/web`. |
+| <code><a href="#@taimos/projen.GitHooksPackage.property.glob">glob</a></code> | <code>string</code> | File glob that selects the staged files that trigger the jobs. |
+| <code><a href="#@taimos/projen.GitHooksPackage.property.lint">lint</a></code> | <code>string</code> | Command that lints the package. |
+| <code><a href="#@taimos/projen.GitHooksPackage.property.typecheck">typecheck</a></code> | <code>string</code> | Command that typechecks the package. |
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="@taimos/projen.GitHooksPackage.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+Package directory relative to the repo root, e.g. `packages/web`.
+
+---
+
+##### `glob`<sup>Optional</sup> <a name="glob" id="@taimos/projen.GitHooksPackage.property.glob"></a>
+
+```typescript
+public readonly glob: string;
+```
+
+- *Type:* string
+- *Default:* '*.{ts,tsx}'
+
+File glob that selects the staged files that trigger the jobs.
+
+---
+
+##### `lint`<sup>Optional</sup> <a name="lint" id="@taimos/projen.GitHooksPackage.property.lint"></a>
+
+```typescript
+public readonly lint: string;
+```
+
+- *Type:* string
+- *Default:* 'pnpm run lint'
+
+Command that lints the package.
+
+`{staged_files}` is replaced by lefthook.
+
+---
+
+##### `typecheck`<sup>Optional</sup> <a name="typecheck" id="@taimos/projen.GitHooksPackage.property.typecheck"></a>
+
+```typescript
+public readonly typecheck: string;
+```
+
+- *Type:* string
+- *Default:* 'pnpm run typecheck'
+
+Command that typechecks the package.
+
+---
+
 ### GitHubAmplifyDeployOptions <a name="GitHubAmplifyDeployOptions" id="@taimos/projen.GitHubAmplifyDeployOptions"></a>
 
 #### Initializer <a name="Initializer" id="@taimos/projen.GitHubAmplifyDeployOptions.Initializer"></a>
@@ -13343,6 +13839,8 @@ const monorepoProjectOptions: MonorepoProjectOptions = { ... }
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.assignApprover">assignApprover</a></code> | <code>boolean</code> | Whether to assign PR approvers via `GitHubAssignApprover`. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.cdkServerless">cdkServerless</a></code> | <code>boolean</code> | Whether to add `cdk-serverless` as a workspace dev dependency. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.defaultApprovers">defaultApprovers</a></code> | <code>string[]</code> | Approvers assigned when no author-specific mapping matches. |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.gitHooks">gitHooks</a></code> | <code>boolean</code> | Whether to add local git hooks managed by Lefthook: a `lefthook.yml`, a root `prepare` script and a pinned `lefthook` devDependency (see `GitHooks`). |
+| <code><a href="#@taimos/projen.MonorepoProjectOptions.property.gitHooksOptions">gitHooksOptions</a></code> | <code><a href="#@taimos/projen.GitHooksOptions">GitHooksOptions</a></code> | Options for the git hooks component. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.gitleaks">gitleaks</a></code> | <code>boolean</code> | Whether to add gitleaks secret-scanning: a `.gitleaks.toml` config plus a pull-request workflow that scans the full git history (see `Gitleaks`). |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.gitleaksOptions">gitleaksOptions</a></code> | <code><a href="#@taimos/projen.GitleaksOptions">GitleaksOptions</a></code> | Options for the gitleaks component. |
 | <code><a href="#@taimos/projen.MonorepoProjectOptions.property.nodeVersion">nodeVersion</a></code> | <code>string</code> | The Node.js version used in the generated build workflow. |
@@ -15793,6 +16291,34 @@ public readonly defaultApprovers: string[];
 Approvers assigned when no author-specific mapping matches.
 
 Only used when `assignApprover` is enabled.
+
+---
+
+##### `gitHooks`<sup>Optional</sup> <a name="gitHooks" id="@taimos/projen.MonorepoProjectOptions.property.gitHooks"></a>
+
+```typescript
+public readonly gitHooks: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to add local git hooks managed by Lefthook: a `lefthook.yml`, a root `prepare` script and a pinned `lefthook` devDependency (see `GitHooks`).
+
+---
+
+##### `gitHooksOptions`<sup>Optional</sup> <a name="gitHooksOptions" id="@taimos/projen.MonorepoProjectOptions.property.gitHooksOptions"></a>
+
+```typescript
+public readonly gitHooksOptions: GitHooksOptions;
+```
+
+- *Type:* <a href="#@taimos/projen.GitHooksOptions">GitHooksOptions</a>
+- *Default:* all checks enabled, first-commit types feat, fix, chore
+
+Options for the git hooks component.
+
+Only used when `gitHooks` is enabled.
 
 ---
 
