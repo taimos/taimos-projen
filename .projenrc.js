@@ -34,7 +34,7 @@ const project = new cdk.JsiiProject({
   githubOptions: {
     projenCredentials: github.GithubCredentials.fromApp(),
     pullRequestLintOptions: {
-      semanticTitleOptions: { types: ['feat', 'fix', 'chore', 'docs', 'ci'] },
+      semanticTitleOptions: { types: ['feat', 'fix', 'chore', 'docs', 'ci', 'spec'] },
     },
     mergeQueue: true,
     mergeQueueOptions: {

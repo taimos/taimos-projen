@@ -278,7 +278,7 @@ export interface MonorepoProjectOptions extends typescript.TypeScriptProjectOpti
   /**
    * Options for the git hooks component. Only used when `gitHooks` is enabled.
    *
-   * @default - all checks enabled, first-commit types feat, fix, chore, docs, ci
+   * @default - all checks enabled, first-commit types feat, fix, chore, docs, ci, spec
    */
   readonly gitHooksOptions?: GitHooksOptions;
 

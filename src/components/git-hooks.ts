@@ -65,7 +65,7 @@ export interface GitHooksOptions {
    * Types accepted by the commit-msg check on the first commit of a branch.
    * Keep this in sync with the PR title check.
    *
-   * @default ['feat', 'fix', 'chore', 'docs', 'ci']
+   * @default ['feat', 'fix', 'chore', 'docs', 'ci', 'spec']
    */
   readonly commitTypes?: string[];
   /**
@@ -110,7 +110,7 @@ export class GitHooks extends Component {
     tsProject.addDevDeps(`lefthook@${version}`);
     tsProject.package.setScript('prepare', 'lefthook install');
 
-    const types = options.commitTypes ?? ['feat', 'fix', 'chore', 'docs', 'ci'];
+    const types = options.commitTypes ?? ['feat', 'fix', 'chore', 'docs', 'ci', 'spec'];
     const branch = options.defaultBranch ?? 'main';
 
     this.commitMsgScript = new TextFile(tsProject, `${SCRIPT_DIR}/commit-msg.sh`, {

@@ -30,6 +30,7 @@ jobs:
             chore
             docs
             ci
+            spec
           requireScope: false
   pull-request-lint:
     needs: validate

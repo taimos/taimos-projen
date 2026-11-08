@@ -12933,7 +12933,7 @@ public readonly commitTypes: string[];
 ```
 
 - *Type:* string[]
-- *Default:* ['feat', 'fix', 'chore', 'docs', 'ci']
+- *Default:* ['feat', 'fix', 'chore', 'docs', 'ci', 'spec']
 
 Types accepted by the commit-msg check on the first commit of a branch.
 
@@ -16314,7 +16314,7 @@ public readonly gitHooksOptions: GitHooksOptions;
 ```
 
 - *Type:* <a href="#@taimos/projen.GitHooksOptions">GitHooksOptions</a>
-- *Default:* all checks enabled, first-commit types feat, fix, chore, docs, ci
+- *Default:* all checks enabled, first-commit types feat, fix, chore, docs, ci, spec
 
 Options for the git hooks component.
 

@@ -40,7 +40,7 @@ describe('GitHooks (ADR-0013)', () => {
 
   test('commit-msg script allows docs and ci by default', () => {
     const { out } = synth();
-    expect(out['.lefthook/commit-msg.sh']).toContain('(feat|fix|chore|docs|ci)');
+    expect(out['.lefthook/commit-msg.sh']).toContain('(feat|fix|chore|docs|ci|spec)');
   });
 
   test('plain frontend packages use their own scripts', () => {
