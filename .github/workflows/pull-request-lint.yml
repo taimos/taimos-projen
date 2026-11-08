@@ -28,6 +28,8 @@ jobs:
             feat
             fix
             chore
+            docs
+            ci
           requireScope: false
   pull-request-lint:
     needs: validate

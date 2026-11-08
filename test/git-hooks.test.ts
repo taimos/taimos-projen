@@ -38,6 +38,11 @@ describe('GitHooks (ADR-0013)', () => {
     expect(sh).toContain('rev-list --count');
   });
 
+  test('commit-msg script allows docs and ci by default', () => {
+    const { out } = synth();
+    expect(out['.lefthook/commit-msg.sh']).toContain('(feat|fix|chore|docs|ci)');
+  });
+
   test('plain frontend packages use their own scripts', () => {
     const { out } = synth({ packages: [{ path: 'packages/web' }] }, false);
     const y = out['lefthook.yml'];
