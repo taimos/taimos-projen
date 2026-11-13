@@ -61,7 +61,7 @@
     },
     {
       "name": "jsii-docgen",
-      "version": "^10.5.0",
+      "version": "^10.12.9",
       "type": "build"
     },
     {
@@ -70,12 +70,12 @@
     },
     {
       "name": "jsii-rosetta",
-      "version": "5.9.21",
+      "version": "5.9.57",
       "type": "build"
     },
     {
       "name": "jsii",
-      "version": "5.9.21",
+      "version": "5.9.57",
       "type": "build"
     },
     {
@@ -101,7 +101,7 @@
     },
     {
       "name": "constructs",
-      "version": "^10.5.1",
+      "version": "^10.8.1",
       "type": "peer"
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "name": "projen",
-      "version": ">=0.104.26 <1.0.0",
+      "version": ">=0.104.27 <1.0.0",
       "type": "peer"
     }
   ],
