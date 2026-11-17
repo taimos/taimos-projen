@@ -10,14 +10,14 @@ const project = new cdk.JsiiProject({
   repository: 'https://github.com/taimos/taimos-projen.git',
   packageManager: javascript.NodePackageManager.NPM,
   defaultReleaseBranch: 'main',
-  jsiiVersion: '5.9.57',
+  jsiiVersion: '5.9.58',
   peerDeps: [
-    'projen@>=0.104.27 <1.0.0',
+    'projen@>=0.104.31 <1.0.0',
     'constructs@^10.8.1',
     'projen-pipelines@>=0.3.27',
   ],
   devDeps: [
-    'projen@0.104.27',
+    'projen@0.104.31',
     'constructs@10.8.1',
     'projen-pipelines@0.3.27',
     'jsii-docgen@^10.12.9',
