@@ -10,7 +10,7 @@ const project = new cdk.JsiiProject({
   repository: 'https://github.com/taimos/taimos-projen.git',
   packageManager: javascript.NodePackageManager.NPM,
   defaultReleaseBranch: 'main',
-  jsiiVersion: '5.9.58',
+  jsiiVersion: '5.9.60',
   peerDeps: [
     'projen@>=0.104.31 <1.0.0',
     'constructs@^10.8.1',
