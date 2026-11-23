@@ -4,6 +4,8 @@
 
 ### GitHooks <a name="GitHooks" id="@taimos/projen.GitHooks"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable
+
 Local git hooks managed by Lefthook (ADR-0013): a generated `lefthook.yml`, a root `prepare` script that runs `lefthook install`, and a pinned `lefthook` devDependency.
 
 Hooks cover a staged secret scan, projen drift, lint and typecheck per
@@ -290,6 +292,8 @@ The generated projen drift check script, if enabled.
 
 
 ### GitHubAmplifyDeploy <a name="GitHubAmplifyDeploy" id="@taimos/projen.GitHubAmplifyDeploy"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable
 
 Adds one path-scoped deploy workflow per Amplify Hosting app.
 
@@ -607,6 +611,8 @@ The generated deploy workflows, one per app.
 
 ### GitHubProductionRelease <a name="GitHubProductionRelease" id="@taimos/projen.GitHubProductionRelease"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable
+
 Adds a manual "Production Release" workflow that promotes a branch into a production branch.
 
 The workflow is triggered via `workflow_dispatch`. It fast-forward merges the
@@ -855,6 +861,8 @@ The generated production release workflow.
 
 
 ### Gitleaks <a name="Gitleaks" id="@taimos/projen.Gitleaks"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable
 
 gitleaks secret-scanning for a project: a `.gitleaks.toml` config that extends the bundled default ruleset plus tightly path-scoped allowlists, and a pull-request workflow that scans the full git history against it.
 
@@ -1114,6 +1122,8 @@ The generated pull-request scanning workflow.
 
 
 ### MonorepoProject <a name="MonorepoProject" id="@taimos/projen.MonorepoProject"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable
 
 Private PNPM-workspace monorepo root, following Taimos ADR-0002.
 
@@ -2649,6 +2659,8 @@ A consumer's
 
 ### PrivateTaimosCdkApp <a name="PrivateTaimosCdkApp" id="@taimos/projen.PrivateTaimosCdkApp"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable
+
 Private AWS CDK app in TypeScript.
 
 #### Initializers <a name="Initializers" id="@taimos/projen.PrivateTaimosCdkApp.Initializer"></a>
@@ -4104,6 +4116,8 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 ---
 
 ### ProductionTaimosCdkApp <a name="ProductionTaimosCdkApp" id="@taimos/projen.ProductionTaimosCdkApp"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable
 
 Production AWS CDK app in TypeScript.
 
@@ -5574,6 +5588,8 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 
 ### TaimosApiLibrary <a name="TaimosApiLibrary" id="@taimos/projen.TaimosApiLibrary"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable
+
 The shared, workspace-internal API/types library for a Taimos monorepo.
 
 Owns the canonical contract (OpenAPI and/or GraphQL) and the generated
@@ -6971,6 +6987,8 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 ---
 
 ### TaimosCdkApp <a name="TaimosCdkApp" id="@taimos/projen.TaimosCdkApp"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable
 
 AWS CDK app in TypeScript.
 
@@ -8428,6 +8446,8 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 
 ### TaimosCdkConstructLibrary <a name="TaimosCdkConstructLibrary" id="@taimos/projen.TaimosCdkConstructLibrary"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable
+
 TypeScript library.
 
 #### Initializers <a name="Initializers" id="@taimos/projen.TaimosCdkConstructLibrary.Initializer"></a>
@@ -9845,6 +9865,8 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 
 ### TaimosPrivateTypescriptLibrary <a name="TaimosPrivateTypescriptLibrary" id="@taimos/projen.TaimosPrivateTypescriptLibrary"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable
+
 Private TypeScript library.
 
 #### Initializers <a name="Initializers" id="@taimos/projen.TaimosPrivateTypescriptLibrary.Initializer"></a>
@@ -11237,6 +11259,8 @@ public readonly DEFAULT_TS_JEST_TRANFORM_PATTERN: string;
 ---
 
 ### TaimosTypescriptLibrary <a name="TaimosTypescriptLibrary" id="@taimos/projen.TaimosTypescriptLibrary"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable
 
 TypeScript library.
 
